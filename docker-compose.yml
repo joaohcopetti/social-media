@@ -1,0 +1,44 @@
+services:
+    social-media-app:
+        container_name: social-media-app
+        build:
+            context: ./docker/php
+        restart: unless-stopped
+        volumes:
+            - ./:/var/www
+            - ./docker/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+        networks:
+            - social-media-network
+
+    social-media-server:
+        container_name: social-media-server
+        restart: unless-stopped
+        image: nginx:1.27.0-alpine
+        ports:
+            - ${FORWARD_APP_PORT:-8000}:80
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/conf.d:/etc/nginx/conf.d/
+        networks:
+            - social-media-network
+
+    social-media-mysql:
+        image: mysql:8.0
+        container_name: social-media-mysql
+        restart: unless-stopped
+        volumes:
+            - social-media-mysql:/var/lib/mysql
+        environment:
+            - MYSQL_DATABASE=${DB_DATABASE:-social_media_web}
+            - MYSQL_PASSWORD=${DB_PASSWORD:-secret}
+            - MYSQL_ROOT_PASSWORD=${DB_PASSWORD:-secret}
+        ports:
+            - ${FORWARD_DB_PORT:-3306}:3306
+        networks:
+            - social-media-network
+
+networks:
+    social-media-network:
+
+volumes:
+    social-media-mysql:
