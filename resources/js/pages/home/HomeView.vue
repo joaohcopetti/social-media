@@ -1,9 +1,5 @@
 <template>
-    <div
-        id=""
-        class=""
-    >
-        Olá
+    <div>
         <!--  -->
     </div>
 </template>

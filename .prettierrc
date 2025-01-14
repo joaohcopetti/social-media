@@ -4,5 +4,6 @@
         "prettier-plugin-organize-imports",
         "prettier-plugin-tailwindcss"
     ],
-    "singleAttributePerLine": true
+    "singleAttributePerLine": true,
+    "printWidth": 100
 }
