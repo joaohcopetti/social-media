@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "laravel.vscode-laravel",
+        "mehedidracula.php-namespace-resolver",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "vue.volar",
+        "editorconfig.editorconfig",
+        "devsense.phptools-vscode"
+    ]
+}

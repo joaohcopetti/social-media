@@ -1,0 +1,8 @@
+{
+    "[php]": {
+        "editor.defaultFormatter": "DEVSENSE.phptools-vscode",
+    },
+    "[javascript][typescript][vue]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    }
+}
