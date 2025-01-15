@@ -1,6 +1,9 @@
+@import url(https://fonts.bunny.net/css?family=berkshire-swash:400);
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 :root {
     --base-100: hsl(0, 0%, 70%);
@@ -19,5 +22,11 @@
         --base-400: hsl(0, 0%, 15%);
         --base-500: hsl(0, 0%, 10%);
         @apply text-gray-300;
+    }
+}
+
+@layer utilities {
+    .font-fancy {
+        font-family: 'Berkshire Swash';
     }
 }
