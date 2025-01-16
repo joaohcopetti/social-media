@@ -11,4 +11,14 @@ class ProfileController extends Controller
     {
         return Inertia::render('profile/ProfileView');
     }
+
+    public function free()
+    {
+        return Inertia::render('profile/ProfileView');
+    }
+
+    public function premium()
+    {
+        return Inertia::render('profile/ProfileView');
+    }
 }

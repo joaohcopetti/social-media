@@ -8,8 +8,7 @@ import ProfileHeader from './_partials/ProfileHeader.vue';
 <template>
     <div>
         <ProfileBackground />
-
-        <ProfileContainer class="relative z-10 mt-10 overflow-hidden rounded-3xl bg-slate-900">
+        <ProfileContainer class="relative z-10 my-10 overflow-hidden rounded-3xl bg-slate-900">
             <ProfileHeader />
             <ProfileBody />
         </ProfileContainer>
