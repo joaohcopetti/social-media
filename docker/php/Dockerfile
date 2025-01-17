@@ -13,7 +13,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libzip-dev \
     zip \
     unzip \
-    vim
+    vim \
+    libmagickwand-dev
+
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -21,6 +23,9 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd intl
 RUN docker-php-ext-configure zip \
     && docker-php-ext-install zip
+
+RUN pecl install imagick && \
+    docker-php-ext-enable imagick
 
 # Instalação do composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
