@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Enums\ImageMockDimensionEnum;
 use App\Services\MediaService;
-use App\Support\Mock\AssetMockService;
+use App\Support\Mock\MockAssetService;
 use Illuminate\Console\Command;
 
 class PopulateMockImages extends Command
@@ -33,14 +33,14 @@ class PopulateMockImages extends Command
      */
     public function handle()
     {
-        $assetMockService = app(AssetMockService::class);
+        $assetMockService = app(MockAssetService::class);
         $mediaService = app(MediaService::class);
 
         foreach (static::$DIMENSION_QUANTITY_MAP as $dimension => $quantity) {
             [$width, $height] = explode('x', $dimension);
 
             $this->info(
-                "Storing $quantity images ($dimension) on " . AssetMockService::$STORAGE_PATH . '/' . $dimension
+                "Storing $quantity images ($dimension) on " . MockAssetService::$STORAGE_PATH . '/' . $dimension
             );
 
             $bar = $this->output->createProgressBar($quantity);

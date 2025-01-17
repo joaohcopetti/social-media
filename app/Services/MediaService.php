@@ -15,6 +15,6 @@ class MediaService
 
         $image->writeImage($thumbnailFilepath);
 
-        return $thumbnailFilename;
+        return $thumbnailFilepath;
     }
 }

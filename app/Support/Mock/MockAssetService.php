@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
-class AssetMockService
+class MockAssetService
 {
     public static $STORAGE_PATH = 'app/mock';
 
-    public function fetchImage($width, $height)
+    public function fetchImage(int $width, int $height)
     {
         $provider = 'https://picsum.photos';
         $url = "$provider/$width/$height";
@@ -21,7 +21,7 @@ class AssetMockService
         return $response;
     }
 
-    public function storeMockImage($folder, $body)
+    public function storeMockImage(string $folder, string $body)
     {
         $filename = Str::random() . '.jpg';
 
@@ -37,7 +37,7 @@ class AssetMockService
         return $filepath;
     }
 
-    public function copyRandomImageAndThumb(ImageMockDimensionEnum $dimension, $toFolder)
+    public function copyRandomImageAndThumb(ImageMockDimensionEnum $dimension, string $toFolder)
     {
         [$imagePath, $thumbPath] = $this->retrieveRandomImageAndThumb($dimension);
 
@@ -63,10 +63,15 @@ class AssetMockService
 
     private function retrieveRandomImageAndThumb(ImageMockDimensionEnum $dimension)
     {
-        $mockImagesGlobPattern = storage_path(static::$STORAGE_PATH . '/' . $dimension->value . '/*');
+        $mockImagesGlobPattern = storage_path(
+            static::$STORAGE_PATH . '/' . $dimension->value . '/*'
+        );
 
         $allImages = collect(glob($mockImagesGlobPattern));
-        $imagesWithoutThumb = $allImages->where(fn(string $path) => !Str::contains($path, '_thumb'));
+
+        $imagesWithoutThumb = $allImages->where(
+            fn(string $path) => !Str::contains($path, '_thumb')
+        );
 
         $randomImage = $imagesWithoutThumb->random();
         $filename = pathinfo($randomImage, PATHINFO_FILENAME);
