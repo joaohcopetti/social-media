@@ -37,17 +37,19 @@ class MockAssetService
         return $filepath;
     }
 
-    public function copyRandomImageAndThumb(ImageMockDimensionEnum $dimension, string $toFolder)
+    public function copyRandomImageAndThumb(ImageMockDimensionEnum $dimension, string $toDir)
     {
+        $this->makeDirIfNotExists($toDir);
+
         [$imagePath, $thumbPath] = $this->retrieveRandomImageAndThumb($dimension);
 
         $randomFilename = Str::random();
-        $destImage = $toFolder
+        $destImage = $toDir
             . $randomFilename
             . '.'
             . pathinfo($imagePath, PATHINFO_EXTENSION);
 
-        $destImageThumb = $toFolder
+        $destImageThumb = $toDir
             . "{$randomFilename}_thumb"
             . '.'
             . pathinfo($thumbPath, PATHINFO_EXTENSION);
@@ -59,6 +61,15 @@ class MockAssetService
             'image_path' => $destImage,
             'thumb_path' => $destImageThumb
         ];
+    }
+
+    private function makeDirIfNotExists($dir)
+    {
+        if (is_dir($dir)) {
+            return;
+        }
+
+        mkdir($dir, 0777, true);
     }
 
     private function retrieveRandomImageAndThumb(ImageMockDimensionEnum $dimension)

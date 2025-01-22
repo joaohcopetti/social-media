@@ -5,19 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model
+class ProfileMedia extends Model
 {
     use HasFactory;
 
     public static $STORAGE_PATH = 'app/public/profiles/';
 
-    public function media()
+    public function profile()
     {
-        return $this->hasMany(ProfileMedia::class);
-    }
-
-    public function socialNetworks()
-    {
-        return $this->hasMany(SocialNetwork::class);
+        return $this->belongsTo(Profile::class);
     }
 }
