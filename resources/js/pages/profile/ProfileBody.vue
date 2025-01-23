@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Profile, ProfileMedia } from '@/types/models'
-import { inject } from 'vue'
+import { type Component, inject } from 'vue'
 import ProfileTabs from './_partials/ProfileTabs.vue'
 import ProfileContentFree from './contents/ProfileContentFree.vue'
 import ProfileContentHome from './contents/ProfileContentHome.vue'
@@ -12,27 +12,21 @@ defineProps<{
 }>()
 
 const profile = inject(profileInjectionKey) as Profile
+const COMPONENT_TABS: { [prop: string]: Component } = {
+    'profile.index': ProfileContentHome,
+    'profile.free': ProfileContentFree,
+    'profile.premium': ProfileContentPremium,
+}
 </script>
 
 <template>
-    <ProfileTabs :profile="profile">
-        <template
-            v-if="route().current() === 'profile.index'"
-            #home
-        >
-            <ProfileContentHome :media="media" />
-        </template>
-        <template
-            v-if="route().current() === 'profile.free'"
-            #free
-        >
-            <ProfileContentFree :media="media" />
-        </template>
-        <template
-            v-if="route().current() === 'profile.premium'"
-            #premium
-        >
-            <ProfileContentPremium :media="media" />
-        </template>
-    </ProfileTabs>
+    <div>
+        <ProfileTabs :profile="profile" />
+        <div class="mx-3 my-2">
+            <Component
+                :is="COMPONENT_TABS[route().current() as string]"
+                :media="media"
+            />
+        </div>
+    </div>
 </template>

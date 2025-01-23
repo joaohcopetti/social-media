@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Profile } from '@/types/models'
-import { TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue'
+import { TabGroup, TabList } from '@headlessui/vue'
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import { computed } from 'vue'
 import ProfileTabsTab from './ProfileTabsTab.vue'
@@ -62,16 +62,6 @@ const selectedTab = computed(() => ROUTE_TAB_MAP[route().current() as string])
                     </span>
                 </ProfileTabsTab>
             </TabList>
-
-            <TabPanels class="mt-10">
-                <TabPanel
-                    v-for="tab in TABS"
-                    :key="tab.label"
-                    class="mx-2 my-3"
-                >
-                    <slot :name="tab.slot" />
-                </TabPanel>
-            </TabPanels>
         </TabGroup>
     </div>
 </template>
