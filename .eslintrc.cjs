@@ -13,5 +13,8 @@ module.exports = {
     },
     rules: {
         'no-undef': 'off',
+        'vue/html-self-closing': [
+            'error'
+        ]
     },
 };
