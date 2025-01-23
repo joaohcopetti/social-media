@@ -3,6 +3,7 @@ import { inject } from 'vue';
 
 const profile = inject<any>('profile');
 </script>
+
 <template>
     <h1 class="font-fancy text-center text-4xl font-extrabold text-white">
         {{ profile.name }}

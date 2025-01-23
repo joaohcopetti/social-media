@@ -36,6 +36,6 @@ class Profile extends Model
 
     public function socialNetworks()
     {
-        return $this->hasMany(SocialNetwork::class);
+        return $this->belongsToMany(SocialNetwork::class)->orderByPivot('order');
     }
 }

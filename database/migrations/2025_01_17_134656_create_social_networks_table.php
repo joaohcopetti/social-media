@@ -13,10 +13,6 @@ return new class extends Migration {
     {
         Schema::create('social_networks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('profile_id')
-                ->constrained('profiles');
-
-            $table->string('url');
             $table->enum('name', [
                 SocialNetworkEnum::FACEBOOK->value,
                 SocialNetworkEnum::X_TWITTER->value,
@@ -24,6 +20,8 @@ return new class extends Migration {
                 SocialNetworkEnum::TIKTOK->value,
                 SocialNetworkEnum::YOUTUBE->value,
             ]);
+
+            $table->unsignedTinyInteger('order')->default(0);
         });
     }
 

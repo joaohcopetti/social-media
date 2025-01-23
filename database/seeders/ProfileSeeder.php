@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Enums\SocialNetworkEnum;
 use App\Models\Profile;
 use App\Models\SocialNetwork;
+use DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\ProfileMedia;
@@ -42,24 +43,25 @@ class ProfileSeeder extends Seeder
 
     private function seedProfileSocialNetworks($profiles)
     {
-        $profileNetworks = [];
-        $socialNetworks = SocialNetworkEnum::values();
+        $profileSocialNetworks = [];
+
+        $socialNetworkIds = SocialNetwork::pluck('id');
 
         foreach ($profiles as $profile) {
-            $networks = fake()->randomElements(
-                $socialNetworks,
+            $networkIds = fake()->randomElements(
+                $socialNetworkIds,
                 fake()->numberBetween(1, 5)
             );
 
-            foreach ($networks as $network) {
-                $profileNetworks[] = [
+            foreach ($networkIds as $networkId) {
+                $profileSocialNetworks[] = [
                     'profile_id' => $profile->id,
-                    'name' => $network,
+                    'social_network_id' => $networkId,
                     'url' => 'https://www.google.com'
                 ];
             }
         }
 
-        SocialNetwork::insert($profileNetworks);
+        DB::table('profile_social_network')->insert($profileSocialNetworks);
     }
 }
