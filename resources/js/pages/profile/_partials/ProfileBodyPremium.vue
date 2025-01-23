@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { ProfileMedia } from '@/types/models'
+
 defineProps<{
-    media: any[]
+    media: ProfileMedia[]
 }>()
 </script>
 

@@ -28,7 +28,7 @@ export interface ProfileMedia {
     created_at: string | null
     updated_at: string | null
     // mutators
-    url: unknown
+    url: string
     // relations
     profile: Profile
 }

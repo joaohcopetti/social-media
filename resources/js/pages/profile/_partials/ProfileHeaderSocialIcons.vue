@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { Profile } from '@/types/models'
 import { inject } from 'vue'
+import { profileInjectionKey } from '../injection'
 import ProfileHeaderSocialIcon from './ProfileHeaderSocialIcon.vue'
 
 const SOCIAL_NETWORK_ICONS: { [prop: string]: any } = {
@@ -10,7 +12,7 @@ const SOCIAL_NETWORK_ICONS: { [prop: string]: any } = {
     youtube: 'fa6-brands:youtube',
 }
 
-const profile = inject<any>('profile')
+const profile = inject(profileInjectionKey) as Profile
 </script>
 
 <template>

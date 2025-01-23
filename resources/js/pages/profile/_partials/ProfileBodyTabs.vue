@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Profile } from '@/types/models'
 import { TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue'
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import { computed } from 'vue'
@@ -11,7 +12,7 @@ const ROUTE_TAB_MAP: { [key: string]: number } = {
 }
 
 defineProps<{
-    profile: any
+    profile: Profile
 }>()
 
 const selectedTab = computed(() => ROUTE_TAB_MAP[route().current() as string])

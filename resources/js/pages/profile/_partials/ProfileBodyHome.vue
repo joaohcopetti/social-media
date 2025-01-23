@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import type { Profile, ProfileMedia } from '@/types/models'
 import { inject } from 'vue'
+import { profileInjectionKey } from '../injection'
 import ProfileBodyPost from './ProfileBodyPost.vue'
 
 defineProps<{
-    media: any[]
+    media: ProfileMedia[]
 }>()
 
-const profile = inject<any>('profile')
+const profile = inject(profileInjectionKey) as Profile
 </script>
 
 <template>

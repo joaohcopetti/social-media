@@ -24,7 +24,7 @@ class ProfileMedia extends Model
     public function url(): Attribute
     {
         return Attribute::make(
-            fn() => route('profile.media', [
+            fn(): string => route('profile.media', [
                 'profileMedia' => $this->path
             ])
         );

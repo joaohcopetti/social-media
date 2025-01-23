@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import type { Profile } from '@/types/models'
 import { inject } from 'vue'
 import ProfileHeaderName from './_partials/ProfileHeaderName.vue'
 import ProfileHeaderSocialIcons from './_partials/ProfileHeaderSocialIcons.vue'
+import { profileInjectionKey } from './injection'
 
-const profile = inject<any>('profile')
+const profile = inject(profileInjectionKey) as Profile
 </script>
 
 <template>
