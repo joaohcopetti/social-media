@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { inject } from 'vue';
+import { inject } from 'vue'
 
-const profile = inject<any>('profile');
+const profile = inject<any>('profile')
 </script>
 
 <template>

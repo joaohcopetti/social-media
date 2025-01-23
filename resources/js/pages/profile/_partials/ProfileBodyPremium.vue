@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps<{
-    media: any[];
-}>();
+    media: any[]
+}>()
 </script>
 
 <template>

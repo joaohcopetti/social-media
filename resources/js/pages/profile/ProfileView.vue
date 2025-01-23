@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { provide } from 'vue';
-import ProfileBackground from './ProfileBackground.vue';
-import ProfileBody from './ProfileBody.vue';
-import ProfileContainer from './ProfileContainer.vue';
-import ProfileHeader from './ProfileHeader.vue';
+import { provide } from 'vue'
+import ProfileBackground from './ProfileBackground.vue'
+import ProfileBody from './ProfileBody.vue'
+import ProfileContainer from './ProfileContainer.vue'
+import ProfileHeader from './ProfileHeader.vue'
 
 const props = defineProps<{
-    profile: any;
-    media: any[];
-}>();
+    profile: any
+    media: any[]
+}>()
 
-provide('profile', props.profile);
+provide('profile', props.profile)
 </script>
 
 <template>

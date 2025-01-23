@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { inject } from 'vue';
-import ProfileHeaderName from './_partials/ProfileHeaderName.vue';
-import ProfileHeaderSocialIcons from './_partials/ProfileHeaderSocialIcons.vue';
+import { inject } from 'vue'
+import ProfileHeaderName from './_partials/ProfileHeaderName.vue'
+import ProfileHeaderSocialIcons from './_partials/ProfileHeaderSocialIcons.vue'
 
-const profile = inject<any>('profile');
+const profile = inject<any>('profile')
 </script>
 
 <template>

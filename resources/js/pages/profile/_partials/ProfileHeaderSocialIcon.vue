@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { Icon } from '@iconify/vue/dist/iconify.js';
+import { Icon } from '@iconify/vue/dist/iconify.js'
 
 defineProps<{
-    href: string;
-    icon: InstanceType<typeof Icon>['$props'];
-}>();
+    href: string
+    icon: InstanceType<typeof Icon>['$props']
+}>()
 </script>
 
 <template>

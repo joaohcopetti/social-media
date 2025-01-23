@@ -4,5 +4,8 @@
     },
     "[javascript][typescript][vue]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "[vue]": {
+        "editor.defaultFormatter": "Vue.volar"
     }
 }

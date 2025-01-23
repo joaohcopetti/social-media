@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { inject } from 'vue';
-import ProfileHeaderSocialIcon from './ProfileHeaderSocialIcon.vue';
+import { inject } from 'vue'
+import ProfileHeaderSocialIcon from './ProfileHeaderSocialIcon.vue'
 
 const SOCIAL_NETWORK_ICONS: { [prop: string]: any } = {
     facebook: 'fa6-brands:facebook-f',
@@ -8,9 +8,9 @@ const SOCIAL_NETWORK_ICONS: { [prop: string]: any } = {
     x_twitter: 'fa6-brands:x-twitter',
     tiktok: 'fa6-brands:tiktok',
     youtube: 'fa6-brands:youtube',
-};
+}
 
-const profile = inject<any>('profile');
+const profile = inject<any>('profile')
 </script>
 
 <template>

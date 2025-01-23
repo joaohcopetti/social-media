@@ -1,33 +1,33 @@
-import '../css/app.css';
-import './bootstrap';
+import '../css/app.css'
+import './bootstrap'
 
-import { createInertiaApp } from '@inertiajs/vue3';
-import { createApp, DefineComponent, h } from 'vue';
-import { ZiggyVue } from '../../vendor/tightenco/ziggy';
-import MainLayout from './layouts/MainLayout.vue';
+import { createInertiaApp } from '@inertiajs/vue3'
+import { createApp, DefineComponent, h } from 'vue'
+import { ZiggyVue } from '../../vendor/tightenco/ziggy'
+import MainLayout from './layouts/MainLayout.vue'
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
 createInertiaApp({
-    title: (title) => `${appName}`,
+    title: () => `${appName}`,
     resolve: (name) => {
         const pages = import.meta.glob<DefineComponent>('./pages/**/*.vue', {
             eager: true,
-        });
+        })
 
-        const page = pages[`./pages/${name}.vue`];
+        const page = pages[`./pages/${name}.vue`]
 
-        page.default.layout = page.default.layout || MainLayout;
+        page.default.layout = page.default.layout || MainLayout
 
-        return page;
+        return page
     },
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
-            .mount(el);
+            .mount(el)
     },
     progress: {
         color: '#4B5563',
     },
-});
+})

@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue';
-import { Icon } from '@iconify/vue/dist/iconify.js';
-import { computed } from 'vue';
-import ProfileBodyTabsTab from './ProfileBodyTabsTab.vue';
+import { TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue'
+import { Icon } from '@iconify/vue/dist/iconify.js'
+import { computed } from 'vue'
+import ProfileBodyTabsTab from './ProfileBodyTabsTab.vue'
 
 const ROUTE_TAB_MAP: { [key: string]: number } = {
     'profile.index': 0,
     'profile.free': 1,
     'profile.premium': 2,
-};
+}
 
 defineProps<{
-    profile: any;
-}>();
+    profile: any
+}>()
 
-const selectedTab = computed(() => ROUTE_TAB_MAP[route().current() as string]);
+const selectedTab = computed(() => ROUTE_TAB_MAP[route().current() as string])
 </script>
 
 <template>
@@ -36,9 +36,15 @@ const selectedTab = computed(() => ROUTE_TAB_MAP[route().current() as string]);
             </TabList>
 
             <TabPanels class="mt-10">
-                <TabPanel class="mx-2 my-3"> <slot name="home" /> </TabPanel>
-                <TabPanel class="mx-2 my-3"> <slot name="free" /> </TabPanel>
-                <TabPanel class="mx-2 my-3"> <slot name="premium" /> </TabPanel>
+                <TabPanel class="mx-2 my-3">
+                    <slot name="home" />
+                </TabPanel>
+                <TabPanel class="mx-2 my-3">
+                    <slot name="free" />
+                </TabPanel>
+                <TabPanel class="mx-2 my-3">
+                    <slot name="premium" />
+                </TabPanel>
             </TabPanels>
         </TabGroup>
     </div>

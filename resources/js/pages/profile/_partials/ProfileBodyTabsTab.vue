@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Tab } from '@headlessui/vue';
-import { Link } from '@inertiajs/vue3';
+import { Tab } from '@headlessui/vue'
+import { Link } from '@inertiajs/vue3'
 defineProps<{
-    href: string;
-}>();
+    href: string
+}>()
 </script>
 
 <template>

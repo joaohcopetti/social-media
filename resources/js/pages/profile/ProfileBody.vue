@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { inject } from 'vue';
-import ProfileBodyFree from './_partials/ProfileBodyFree.vue';
-import ProfileBodyHome from './_partials/ProfileBodyHome.vue';
-import ProfileBodyPremium from './_partials/ProfileBodyPremium.vue';
-import ProfileBodyTabs from './_partials/ProfileBodyTabs.vue';
+import { inject } from 'vue'
+import ProfileBodyFree from './_partials/ProfileBodyFree.vue'
+import ProfileBodyHome from './_partials/ProfileBodyHome.vue'
+import ProfileBodyPremium from './_partials/ProfileBodyPremium.vue'
+import ProfileBodyTabs from './_partials/ProfileBodyTabs.vue'
 
 defineProps<{
-    media: any[];
-}>();
+    media: any[]
+}>()
 
-const profile = inject<any>('profile');
+const profile = inject<any>('profile')
 </script>
 
 <template>
