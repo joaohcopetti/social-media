@@ -1,13 +1,16 @@
 <script setup lang="ts">
+import { inject } from 'vue';
 import ProfileHeaderName from './ProfileHeaderName.vue';
 import ProfileHeaderSocialIcons from './ProfileHeaderSocialIcons.vue';
+
+const profile = inject<any>('profile');
 </script>
 
 <template>
     <div class="relative">
         <img
             class="w-full object-cover"
-            src="https://placehold.co/500x500"
+            :src="profile.photo_url"
         />
 
         <div

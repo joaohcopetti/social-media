@@ -10,6 +10,10 @@ const ROUTE_TAB_MAP: { [key: string]: number } = {
     'profile.premium': 2,
 };
 
+defineProps<{
+    profile: any;
+}>();
+
 const selectedTab = computed(() => ROUTE_TAB_MAP[route().current() as string]);
 </script>
 
@@ -17,16 +21,16 @@ const selectedTab = computed(() => ROUTE_TAB_MAP[route().current() as string]);
     <div class="mt-5 w-full px-2">
         <TabGroup :selected-index="selectedTab">
             <TabList class="flex w-full justify-between gap-2 rounded-xl bg-slate-900/20 p-1">
-                <ProfileBodyTabsTab :href="route('profile.index', { slug: 'pandora-kaki' })">
+                <ProfileBodyTabsTab :href="route('profile.index', { profile: profile.slug })">
                     <span class="flex items-center justify-center gap-2">
                         <Icon icon="ph:house-duotone" />
                         Home
                     </span>
                 </ProfileBodyTabsTab>
-                <ProfileBodyTabsTab :href="route('profile.free', { slug: 'pandora-kaki' })">
+                <ProfileBodyTabsTab :href="route('profile.free', { profile: profile.slug })">
                     Free
                 </ProfileBodyTabsTab>
-                <ProfileBodyTabsTab :href="route('profile.premium', { slug: 'pandora-kaki' })">
+                <ProfileBodyTabsTab :href="route('profile.premium', { profile: profile.slug })">
                     Premium
                 </ProfileBodyTabsTab>
             </TabList>

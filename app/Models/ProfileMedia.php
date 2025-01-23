@@ -9,7 +9,7 @@ class ProfileMedia extends Model
 {
     use HasFactory;
 
-    public static $STORAGE_PATH = 'app/public/profiles/';
+    public static $STORAGE_PATH = 'app/private/profiles/';
 
     public function profile()
     {

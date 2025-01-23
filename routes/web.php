@@ -9,9 +9,10 @@ use Inertia\Inertia;
 Route::get('/', [HomeController::class, 'index']);
 
 Route::name('profile.')->group(function () {
-    Route::get('/{slug}', [ProfileController::class, 'index'])->name('index');
-    Route::get('/{slug}/free', [ProfileController::class, 'free'])->name('free');
-    Route::get('/{slug}/premium', [ProfileController::class, 'premium'])->name('premium');
+    Route::get('/{profile}', [ProfileController::class, 'index'])->name('index');
+    Route::get('/{profile}/free', [ProfileController::class, 'free'])->name('free');
+    Route::get('/{profile}/premium', [ProfileController::class, 'premium'])->name('premium');
+    Route::get('/perfis/{filename}', [ProfileController::class, 'media'])->name('media');
 });
 
 require __DIR__ . '/auth.php';

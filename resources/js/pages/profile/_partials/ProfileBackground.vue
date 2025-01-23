@@ -1,10 +1,12 @@
 <script setup lang="ts">
-const URL =
-    'https://media.link.me/images/user-profile/812377/tmp-11799-1698288046076.png?w=1092&h=1092';
+import { inject } from 'vue';
+
+const profile = inject<any>('profile');
 </script>
+
 <template>
     <img
-        :src="URL"
+        :src="profile.photo_url"
         class="fixed inset-0 h-full w-full"
     />
 

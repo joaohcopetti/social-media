@@ -2,14 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function index(Profile $profile)
     {
-        return Inertia::render('profile/ProfileView');
+        return Inertia::render('profile/ProfileView', [
+            'profile' => $profile
+        ]);
+    }
+
+    public function media(string $filename)
+    {
+        $path = storage_path(Profile::$STORAGE_PATH . $filename);
+
+        if (!file_exists($path)) {
+            abort(404);
+        }
+
+        return response()->file($path);
     }
 
     public function free()
