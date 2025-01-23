@@ -12,19 +12,12 @@ class ProfileController extends Controller
     public function index(Profile $profile)
     {
         return Inertia::render('profile/ProfileView', [
-            'profile' => $profile->load('socialNetworks')
+            'profile' => $profile->load('socialNetworks'),
+            'homeMedia' => $profile->media()
+                ->where('show_on_home', true)
+                ->where('is_free', true)
+                ->get()
         ]);
-    }
-
-    public function media(string $filename)
-    {
-        $path = storage_path(ProfileMedia::$STORAGE_PATH . $filename);
-
-        if (!file_exists($path)) {
-            abort(404);
-        }
-
-        return response()->file($path);
     }
 
     public function free()

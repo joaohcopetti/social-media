@@ -1,8 +1,14 @@
+<script setup lang="ts">
+defineProps<{
+    media: any;
+}>();
+</script>
+
 <template>
     <div class="overflow-hidden rounded-xl">
         <img
             class="w-full"
-            src="https://placehold.co/600x400"
+            :src="media.url"
         />
     </div>
 </template>

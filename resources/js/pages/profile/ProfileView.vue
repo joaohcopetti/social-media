@@ -6,7 +6,8 @@ import ProfileContainer from './_partials/ProfileContainer.vue';
 import ProfileHeader from './_partials/ProfileHeader.vue';
 
 const props = defineProps<{
-    profile: object;
+    profile: any;
+    homeMedia: any[];
 }>();
 
 provide('profile', props.profile);
@@ -17,7 +18,7 @@ provide('profile', props.profile);
         <ProfileBackground />
         <ProfileContainer class="relative z-10 my-10 overflow-hidden rounded-3xl bg-slate-900">
             <ProfileHeader />
-            <ProfileBody />
+            <ProfileBody :media="props.homeMedia" />
         </ProfileContainer>
     </div>
 </template>
