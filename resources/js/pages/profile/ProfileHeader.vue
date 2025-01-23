@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Profile } from '@/types/models'
 import { inject } from 'vue'
-import ProfileHeaderName from './_partials/ProfileHeaderName.vue'
 import ProfileHeaderSocialIcons from './_partials/ProfileHeaderSocialIcons.vue'
 import { profileInjectionKey } from './injection'
 
@@ -19,7 +18,9 @@ const profile = inject(profileInjectionKey) as Profile
             class="absolute bottom-0 w-full bg-gradient-to-t from-slate-900 to-transparent px-5 py-10"
         >
             <div class="mb-5">
-                <ProfileHeaderName />
+                <h1 class="font-fancy text-center text-4xl font-extrabold text-white">
+                    {{ profile.name }}
+                </h1>
             </div>
 
             <ProfileHeaderSocialIcons />

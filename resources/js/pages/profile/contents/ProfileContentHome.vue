@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Profile, ProfileMedia } from '@/types/models'
 import { inject } from 'vue'
+import ProfilePost from '../_partials/ProfilePost.vue'
 import { profileInjectionKey } from '../injection'
-import ProfileBodyPost from './ProfileBodyPost.vue'
 
 defineProps<{
     media: ProfileMedia[]
@@ -19,7 +19,7 @@ const profile = inject(profileInjectionKey) as Profile
         {{ profile.description }}
     </div>
     <div class="flex flex-col gap-3">
-        <ProfileBodyPost
+        <ProfilePost
             v-for="_media in media"
             :key="_media.id"
             :media="_media"
