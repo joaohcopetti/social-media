@@ -25,7 +25,7 @@ class Profile extends Model
     public function photoUrl(): Attribute
     {
         return Attribute::make(
-            get: fn() => static::$PUBLIC_PATH . $this->photo
+            get: fn() => '/' . static::$PUBLIC_PATH . $this->photo
         );
     }
 

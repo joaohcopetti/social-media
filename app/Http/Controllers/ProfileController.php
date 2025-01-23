@@ -13,16 +13,21 @@ class ProfileController extends Controller
     {
         return Inertia::render('profile/ProfileView', [
             'profile' => $profile->load('socialNetworks'),
-            'homeMedia' => $profile->media()
+            'media' => $profile->media()
                 ->where('show_on_home', true)
                 ->where('is_free', true)
                 ->get()
         ]);
     }
 
-    public function free()
+    public function free(Profile $profile)
     {
-        return Inertia::render('profile/ProfileView');
+        return Inertia::render('profile/ProfileView', [
+            'profile' => $profile->load('socialNetworks'),
+            'media' => $profile->media()
+                ->where('is_free', true)
+                ->get()
+        ]);
     }
 
     public function premium()

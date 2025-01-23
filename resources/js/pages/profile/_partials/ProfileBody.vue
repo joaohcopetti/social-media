@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject } from 'vue';
-import ProfileBodyPost from './ProfileBodyPost.vue';
+import ProfileBodyHome from './ProfileBodyHome.vue';
 import ProfileBodyTabs from './ProfileBodyTabs.vue';
 
 defineProps<{
@@ -12,22 +12,18 @@ const profile = inject<any>('profile');
 
 <template>
     <ProfileBodyTabs :profile="profile">
-        <template #home>
-            <div
-                v-if="profile.description"
-                class="bg-slate-900 p-5 text-center text-lg text-white"
-            >
-                {{ profile.description }}
-            </div>
-            <div class="mx-2 my-3 flex flex-col gap-3">
-                <ProfileBodyPost
-                    v-for="_media in media"
-                    :key="_media.id"
-                    :media="_media"
-                />
-            </div>
+        <template
+            v-if="route().current() === 'profile.index'"
+            #home
+        >
+            <ProfileBodyHome :media="media" />
         </template>
-        <template #free> Free </template>
+        <template
+            v-if="route().current() === 'profile.free'"
+            #free
+        >
+            <ProfileBodyFree :media="media" />
+        </template>
         <template #premium> Premium </template>
     </ProfileBodyTabs>
 </template>

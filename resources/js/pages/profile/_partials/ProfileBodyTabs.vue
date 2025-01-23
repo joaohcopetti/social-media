@@ -36,9 +36,9 @@ const selectedTab = computed(() => ROUTE_TAB_MAP[route().current() as string]);
             </TabList>
 
             <TabPanels class="mt-10">
-                <TabPanel> <slot name="home" /> </TabPanel>
-                <TabPanel> <slot name="free" /> </TabPanel>
-                <TabPanel> <slot name="premium" /> </TabPanel>
+                <TabPanel class="mx-2 my-3"> <slot name="home" /> </TabPanel>
+                <TabPanel class="mx-2 my-3"> <slot name="free" /> </TabPanel>
+                <TabPanel class="mx-2 my-3"> <slot name="premium" /> </TabPanel>
             </TabPanels>
         </TabGroup>
     </div>
