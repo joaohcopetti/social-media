@@ -5,5 +5,7 @@
         "prettier-plugin-tailwindcss"
     ],
     "singleAttributePerLine": true,
-    "printWidth": 100
+    "printWidth": 100,
+    "quoteProps": "consistent",
+    "semi": false
 }

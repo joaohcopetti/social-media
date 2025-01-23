@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject } from 'vue';
-import ProfileHeaderName from './ProfileHeaderName.vue';
-import ProfileHeaderSocialIcons from './ProfileHeaderSocialIcons.vue';
+import ProfileHeaderName from './_partials/ProfileHeaderName.vue';
+import ProfileHeaderSocialIcons from './_partials/ProfileHeaderSocialIcons.vue';
 
 const profile = inject<any>('profile');
 </script>
