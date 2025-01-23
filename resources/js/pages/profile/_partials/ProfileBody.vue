@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { inject } from 'vue';
+import ProfileBodyFree from './ProfileBodyFree.vue';
 import ProfileBodyHome from './ProfileBodyHome.vue';
+import ProfileBodyPremium from './ProfileBodyPremium.vue';
 import ProfileBodyTabs from './ProfileBodyTabs.vue';
 
 defineProps<{
@@ -24,6 +26,8 @@ const profile = inject<any>('profile');
         >
             <ProfileBodyFree :media="media" />
         </template>
-        <template #premium> Premium </template>
+        <template #premium>
+            <ProfileBodyPremium :media="media" />
+        </template>
     </ProfileBodyTabs>
 </template>

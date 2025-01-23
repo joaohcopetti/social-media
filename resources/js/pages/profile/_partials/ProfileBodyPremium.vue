@@ -5,5 +5,5 @@ defineProps<{
 </script>
 
 <template>
-    <div>free</div>
+    <div>premium</div>
 </template>

@@ -30,8 +30,13 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function premium()
+    public function premium(Profile $profile)
     {
-        return Inertia::render('profile/ProfileView');
+        return Inertia::render('profile/ProfileView', [
+            'profile' => $profile->load('socialNetworks'),
+            'media' => $profile->media()
+                ->where('is_free', false)
+                ->get()
+        ]);
     }
 }
