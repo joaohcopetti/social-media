@@ -7,12 +7,12 @@ use App\Models\ProfileMedia;
 
 class ProfileMediaController extends Controller
 {
-    public function media(string $filename)
+    public function media(ProfileMedia $profileMedia)
     {
-        $path = storage_path(ProfileMedia::$STORAGE_PATH . $filename);
+        $path = storage_path(ProfileMedia::$STORAGE_PATH . $profileMedia->path);
 
-        if (!file_exists($path)) {
-            abort(404);
+        if (!$profileMedia->is_free) {
+            abort(403);
         }
 
         return response()->file($path);

@@ -15,7 +15,7 @@ const profile = inject<any>('profile');
         <template #home>
             <div
                 v-if="profile.description"
-                class="bg-slate-900 p-5 text-center text-white"
+                class="bg-slate-900 p-5 text-center text-lg text-white"
             >
                 {{ profile.description }}
             </div>

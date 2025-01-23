@@ -16,11 +16,16 @@ class ProfileMedia extends Model
         'url'
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'path';
+    }
+
     public function url(): Attribute
     {
         return Attribute::make(
             fn() => route('profile.media', [
-                'filename' => $this->path
+                'profileMedia' => $this->path
             ])
         );
     }
