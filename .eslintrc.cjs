@@ -13,8 +13,12 @@ module.exports = {
     },
     rules: {
         'no-undef': 'off',
-        'vue/html-self-closing': [
-            'error'
-        ]
+        'vue/html-self-closing': ['error', {
+            'html': {
+                'void': 'always',
+                'normal': 'always',
+                'component': 'always'
+            }
+        }]
     },
 };
