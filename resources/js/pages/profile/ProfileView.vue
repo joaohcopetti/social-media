@@ -1,16 +1,18 @@
 <script setup lang="ts">
+import type { Profile, ProfileMedia } from '@/types/models'
 import { provide } from 'vue'
 import ProfileBackground from './ProfileBackground.vue'
 import ProfileBody from './ProfileBody.vue'
 import ProfileContainer from './ProfileContainer.vue'
 import ProfileHeader from './ProfileHeader.vue'
+import { profileInjectionKey } from './injection'
 
 const props = defineProps<{
-    profile: any
-    media: any[]
+    profile: Profile
+    media: ProfileMedia[]
 }>()
 
-provide('profile', props.profile)
+provide(profileInjectionKey, props.profile)
 </script>
 
 <template>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ProfileMedia } from '@/types/models'
 import { inject } from 'vue'
 import ProfileBodyFree from './_partials/ProfileBodyFree.vue'
 import ProfileBodyHome from './_partials/ProfileBodyHome.vue'
@@ -6,7 +7,7 @@ import ProfileBodyPremium from './_partials/ProfileBodyPremium.vue'
 import ProfileBodyTabs from './_partials/ProfileBodyTabs.vue'
 
 defineProps<{
-    media: any[]
+    media: ProfileMedia[]
 }>()
 
 const profile = inject<any>('profile')
@@ -26,7 +27,10 @@ const profile = inject<any>('profile')
         >
             <ProfileBodyFree :media="media" />
         </template>
-        <template #premium>
+        <template
+            v-if="route().current() === 'profile.premium'"
+            #premium
+        >
             <ProfileBodyPremium :media="media" />
         </template>
     </ProfileBodyTabs>
