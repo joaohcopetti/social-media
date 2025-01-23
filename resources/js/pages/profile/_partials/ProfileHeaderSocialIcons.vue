@@ -1,27 +1,28 @@
 <script setup lang="ts">
+import { inject } from 'vue';
 import ProfileHeaderSocialIcon from './ProfileHeaderSocialIcon.vue';
+
+const SOCIAL_NETWORK_ICONS: { [prop: string]: any } = {
+    facebook: 'fa6-brands:facebook-f',
+    instagram: 'fa6-brands:instagram',
+    x_twitter: 'fa6-brands:x-twitter',
+    tiktok: 'fa6-brands:tiktok',
+    youtube: 'fa6-brands:youtube',
+};
+
+const profile = inject<any>('profile');
 </script>
+
 <template>
     <div class="flex justify-center gap-2">
-        <ProfileHeaderSocialIcon
-            href="http://google.com"
-            :icon="{ icon: 'fa6-brands:facebook-f' }"
-        />
-        <ProfileHeaderSocialIcon
-            href="http://google.com"
-            :icon="{ icon: 'fa6-brands:instagram' }"
-        />
-        <ProfileHeaderSocialIcon
-            href="http://google.com"
-            :icon="{ icon: 'fa6-brands:x-twitter' }"
-        />
-        <ProfileHeaderSocialIcon
-            href="http://google.com"
-            :icon="{ icon: 'fa6-brands:tiktok' }"
-        />
-        <ProfileHeaderSocialIcon
-            href="http://google.com"
-            :icon="{ icon: 'fa6-brands:youtube' }"
-        />
+        <template
+            v-for="socialNetwork in profile.social_networks"
+            :key="socialNetwork.name"
+        >
+            <ProfileHeaderSocialIcon
+                href="http://google.com"
+                :icon="{ icon: SOCIAL_NETWORK_ICONS[socialNetwork.name] }"
+            />
+        </template>
     </div>
 </template>

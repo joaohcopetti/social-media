@@ -11,6 +11,7 @@ class Profile extends Model
     use HasFactory;
 
     public static $STORAGE_PATH = 'app/public/profiles/';
+    public static $PUBLIC_PATH = 'storage/profiles/';
 
     protected $appends = [
         'photo_url'
@@ -24,7 +25,7 @@ class Profile extends Model
     public function photoUrl(): Attribute
     {
         return Attribute::make(
-            get: fn() => route('profile.media', ['filename' => $this->photo])
+            get: fn() => static::$PUBLIC_PATH . $this->photo
         );
     }
 

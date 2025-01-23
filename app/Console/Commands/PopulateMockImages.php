@@ -24,8 +24,8 @@ class PopulateMockImages extends Command
     protected $description = 'Command description';
 
     protected static $DIMENSION_QUANTITY_MAP = [
-        ImageMockDimensionEnum::_500x500->value => 10,
-        ImageMockDimensionEnum::_900x600->value => 20
+        ImageMockDimensionEnum::_1000x1000->value => 10,
+        ImageMockDimensionEnum::_1980x1080->value => 20
     ];
 
     /**

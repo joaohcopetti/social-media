@@ -12,7 +12,7 @@ Route::name('profile.')->group(function () {
     Route::get('/{profile}', [ProfileController::class, 'index'])->name('index');
     Route::get('/{profile}/free', [ProfileController::class, 'free'])->name('free');
     Route::get('/{profile}/premium', [ProfileController::class, 'premium'])->name('premium');
-    Route::get('/perfis/{filename}', [ProfileController::class, 'media'])->name('media');
+    Route::get('/midias/{filename}', [ProfileController::class, 'media'])->name('media');
 });
 
 require __DIR__ . '/auth.php';

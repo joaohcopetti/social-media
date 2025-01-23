@@ -22,9 +22,9 @@ class ProfileFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->firstName() . ' ' . fake()->lastName();
+        $name = fake()->firstNameFemale() . ' ' . fake()->lastName();
         $photo = app(MockAssetService::class)->copyRandomImageAndThumb(
-            ImageMockDimensionEnum::_500x500,
+            ImageMockDimensionEnum::_1000x1000,
             storage_path(Profile::$STORAGE_PATH)
         );
 

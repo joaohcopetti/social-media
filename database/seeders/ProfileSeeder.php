@@ -54,7 +54,7 @@ class ProfileSeeder extends Seeder
             foreach ($networks as $network) {
                 $profileNetworks[] = [
                     'profile_id' => $profile->id,
-                    'social_network' => $network,
+                    'name' => $network,
                     'url' => 'https://www.google.com'
                 ];
             }

@@ -17,7 +17,7 @@ return new class extends Migration {
                 ->constrained('profiles');
 
             $table->string('url');
-            $table->enum('social_network', [
+            $table->enum('name', [
                 SocialNetworkEnum::FACEBOOK->value,
                 SocialNetworkEnum::X_TWITTER->value,
                 SocialNetworkEnum::INSTAGRAM->value,

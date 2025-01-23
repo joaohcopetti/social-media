@@ -21,7 +21,7 @@ class ProfileMediaFactory extends Factory
     {
         $isFree = fake()->boolean(30);
         $path = app(MockAssetService::class)->copyRandomImageAndThumb(
-            ImageMockDimensionEnum::_900x600,
+            ImageMockDimensionEnum::_1980x1080,
             storage_path(ProfileMedia::$STORAGE_PATH)
         );
 
