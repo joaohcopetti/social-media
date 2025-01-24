@@ -29,8 +29,8 @@ class ProfileMediaFactory extends Factory
             'description' => fake()->optional(.2)->sentence(),
             'is_free' => $isFree,
             'show_on_home' => $isFree,
-            'path' => pathinfo($path['image_path'], PATHINFO_BASENAME),
-            'thumbnail_path' => pathinfo($path['thumb_path'], PATHINFO_BASENAME),
+            'filename' => pathinfo($path['image_path'], PATHINFO_BASENAME),
+            'thumbnail_filename' => pathinfo($path['thumb_path'], PATHINFO_BASENAME),
             'size' => fake()->numberBetween(2 ** 10, 2 ** 20)
         ];
     }

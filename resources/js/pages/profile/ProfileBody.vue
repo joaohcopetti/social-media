@@ -12,6 +12,7 @@ defineProps<{
 }>()
 
 const profile = inject(profileInjectionKey) as Profile
+
 const COMPONENT_TABS: { [prop: string]: Component } = {
     'profile.index': ProfileContentHome,
     'profile.free': ProfileContentFree,

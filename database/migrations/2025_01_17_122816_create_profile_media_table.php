@@ -19,8 +19,8 @@ return new class extends Migration {
             $table->string('description')->nullable();
             $table->boolean('is_free')->default(false);
             $table->boolean('show_on_home')->default(false);
-            $table->string('path');
-            $table->string('thumbnail_path');
+            $table->string('filename');
+            $table->string('thumbnail_filename');
             $table->unsignedBigInteger('size');
             $table->enum('type', [
                 MediaTypeEnum::IMAGE->value,

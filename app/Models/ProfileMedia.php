@@ -13,19 +13,24 @@ class ProfileMedia extends Model
     public static $STORAGE_PATH = 'app/private/profiles/';
 
     protected $appends = [
-        'url'
+        'url',
+        'thumbnail_url'
     ];
-
-    public function getRouteKeyName()
-    {
-        return 'path';
-    }
 
     public function url(): Attribute
     {
         return Attribute::make(
             fn(): string => route('profile.media', [
-                'profileMedia' => $this->path
+                'filename' => $this->filename
+            ])
+        );
+    }
+
+    public function thumbnailUrl(): Attribute
+    {
+        return Attribute::make(
+            fn(): string => route('profile.media', [
+                'filename' => $this->thumbnail_filename
             ])
         );
     }
