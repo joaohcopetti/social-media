@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\RoleEnum;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -24,7 +25,9 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         foreach (static::$USERS as $user) {
-            User::factory($user);
+            User::factory()->create($user);
         }
+
+        User::firstWhere('email', 'admin@email.com')->assignRole(RoleEnum::ADMIN);
     }
 }
