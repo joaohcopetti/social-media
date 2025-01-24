@@ -18,10 +18,6 @@ class ProfileMediaController extends Controller
             abort(404);
         }
 
-        if (!$profileMedia->is_free) {
-            abort(403);
-        }
-
         $mediaPath = Str::contains($filename, '_thumb')
             ? $profileMedia->thumbnail_filename
             : $profileMedia->filename;

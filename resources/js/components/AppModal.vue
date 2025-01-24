@@ -44,7 +44,7 @@ const isOpen = defineModel<boolean>('modelValue')
                             <DialogTitle
                                 v-if="$slots['title']"
                                 as="h3"
-                                class="text-lg font-bold leading-6 text-gray-300"
+                                class="mb-4 text-center text-xl font-bold leading-6 text-gray-300"
                             >
                                 <slot name="title" />
                             </DialogTitle>
