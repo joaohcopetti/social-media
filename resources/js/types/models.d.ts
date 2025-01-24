@@ -54,4 +54,6 @@ export interface User {
   updated_at: string | null
   // relations
   notifications: DatabaseNotification[]
+  roles: Role[]
+  permissions: Permission[]
 }
