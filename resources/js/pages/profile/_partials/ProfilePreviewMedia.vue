@@ -8,7 +8,7 @@ defineProps<{
 
 <template>
     <img
-        :src="media.url"
+        :src="media.thumbnail_url"
         style="min-width: 160px; min-height: 160px"
         class="rounded object-cover"
     />
