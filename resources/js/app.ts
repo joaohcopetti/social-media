@@ -5,8 +5,8 @@ import { createInertiaApp } from '@inertiajs/vue3'
 import { createPinia } from 'pinia'
 import { createApp, DefineComponent, h } from 'vue'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy'
-import AdminLayout from './layouts/AdminLayout.vue'
 import MainLayout from './layouts/MainLayout.vue'
+import PanelLayout from './layouts/PanelLayout.vue'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
@@ -19,7 +19,7 @@ createInertiaApp({
 
         const page = pages[`./pages/${name}.vue`]
 
-        page.default.layout = name.includes('panel/') ? AdminLayout : MainLayout
+        page.default.layout = name.includes('panel/') ? PanelLayout : MainLayout
 
         return page
     },
