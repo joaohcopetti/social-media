@@ -25,7 +25,7 @@ withDefaults(
 
 <template>
     <button
-        class="scale-100 rounded-lg px-6 py-2 font-bold transition-all"
+        class="scale-100 rounded-lg px-6 py-2 font-bold transition-all hover:scale-[1.03] active:scale-100"
         :class="[
             COLOR_CLASSES[color],
             {

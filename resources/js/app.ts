@@ -2,6 +2,7 @@ import '../css/app.css'
 
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 import { createInertiaApp } from '@inertiajs/vue3'
+import { createPinia } from 'pinia'
 import { createApp, DefineComponent, h } from 'vue'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy'
 import MainLayout from './layouts/MainLayout.vue'
@@ -21,10 +22,13 @@ createInertiaApp({
         return page
     },
     setup({ el, App, props, plugin }) {
+        const pinia = createPinia()
+
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
             .use(autoAnimatePlugin)
+            .use(pinia)
             .mount(el)
     },
     progress: {

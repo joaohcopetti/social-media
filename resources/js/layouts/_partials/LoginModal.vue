@@ -28,6 +28,7 @@ const submit = () => {
             <form @submit.prevent="submit">
                 <div>
                     <AppInput
+                        v-model="form.email"
                         label="E-mail"
                         name="email"
                         :error="form.errors.email"
@@ -35,6 +36,7 @@ const submit = () => {
                 </div>
                 <div>
                     <AppInput
+                        v-model="form.password"
                         label="Senha"
                         name="password"
                         :input-attrs="{ type: 'password' }"

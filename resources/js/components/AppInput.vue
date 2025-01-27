@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const value = defineModel<string>()
+
 withDefaults(
     defineProps<{
         label: string
@@ -11,6 +13,12 @@ withDefaults(
         inputAttrs: undefined,
     },
 )
+
+const onInput = (event: Event) => {
+    const target = event.target as HTMLInputElement
+
+    value.value = target.value
+}
 </script>
 
 <template>
@@ -28,6 +36,7 @@ withDefaults(
                 'text-red-600 dark:border-red-500': error,
                 'border-gray-300': !error,
             }"
+            @input="onInput"
         />
         <div v-auto-animate>
             <p
