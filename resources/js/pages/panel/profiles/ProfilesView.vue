@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import AppPaginator from '@/components/AppPaginator.vue'
+import AppPaginator from '@/components/paginator/AppPaginator.vue'
 import AppTable from '@/components/table/AppTable.vue'
 import { formatPaginationFromData } from '@/utils/helpers'
+import { computed } from 'vue'
 
 const props = defineProps<{
     profiles: any
 }>()
+
+const pagination = computed(() => formatPaginationFromData(props.profiles))
 </script>
 
 <template>
@@ -21,11 +24,7 @@ const props = defineProps<{
         >
             <template #title> Perfis </template>
 
-            <template #caption>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque nam atque ea
-                minus temporibus sit quas deserunt officia magni sapiente error aut recusandae
-                cupiditate, consequatur eos voluptatibus impedit nobis enim.
-            </template>
+            <template #caption> Gerenciamento de perfis </template>
 
             <template #[`tbody.photo`]="{ data }">
                 <div class="m-2 flex justify-center">
@@ -39,7 +38,12 @@ const props = defineProps<{
             <template #[`tbody.options`]> O </template>
 
             <template #footer>
-                <AppPaginator :pagination="formatPaginationFromData(props.profiles)" />
+                <div class="flex items-center justify-between">
+                    <AppPaginator :pagination="pagination" />
+                    <div class="text-sm">
+                        Exibindo <b>{{ profiles.data.length }}</b> de <b>{{ pagination.total }}</b>
+                    </div>
+                </div>
             </template>
         </AppTable>
     </div>

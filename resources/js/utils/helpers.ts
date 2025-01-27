@@ -18,7 +18,7 @@ export type Pagination = {
 export const formatPaginationFromData = (dataWithPagination: any): Pagination => {
     const paginationData = omit(dataWithPagination, 'data')
 
-    console.log(paginationData)
+    console.log(dataWithPagination)
     return {
         links: paginationData.links,
         nextPageUrl: paginationData.next_page_url,

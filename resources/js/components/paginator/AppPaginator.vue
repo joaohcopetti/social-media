@@ -1,18 +1,14 @@
 <script setup lang="ts">
 import { Pagination } from '@/utils/helpers'
 import { Icon } from '@iconify/vue/dist/iconify.js'
-import { computed, onMounted } from 'vue'
-import PaginatorItem from './PaginatorItem.vue'
+import { computed } from 'vue'
+import PaginatorItem from '../paginator/PaginatorItem.vue'
 
 const props = defineProps<{
     pagination: Pagination
 }>()
 
 const totalLinks = computed(() => props.pagination.links.length)
-
-onMounted(() => {
-    console.log(props.pagination)
-})
 </script>
 
 <template>

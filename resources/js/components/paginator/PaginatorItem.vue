@@ -16,7 +16,8 @@ withDefaults(
 </script>
 
 <template>
-    <Link
+    <Component
+        :is="href ? Link : 'button'"
         :href="href"
         :class="[
             'flex h-10 items-center justify-center border px-4 leading-tight transition-colors',
@@ -35,5 +36,5 @@ withDefaults(
             <slot name="label" />
         </template>
         <template v-else>{{ label }}</template>
-    </Link>
+    </Component>
 </template>
