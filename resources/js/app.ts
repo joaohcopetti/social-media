@@ -1,11 +1,10 @@
 import '../css/app.css'
-import './bootstrap'
 
+import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import { createApp, DefineComponent, h } from 'vue'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy'
 import MainLayout from './layouts/MainLayout.vue'
-
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
 createInertiaApp({
@@ -25,6 +24,7 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
+            .use(autoAnimatePlugin)
             .mount(el)
     },
     progress: {
