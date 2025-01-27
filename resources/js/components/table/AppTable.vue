@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { TableHeader } from '@/types/components'
+
 defineProps<{
-    header: any
+    header: TableHeader[]
     data: any
 }>()
 </script>

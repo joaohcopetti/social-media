@@ -1,8 +1,17 @@
 <script setup lang="ts">
+import AppButton from '@/components/AppButton.vue'
 import AppPaginator from '@/components/paginator/AppPaginator.vue'
 import AppTable from '@/components/table/AppTable.vue'
+import { TableHeader } from '@/types/components'
 import { formatPaginationFromData } from '@/utils/helpers'
 import { computed } from 'vue'
+
+const TABLE_HEADERS: TableHeader[] = [
+    { label: 'Foto', prop: 'photo', width: '3rem', centered: true },
+    { label: 'Nome', prop: 'name' },
+    { label: 'Mídias', prop: 'media_count', centered: true },
+    { label: 'Opções', prop: 'options', centered: true, width: '10rem' },
+]
 
 const props = defineProps<{
     profiles: any
@@ -14,12 +23,7 @@ const pagination = computed(() => formatPaginationFromData(props.profiles))
 <template>
     <div>
         <AppTable
-            :header="[
-                { label: 'Foto', prop: 'photo', width: '3rem', centered: true },
-                { label: 'Nome', prop: 'name' },
-                { label: 'Mídias', prop: 'media_count', centered: true },
-                { label: 'Opções', prop: 'options', centered: true, width: '10rem' },
-            ]"
+            :header="TABLE_HEADERS"
             :data="props.profiles.data"
         >
             <template #title> Perfis </template>
@@ -35,7 +39,28 @@ const pagination = computed(() => formatPaginationFromData(props.profiles))
                 </div>
             </template>
 
-            <template #[`tbody.options`]> O </template>
+            <template #[`tbody.options`]>
+                <div class="flex gap-2">
+                    <AppButton
+                        color="success"
+                        :icon="{
+                            icon: 'ph:eye-fill',
+                        }"
+                    />
+                    <AppButton
+                        color="primary"
+                        :icon="{
+                            icon: 'ph:pencil-fill',
+                        }"
+                    />
+                    <AppButton
+                        color="danger"
+                        :icon="{
+                            icon: 'ph:trash-fill',
+                        }"
+                    />
+                </div>
+            </template>
 
             <template #footer>
                 <div class="flex items-center justify-between">
