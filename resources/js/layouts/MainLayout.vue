@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth-store'
 import { ref } from 'vue'
-import AuthButtons from './_partials/AuthButtons.vue'
-import LoginModal from './_partials/LoginModal.vue'
+import AuthButtons from './_partials-main/AuthButtons.vue'
+import LoginModal from './_partials-main/LoginModal.vue'
 
 const loginModal = ref(false)
 const authStore = useAuthStore()
@@ -10,7 +10,9 @@ const authStore = useAuthStore()
 
 <template>
     <div>
+        <ToastWrapper />
         <LoginModal v-model="loginModal" />
+
         <AuthButtons
             v-if="!authStore.user"
             @login-click="loginModal = true"

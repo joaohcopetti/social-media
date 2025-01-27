@@ -39,7 +39,7 @@ const isOpen = defineModel<boolean>('modelValue')
                         leave-to="opacity-0 scale-95"
                     >
                         <DialogPanel
-                            class="w-full max-w-md transform overflow-hidden rounded-2xl bg-base-500 p-6 text-left align-middle shadow-xl transition-all"
+                            class="w-full max-w-md transform overflow-hidden rounded-2xl bg-slate-900 p-6 text-left align-middle shadow-xl transition-all"
                         >
                             <DialogTitle
                                 v-if="$slots['title']"

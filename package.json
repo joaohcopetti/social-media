@@ -36,6 +36,8 @@
     "dependencies": {
         "@formkit/auto-animate": "^0.8.2",
         "@headlessui/vue": "^1.7.23",
+        "@types/lodash-es": "^4.17.12",
+        "lodash-es": "^4.17.21",
         "pinia": "^2.3.1"
     }
 }
