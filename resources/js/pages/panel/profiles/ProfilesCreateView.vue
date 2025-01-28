@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
 import AppContainer from '@/components/AppContainer.vue'
+import ProfileForm from './form/ProfileForm.vue'
 
 const PROFILES_INDEX_ROUTE = route('panel.profiles.index')
 </script>
@@ -16,9 +17,7 @@ const PROFILES_INDEX_ROUTE = route('panel.profiles.index')
         <AppContainer>
             <template #title> Cadastre um novo perfil </template>
             <template #body>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis cupiditate
-                distinctio fugiat dolorem error neque sapiente ab deleniti libero, id delectus
-                commodi accusantium autem magnam voluptates omnis corrupti optio. Asperiores?
+                <ProfileForm />
             </template>
         </AppContainer>
     </div>
