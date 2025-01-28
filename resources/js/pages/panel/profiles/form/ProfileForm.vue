@@ -3,20 +3,44 @@ import AppButton from '@/components/AppButton.vue'
 import AppInput from '@/components/AppInput.vue'
 import AppTextarea from '@/components/AppTextarea.vue'
 import { Icon } from '@iconify/vue/dist/iconify.js'
+import { useForm } from '@inertiajs/vue3'
 
-const a = ''
+type ProfileForm = {
+    name: string
+    description?: string
+    photo: File | null
+}
+
+const form = useForm<ProfileForm>({
+    name: '',
+    description: '',
+    photo: null,
+})
+
+const onPhotoChange = (event: Event) => {
+    const target = event.target as HTMLInputElement
+
+    if (target.files?.length) {
+        form.photo = target.files[0]
+    }
+}
+
+const submit = () => {
+    console.log('submit')
+}
 </script>
 
 <template>
-    <form>
+    <form @submit.prevent="submit">
         <div class="flex gap-5">
             <div>
                 <label
-                    class="flex size-64 cursor-pointer flex-col items-center justify-center gap-3 rounded-lg bg-slate-600 text-xl font-bold text-gray-100 transition-colors hover:bg-slate-500 hover:text-white active:bg-slate-600"
+                    class="flex size-64 cursor-pointer flex-col items-center justify-center gap-3 rounded-lg bg-slate-600 text-lg font-bold text-gray-100 transition-colors hover:bg-slate-500 hover:text-white active:bg-slate-600"
                 >
                     <input
                         type="file"
                         hidden
+                        @change="onPhotoChange"
                     />
                     <div>
                         <Icon
