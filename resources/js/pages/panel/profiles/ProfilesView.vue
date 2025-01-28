@@ -14,6 +14,8 @@ const TABLE_HEADERS: TableHeader[] = [
     { label: 'Opções', prop: 'options', centered: true, width: '10rem' },
 ]
 
+const PROFILES_CREATE_ROUTE = route('panel.profiles.create')
+
 const props = defineProps<{
     profiles: any
 }>()
@@ -27,9 +29,10 @@ const pagination = computed(() => formatPaginationFromData(props.profiles))
             <AppButton
                 color="success"
                 label="Novo perfil"
-                :inertia-link-attrs="{ href: route('panel.profiles.create') }"
+                :inertia-link-attrs="{ href: PROFILES_CREATE_ROUTE }"
             />
         </div>
+
         <AppTable
             :header="TABLE_HEADERS"
             :data="props.profiles.data"
