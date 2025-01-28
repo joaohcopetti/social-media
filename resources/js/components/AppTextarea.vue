@@ -16,9 +16,10 @@ withDefaults(
     <div class="mb-5">
         <label
             :for="name"
-            class="mb-2 block text-sm font-bold text-slate-900 dark:text-white"
+            class="mb-2 flex gap-2 text-sm"
         >
-            {{ label }}
+            <span class="font-bold text-slate-900 dark:text-white">{{ label }}</span>
+            <span>(opcional)</span>
         </label>
 
         <textarea

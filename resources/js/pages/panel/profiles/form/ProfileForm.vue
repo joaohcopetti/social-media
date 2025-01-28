@@ -2,6 +2,7 @@
 import AppButton from '@/components/AppButton.vue'
 import AppInput from '@/components/AppInput.vue'
 import AppTextarea from '@/components/AppTextarea.vue'
+import { Icon } from '@iconify/vue/dist/iconify.js'
 
 const a = ''
 </script>
@@ -11,13 +12,19 @@ const a = ''
         <div class="flex gap-5">
             <div>
                 <label
-                    class="flex size-64 cursor-pointer items-center justify-center rounded-lg bg-slate-600 text-xl font-bold text-gray-100 transition-colors hover:bg-slate-500 active:bg-slate-600"
+                    class="flex size-64 cursor-pointer flex-col items-center justify-center gap-3 rounded-lg bg-slate-600 text-xl font-bold text-gray-100 transition-colors hover:bg-slate-500 hover:text-white active:bg-slate-600"
                 >
                     <input
                         type="file"
                         hidden
                     />
-                    Adicionar foto
+                    <div>
+                        <Icon
+                            icon="ph:image-fill"
+                            style="font-size: 3rem"
+                        />
+                    </div>
+                    <div>Adicionar foto principal</div>
                 </label>
             </div>
             <div class="flex w-full flex-col">
@@ -40,7 +47,7 @@ const a = ''
                 </div>
                 <div class="text-right">
                     <AppButton
-                        label="Cadastrar"
+                        label="Continuar"
                         color="success"
                         type="submit"
                     />
