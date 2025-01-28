@@ -14,4 +14,9 @@ class PanelProfileController extends Controller
             'profiles' => Profile::withCount('media')->paginate()
         ]);
     }
+
+    public function create()
+    {
+        return Inertia::render('panel/profiles/ProfilesCreateView');
+    }
 }

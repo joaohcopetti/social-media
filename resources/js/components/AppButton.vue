@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue/dist/iconify.js'
+import { Link } from '@inertiajs/vue3'
 
 const COLOR_CLASSES = {
     'primary': 'bg-blue-800 hover:bg-blue-700 active:bg-blue-800 hover:text-white',
@@ -15,21 +16,27 @@ withDefaults(
         label?: string
         icon?: InstanceType<typeof Icon>['$props']
         disabled?: boolean
+        ghost?: boolean
+        inertiaLinkAttrs?: InstanceType<typeof Link>['$props']
     }>(),
     {
         color: 'primary',
         label: '',
         icon: undefined,
         disabled: false,
+        inertiaLinkAttrs: undefined,
+        ghost: false,
     },
 )
 </script>
 
 <template>
-    <button
+    <Component
+        :is="inertiaLinkAttrs ? Link : 'button'"
         class="scale-100 rounded-lg font-bold transition-all"
+        v-bind="inertiaLinkAttrs"
         :class="[
-            COLOR_CLASSES[color],
+            ghost ? 'bg-transparent hover:bg-slate-700 active:bg-slate-600' : COLOR_CLASSES[color],
             {
                 'px-6 py-2': !!label,
                 'p-3': !label && !!icon,
@@ -46,5 +53,5 @@ withDefaults(
         <template v-if="label">
             {{ label }}
         </template>
-    </button>
+    </Component>
 </template>

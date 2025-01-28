@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
+import AppDropdown from '@/components/AppDropdown.vue'
 import AppPaginator from '@/components/paginator/AppPaginator.vue'
 import AppTable from '@/components/table/AppTable.vue'
 import { TableHeader } from '@/types/components'
@@ -22,6 +23,13 @@ const pagination = computed(() => formatPaginationFromData(props.profiles))
 
 <template>
     <div>
+        <div class="mb-5">
+            <AppButton
+                color="success"
+                label="Novo perfil"
+                :inertia-link-attrs="{ href: route('panel.profiles.create') }"
+            />
+        </div>
         <AppTable
             :header="TABLE_HEADERS"
             :data="props.profiles.data"
@@ -40,26 +48,14 @@ const pagination = computed(() => formatPaginationFromData(props.profiles))
             </template>
 
             <template #[`tbody.options`]>
-                <div class="flex gap-2">
-                    <AppButton
-                        color="success"
-                        :icon="{
-                            icon: 'ph:eye-fill',
-                        }"
-                    />
-                    <AppButton
-                        color="primary"
-                        :icon="{
-                            icon: 'ph:pencil-fill',
-                        }"
-                    />
-                    <AppButton
-                        color="danger"
-                        :icon="{
-                            icon: 'ph:trash-fill',
-                        }"
-                    />
-                </div>
+                <AppDropdown
+                    :icon="{ icon: 'ph:dots-three-outline-fill' }"
+                    :items="[
+                        { label: 'Ver', href: 'www.google.com', icon: 'ph:eye' },
+                        { label: 'Editar', href: 'www.google.com', icon: 'ph:pencil' },
+                        { label: 'Excluir', href: 'www.google.com', icon: 'ph:trash' },
+                    ]"
+                />
             </template>
 
             <template #footer>

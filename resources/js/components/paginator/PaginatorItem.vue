@@ -24,13 +24,14 @@ withDefaults(
             'border-slate-300 bg-white',
             'hover:bg-slate-100 hover:text-slate-700',
             'dark:border-slate-700 dark:bg-slate-800',
-            'dark:hover:bg-slate-700 dark:hover:text-white',
+            'disabled:text-slate-500 dark:hover:bg-slate-700 dark:hover:text-white',
             {
-                'font-bold dark:bg-slate-600 dark:text-white': active,
-                'text-slate-500 dark:text-slate-400': !active,
+                'font-bold dark:bg-slate-600': active,
+                'text-slate-500 dark:text-slate-300': !active,
                 'text pointer-events-none cursor-default': !href,
             },
         ]"
+        :disabled="!href"
     >
         <template v-if="$slots['label']">
             <slot name="label" />

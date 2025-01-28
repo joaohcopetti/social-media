@@ -42,7 +42,7 @@ defineProps<{
                 <tr
                     v-for="row in data"
                     :key="row"
-                    class="border-b border-gray-200 bg-white text-gray-200 transition-colors hover:bg-gray-50 dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-600"
+                    class="border-b border-gray-200 bg-white text-gray-200 transition-colors duration-75 hover:bg-gray-50 dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-600"
                 >
                     <template
                         v-for="column in header"
