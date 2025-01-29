@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { InputHTMLAttributes } from 'vue'
+
 const value = defineModel<string>()
 
 withDefaults(
     defineProps<{
         label: string
         name: string
-        inputAttrs?: { [prop: string]: string | number }
+        inputAttrs?: InputHTMLAttributes
         error?: string
     }>(),
     {

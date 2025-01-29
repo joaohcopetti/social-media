@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { TextareaHTMLAttributes } from 'vue'
+
 const value = defineModel<string>()
 
 withDefaults(
     defineProps<{
         label: string
         placeholder?: string
-        textareaAttrs?: { [prop: string]: string | number }
+        textareaAttrs?: TextareaHTMLAttributes
         name: string
         error?: string
     }>(),
