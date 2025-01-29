@@ -14,7 +14,8 @@ return new class extends Migration {
         Schema::create('profile_media', function (Blueprint $table) {
             $table->id();
             $table->foreignId('profile_id')
-                ->constrained('profiles');
+                ->constrained('profiles')
+                ->cascadeOnDelete();
 
             $table->string('description')->nullable();
             $table->boolean('is_free')->default(false);

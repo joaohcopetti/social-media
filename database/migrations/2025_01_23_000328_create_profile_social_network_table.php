@@ -13,7 +13,8 @@ return new class extends Migration {
         Schema::create('profile_social_network', function (Blueprint $table) {
             $table->id();
             $table->foreignId('profile_id')
-                ->constrained('profiles');
+                ->constrained('profiles')
+                ->cascadeOnDelete();
 
             $table->foreignId('social_network_id')
                 ->constrained('social_networks');

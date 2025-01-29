@@ -10,7 +10,6 @@ const authStore = useAuthStore()
 
 <template>
     <div>
-        <ToastWrapper />
         <LoginModal v-model="loginModal" />
 
         <AuthButtons

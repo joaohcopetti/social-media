@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
             <caption
                 v-if="$slots['title'] || $slots['caption']"
@@ -60,7 +60,7 @@ defineProps<{
                             />
                         </td>
                         <td
-                            v-else-if="row[column.prop]"
+                            v-else
                             class="px-6 py-4"
                             :class="{
                                 'flex justify-center': column.centered,

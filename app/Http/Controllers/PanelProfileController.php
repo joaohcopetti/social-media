@@ -23,6 +23,15 @@ class PanelProfileController extends Controller
 
     public function store(ProfileRequest $request)
     {
-        dd($request->all());
+        $filepath = $request->file('photo')->store('profiles', 'public');
+        $filename = pathinfo($filepath, PATHINFO_BASENAME);
+
+        Profile::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'photo' => $filename
+        ]);
+
+        return redirect()->route('panel.profiles.index');
     }
 }
