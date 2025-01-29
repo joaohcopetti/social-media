@@ -24,16 +24,17 @@ class PanelProfileController extends Controller
 
     public function store(ProfileRequest $request)
     {
-        $filepath = $request->file('photo')->store('profiles', 'public');
+        $filepath = $request->file('photo')->store('perfis', 'public');
         $filename = pathinfo($filepath, PATHINFO_BASENAME);
 
-        $a = app(MediaService::class)->generateThumbnail(storage_path('app/public/' . $filepath));
-        dd($a);
+        $thumbnailFilepath = app(MediaService::class)->generateThumbnail(storage_path('app/public/' . $filepath));
+        $thumbnailFilename = pathinfo($thumbnailFilepath, PATHINFO_BASENAME);
+
         Profile::create([
             'name' => $request->name,
             'description' => $request->description,
             'photo' => $filename,
-            'photo_thumbnail' => ''
+            'thumbnail_photo' => $thumbnailFilename
         ]);
 
         return redirect()->route('panel.profiles.index');

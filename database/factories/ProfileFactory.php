@@ -25,13 +25,14 @@ class ProfileFactory extends Factory
         $name = fake()->firstNameFemale() . ' ' . fake()->lastName();
         $photo = app(MockAssetService::class)->copyRandomImageAndThumb(
             ImageMockDimensionEnum::_1000x1000,
-            storage_path(Profile::$STORAGE_PATH)
+            storage_path('app/public/perfis/')
         );
 
         return [
             'name' => $name,
             'slug' => Str::slug($name),
             'photo' => pathinfo($photo['image_path'], PATHINFO_BASENAME),
+            'thumbnail_photo' => pathinfo($photo['thumb_path'], PATHINFO_BASENAME),
             'description' => fake()->optional(.5, null)->sentence()
         ];
     }

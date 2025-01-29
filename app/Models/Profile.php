@@ -12,17 +12,16 @@ class Profile extends Model
 {
     use HasFactory, HasSlug;
 
-    public static $STORAGE_PATH = 'app/public/profiles/';
-    public static $PUBLIC_PATH = 'storage/profiles/';
-
     protected $fillable = [
         'name',
         'description',
-        'photo'
+        'photo',
+        'thumbnail_photo',
     ];
 
     protected $appends = [
-        'photo_url'
+        'photo_url',
+        'photo_thumb_url'
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -40,7 +39,14 @@ class Profile extends Model
     public function photoUrl(): Attribute
     {
         return Attribute::make(
-            get: fn(): string => '/' . static::$PUBLIC_PATH . $this->photo
+            get: fn(): string => "/storage/perfis/{$this->photo}"
+        );
+    }
+
+    public function photoThumbUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn(): string => "/storage/perfis/{$this->thumbnail_photo}"
         );
     }
 

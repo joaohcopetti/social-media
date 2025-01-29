@@ -45,7 +45,7 @@ const pagination = computed(() => formatPaginationFromData(props.profiles))
                 <div class="m-2 flex justify-center">
                     <img
                         class="w-12 rounded-full object-cover"
-                        :src="data.photo_url"
+                        :src="data.photo_thumb_url"
                     />
                 </div>
             </template>
