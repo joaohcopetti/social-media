@@ -4,3 +4,11 @@ export type TableHeader = {
     width?: string
     centered?: boolean
 }
+
+export type DropdownItem = {
+    label: string
+    icon?: string
+    href?: string
+    openInNewTab?: boolean
+    onClick?: () => void
+}

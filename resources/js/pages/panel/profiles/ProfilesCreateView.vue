@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
 import AppContainer from '@/components/AppContainer.vue'
-import ProfileForm from './form/ProfileForm.vue'
 
-const PROFILES_INDEX_ROUTE = route('panel.profiles.index')
+import ProfileForm from './form/ProfileForm.vue'
 </script>
 
 <template>
@@ -11,7 +10,7 @@ const PROFILES_INDEX_ROUTE = route('panel.profiles.index')
         <div class="mb-5">
             <AppButton
                 label="Voltar"
-                :inertia-link-attrs="{ href: PROFILES_INDEX_ROUTE }"
+                :inertia-link-attrs="{ href: route('panel.profiles.index') }"
             />
         </div>
         <AppContainer>

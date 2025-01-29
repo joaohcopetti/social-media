@@ -3,7 +3,8 @@ import AppButton from '@/components/AppButton.vue'
 import AppDropdown from '@/components/AppDropdown.vue'
 import AppPaginator from '@/components/paginator/AppPaginator.vue'
 import AppTable from '@/components/table/AppTable.vue'
-import { TableHeader } from '@/types/components'
+import { DropdownItem, TableHeader } from '@/types/components'
+import { Profile } from '@/types/models'
 import { formatPaginationFromData } from '@/utils/helpers'
 import { computed } from 'vue'
 
@@ -14,13 +15,39 @@ const TABLE_HEADERS: TableHeader[] = [
     { label: 'Opções', prop: 'options', centered: true, width: '10rem' },
 ]
 
-const PROFILES_CREATE_ROUTE = route('panel.profiles.create')
-
 const props = defineProps<{
     profiles: any
 }>()
 
 const pagination = computed(() => formatPaginationFromData(props.profiles))
+
+const getDropdownOptions = (data: Profile): DropdownItem[] => {
+    return [
+        {
+            label: 'Ver',
+            href: route('profile.index', { profile: data.slug }),
+            icon: 'ph:eye',
+            openInNewTab: true,
+        },
+        {
+            label: 'Editar',
+            href: route('panel.profiles.edit', { profile: data.slug }),
+            icon: 'ph:pencil',
+        },
+        {
+            label: 'Gerenciar mídias',
+            href: 'www.google.com',
+            icon: 'ph:image',
+        },
+        {
+            label: 'Excluir',
+            icon: 'ph:trash',
+            onClick: () => {
+                console.log('ola')
+            },
+        },
+    ]
+}
 </script>
 
 <template>
@@ -29,7 +56,7 @@ const pagination = computed(() => formatPaginationFromData(props.profiles))
             <AppButton
                 color="success"
                 label="Novo perfil"
-                :inertia-link-attrs="{ href: PROFILES_CREATE_ROUTE }"
+                :inertia-link-attrs="{ href: route('panel.profiles.create') }"
             />
         </div>
 
@@ -53,24 +80,7 @@ const pagination = computed(() => formatPaginationFromData(props.profiles))
             <template #[`tbody.options`]="{ data }">
                 <AppDropdown
                     :icon="{ icon: 'ph:dots-three-outline-fill' }"
-                    :items="[
-                        {
-                            label: 'Ver',
-                            href: route('profile.index', { profile: data.slug }),
-                            icon: 'ph:eye',
-                        },
-                        {
-                            label: 'Editar',
-                            href: route('panel.profiles.edit', { profile: data.slug }),
-                            icon: 'ph:pencil',
-                        },
-                        {
-                            label: 'Gerenciar mídias',
-                            href: 'www.google.com',
-                            icon: 'ph:image',
-                        },
-                        { label: 'Excluir', href: 'www.google.com', icon: 'ph:trash' },
-                    ]"
+                    :items="getDropdownOptions(data)"
                 />
             </template>
 

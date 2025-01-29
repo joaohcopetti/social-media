@@ -1,20 +1,29 @@
 <script setup lang="ts">
+import { DropdownItem } from '@/types/components'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import { Link } from '@inertiajs/vue3'
 import AppButton from './AppButton.vue'
 
-type DropdownItem = {
-    label: string
-    icon?: string
-    href: string
-}
+defineEmits(['click'])
 
 defineProps<{
     label?: string
     icon?: InstanceType<typeof Icon>['$props']
     items: DropdownItem[]
 }>()
+
+const getComponent = (item: DropdownItem) => {
+    if (item.href && item.openInNewTab) {
+        return 'a'
+    }
+
+    if (item.href) {
+        return Link
+    }
+
+    return 'button'
+}
 </script>
 
 <template>
@@ -47,19 +56,22 @@ defineProps<{
                     :key="item.label"
                 >
                     <MenuItem v-slot="{ active }">
-                        <Link
+                        <Component
+                            :is="getComponent(item)"
                             :href="item.href"
+                            :target="item.openInNewTab ? '_blank' : undefined"
                             :class="[
                                 active ? 'bg-slate-600 text-gray-100' : 'text-gray-200',
                                 'flex w-full items-center gap-2 px-2 py-2 text-sm active:bg-slate-500',
                             ]"
+                            @click="item.onClick"
                         >
                             <Icon
                                 v-if="icon"
                                 :icon="item.icon!"
                             />
                             <span>{{ item.label }}</span>
-                        </Link>
+                        </Component>
                     </MenuItem>
                 </div>
             </MenuItems>
