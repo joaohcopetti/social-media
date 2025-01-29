@@ -50,12 +50,25 @@ const pagination = computed(() => formatPaginationFromData(props.profiles))
                 </div>
             </template>
 
-            <template #[`tbody.options`]>
+            <template #[`tbody.options`]="{ data }">
                 <AppDropdown
                     :icon="{ icon: 'ph:dots-three-outline-fill' }"
                     :items="[
-                        { label: 'Ver', href: 'www.google.com', icon: 'ph:eye' },
-                        { label: 'Editar', href: 'www.google.com', icon: 'ph:pencil' },
+                        {
+                            label: 'Ver',
+                            href: route('profile.index', { profile: data.slug }),
+                            icon: 'ph:eye',
+                        },
+                        {
+                            label: 'Editar',
+                            href: route('panel.profiles.edit', { profile: data.slug }),
+                            icon: 'ph:pencil',
+                        },
+                        {
+                            label: 'Gerenciar mídias',
+                            href: 'www.google.com',
+                            icon: 'ph:image',
+                        },
                         { label: 'Excluir', href: 'www.google.com', icon: 'ph:trash' },
                     ]"
                 />

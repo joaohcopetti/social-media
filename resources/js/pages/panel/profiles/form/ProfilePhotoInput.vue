@@ -6,6 +6,7 @@ import { ref } from 'vue'
 const emit = defineEmits(['change'])
 
 defineProps<{
+    photo?: string
     error?: string
 }>()
 
@@ -41,7 +42,7 @@ const onPhotoChange = async (event: Event) => {
                 accept="image/.jpeg,.png,.jpg"
                 @change="onPhotoChange"
             />
-            <template v-if="!photoBase64">
+            <template v-if="!photoBase64 && !photo">
                 <div>
                     <Icon
                         icon="ph:image-fill"
@@ -64,7 +65,7 @@ const onPhotoChange = async (event: Event) => {
                 </div>
                 <div class="size-64 overflow-hidden rounded-lg">
                     <img
-                        :src="photoBase64"
+                        :src="photoBase64 || photo"
                         class="h-full w-full"
                     />
                 </div>

@@ -21,10 +21,12 @@ class ProfileRequest extends FormRequest
      */
     public function rules(): array
     {
+        $isEdit = $this->getMethod() === 'PATCH';
+
         return [
             'name' => ['required', 'string', 'max:255', 'min:3'],
             'description' => ['nullable', 'string', 'max:1000'],
-            'photo' => ['required', 'file', 'mimes:jpeg,jpg,png', 'max:1024'],
+            'photo' => [!$isEdit ? 'required' : 'nullable', 'file', 'mimes:jpeg,jpg,png', 'max:1024']
         ];
     }
 }

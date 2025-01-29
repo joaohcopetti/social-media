@@ -21,6 +21,8 @@ Route::prefix('painel')->name('panel.')->middleware([
         Route::get('/', [PanelProfileController::class, 'index'])->name('index');
         Route::get('/novo', [PanelProfileController::class, 'create'])->name('create');
         Route::post('/novo', [PanelProfileController::class, 'store'])->name('store');
+        Route::get('/{profile}/editar', [PanelProfileController::class, 'edit'])->name('edit');
+        Route::patch('/{profile}', [PanelProfileController::class, 'update'])->name('update');
     });
 });
 

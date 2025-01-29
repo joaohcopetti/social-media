@@ -3,24 +3,59 @@ import AppButton from '@/components/AppButton.vue'
 import AppForm from '@/components/AppForm.vue'
 import AppInput from '@/components/AppInput.vue'
 import AppTextarea from '@/components/AppTextarea.vue'
+import { Profile } from '@/types/models'
 import { useForm } from '@inertiajs/vue3'
+import { computed, onMounted } from 'vue'
 import ProfilePhotoInput from './ProfilePhotoInput.vue'
 
 type ProfileForm = {
     name: string
     description?: string
     photo: File | null
+    _method: 'POST' | 'PATCH'
 }
+
+const props = defineProps<{
+    profile?: Profile
+}>()
+
+const isEdit = computed(() => !!props.profile)
 
 const form = useForm<ProfileForm>({
     name: '',
     description: '',
     photo: null,
+    _method: 'POST',
 })
 
 const submit = () => {
+    if (isEdit.value) {
+        form._method = 'PATCH'
+        form.post(route('panel.profiles.update', { profile: props.profile?.slug }))
+        return
+    }
+
     form.post(route('panel.profiles.store'))
 }
+
+const populateForm = () => {
+    const profile = props.profile
+
+    if (!profile) {
+        return
+    }
+
+    Object.assign(form, {
+        name: profile.name,
+        description: profile.description,
+    })
+}
+
+onMounted(() => {
+    if (isEdit.value) {
+        populateForm()
+    }
+})
 </script>
 
 <template>
@@ -31,6 +66,7 @@ const submit = () => {
         <div class="flex gap-5">
             <div>
                 <ProfilePhotoInput
+                    :photo="profile?.photo_url"
                     :error="form.errors.photo"
                     @change="((form.photo = $event), form.clearErrors('photo'))"
                 />
@@ -60,7 +96,7 @@ const submit = () => {
                 <div class="text-right">
                     <AppButton
                         :disabled="form.processing"
-                        label="Continuar"
+                        :label="!isEdit ? 'Continuar' : 'Salvar'"
                         color="success"
                         type="submit"
                     />
