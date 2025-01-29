@@ -6,10 +6,10 @@ use Illuminate\Support\Str;
 
 class MediaService
 {
-    public function generateThumbnail($filepath)
+    public function generateThumbnail(string $filepath, int $relativeDimension = 400)
     {
         $image = new \Imagick($filepath);
-        $image->thumbnailImage(400, 400, true);
+        $image->thumbnailImage($relativeDimension, $relativeDimension, true);
 
         $pathInfo = pathinfo($filepath);
         $thumbnailFilename = $pathInfo['filename'] . '_thumb.' . $pathInfo['extension'];

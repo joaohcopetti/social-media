@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
 use App\Models\Profile;
+use App\Services\MediaService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -26,10 +27,13 @@ class PanelProfileController extends Controller
         $filepath = $request->file('photo')->store('profiles', 'public');
         $filename = pathinfo($filepath, PATHINFO_BASENAME);
 
+        $a = app(MediaService::class)->generateThumbnail(storage_path('app/public/' . $filepath));
+        dd($a);
         Profile::create([
             'name' => $request->name,
             'description' => $request->description,
-            'photo' => $filename
+            'photo' => $filename,
+            'photo_thumbnail' => ''
         ]);
 
         return redirect()->route('panel.profiles.index');
