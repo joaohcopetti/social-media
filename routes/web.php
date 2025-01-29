@@ -20,6 +20,7 @@ Route::prefix('painel')->name('panel.')->middleware([
     Route::name('profiles.')->prefix('perfis')->group(function () {
         Route::get('/', [PanelProfileController::class, 'index'])->name('index');
         Route::get('/novo', [PanelProfileController::class, 'create'])->name('create');
+        Route::post('/novo', [PanelProfileController::class, 'store'])->name('store');
     });
 });
 

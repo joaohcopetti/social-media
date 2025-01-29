@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
+import AppForm from '@/components/AppForm.vue'
 import AppInput from '@/components/AppInput.vue'
 import AppTextarea from '@/components/AppTextarea.vue'
-import { Icon } from '@iconify/vue/dist/iconify.js'
 import { useForm } from '@inertiajs/vue3'
+import ProfilePhotoInput from './ProfilePhotoInput.vue'
 
 type ProfileForm = {
     name: string
@@ -17,45 +18,30 @@ const form = useForm<ProfileForm>({
     photo: null,
 })
 
-const onPhotoChange = (event: Event) => {
-    const target = event.target as HTMLInputElement
-
-    if (target.files?.length) {
-        form.photo = target.files[0]
-    }
-}
-
 const submit = () => {
-    console.log('submit')
+    form.post(route('panel.profiles.store'))
 }
 </script>
 
 <template>
-    <form @submit.prevent="submit">
+    <AppForm
+        :form="form"
+        @submit.prevent="submit"
+    >
         <div class="flex gap-5">
             <div>
-                <label
-                    class="flex size-64 cursor-pointer flex-col items-center justify-center gap-3 rounded-lg bg-slate-600 text-lg font-bold text-gray-100 transition-colors hover:bg-slate-500 hover:text-white active:bg-slate-600"
-                >
-                    <input
-                        type="file"
-                        hidden
-                        @change="onPhotoChange"
-                    />
-                    <div>
-                        <Icon
-                            icon="ph:image-fill"
-                            style="font-size: 3rem"
-                        />
-                    </div>
-                    <div>Adicionar foto principal</div>
-                </label>
+                <ProfilePhotoInput
+                    :error="form.errors.photo"
+                    @change="((form.photo = $event), form.clearErrors('photo'))"
+                />
             </div>
             <div class="flex w-full flex-col">
                 <div>
                     <AppInput
+                        v-model="form.name"
                         label="Nome"
                         name="name"
+                        :error="form.errors.name"
                         :input-attrs="{
                             placeholder: 'Digite o nome...',
                         }"
@@ -63,6 +49,8 @@ const submit = () => {
                 </div>
                 <div>
                     <AppTextarea
+                        v-model="form.description"
+                        :error="form.errors.description"
                         name="description"
                         label="Descrição do perfil"
                         placeholder="Digite uma descrição para o perfil..."
@@ -71,6 +59,7 @@ const submit = () => {
                 </div>
                 <div class="text-right">
                     <AppButton
+                        :disabled="form.processing"
                         label="Continuar"
                         color="success"
                         type="submit"
@@ -78,5 +67,5 @@ const submit = () => {
                 </div>
             </div>
         </div>
-    </form>
+    </AppForm>
 </template>

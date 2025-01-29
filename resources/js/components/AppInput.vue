@@ -30,18 +30,19 @@ const onInput = (event: Event) => {
         >
         <input
             :id="name"
+            :name="name"
             v-bind="inputAttrs"
-            class="block w-full rounded-lg border bg-slate-50 p-2.5 text-sm text-slate-900 focus:border-blue-500 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:placeholder-slate-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+            class="block w-full rounded-lg border bg-slate-50 p-2.5 text-sm text-slate-900 focus:border-blue-500 focus:ring-blue-500 dark:border dark:bg-slate-700 dark:text-white dark:placeholder-slate-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
             :class="{
-                'text-red-600 dark:border-red-500': error,
-                'border-slate-300': !error,
+                'dark:border-red-500': error,
+                'border-slate-300 dark:border-slate-600': !error,
             }"
             @input="onInput"
         />
         <div v-auto-animate>
             <p
                 v-if="error"
-                class="mt-2 text-sm text-red-600 dark:text-red-500"
+                class="mt-2 text-sm text-red-600 dark:text-red-400"
             >
                 {{ error }}
             </p>
