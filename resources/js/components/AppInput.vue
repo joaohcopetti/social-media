@@ -3,18 +3,17 @@ import { InputHTMLAttributes } from 'vue'
 
 const value = defineModel<string>()
 
-withDefaults(
-    defineProps<{
-        label: string
-        name: string
-        inputAttrs?: InputHTMLAttributes
-        error?: string
-    }>(),
-    {
-        error: '',
-        inputAttrs: undefined,
-    },
-)
+type AppInputProps = {
+    label: string
+    name: string
+    inputAttrs?: InputHTMLAttributes
+    error?: string
+}
+
+withDefaults(defineProps<AppInputProps>(), {
+    error: '',
+    inputAttrs: undefined,
+})
 
 const onInput = (event: Event) => {
     const target = event.target as HTMLInputElement

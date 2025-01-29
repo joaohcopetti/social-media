@@ -10,24 +10,23 @@ const COLOR_CLASSES = {
     'light': 'bg-gray-300 text-gray-900 hover:bg-gray-200',
 }
 
-withDefaults(
-    defineProps<{
-        color?: keyof typeof COLOR_CLASSES
-        label?: string
-        icon?: InstanceType<typeof Icon>['$props']
-        disabled?: boolean
-        ghost?: boolean
-        inertiaLinkAttrs?: InstanceType<typeof Link>['$props']
-    }>(),
-    {
-        color: 'primary',
-        label: '',
-        icon: undefined,
-        disabled: false,
-        inertiaLinkAttrs: undefined,
-        ghost: false,
-    },
-)
+type AppButtonProps = {
+    color?: keyof typeof COLOR_CLASSES
+    label?: string
+    icon?: InstanceType<typeof Icon>['$props']
+    disabled?: boolean
+    ghost?: boolean
+    inertiaLinkAttrs?: InstanceType<typeof Link>['$props']
+}
+
+withDefaults(defineProps<AppButtonProps>(), {
+    color: 'primary',
+    label: '',
+    icon: undefined,
+    disabled: false,
+    inertiaLinkAttrs: undefined,
+    ghost: false,
+})
 </script>
 
 <template>
