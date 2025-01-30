@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inputFileToBase64 } from '@/utils/helpers'
+import { inputImageToBase64 } from '@/utils/helpers'
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import { ref } from 'vue'
 
@@ -16,7 +16,7 @@ const onPhotoChange = async (event: Event) => {
     const target = event.target as HTMLInputElement
 
     if (target.files?.length) {
-        photoBase64.value = (await inputFileToBase64(target.files[0])) as string
+        photoBase64.value = (await inputImageToBase64(target.files[0])) as string
         emit('change', target.files[0])
         return
     }

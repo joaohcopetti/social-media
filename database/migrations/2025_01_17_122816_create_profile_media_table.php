@@ -23,6 +23,8 @@ return new class extends Migration {
             $table->string('filename');
             $table->string('thumbnail_filename');
             $table->unsignedBigInteger('size');
+            $table->unsignedMediumInteger('order');
+
             $table->enum('type', [
                 MediaTypeEnum::IMAGE->value,
                 MediaTypeEnum::VIDEO->value

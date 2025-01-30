@@ -3,6 +3,7 @@
 use App\Enums\RoleEnum;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PanelProfileController;
+use App\Http\Controllers\PanelProfileMediaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfileMediaController;
 use Illuminate\Auth\Middleware\Authenticate;
@@ -23,6 +24,7 @@ Route::prefix('painel')->name('panel.')->middleware([
         Route::post('/novo', [PanelProfileController::class, 'store'])->name('store');
         Route::get('/{profile}/editar', [PanelProfileController::class, 'edit'])->name('edit');
         Route::patch('/{profile}', [PanelProfileController::class, 'update'])->name('update');
+        Route::get('/{profile}/gerenciar-midias', [PanelProfileMediaController::class, 'edit'])->name('manage-media');
     });
 });
 

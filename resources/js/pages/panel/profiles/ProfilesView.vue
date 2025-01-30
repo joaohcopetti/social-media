@@ -36,7 +36,7 @@ const getDropdownOptions = (data: Profile): DropdownItem[] => {
         },
         {
             label: 'Gerenciar mídias',
-            href: 'www.google.com',
+            href: route('panel.profiles.manage-media', { profile: data.slug }),
             icon: 'ph:image',
         },
         {
