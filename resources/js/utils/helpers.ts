@@ -62,3 +62,34 @@ export const inputVideoToBase64 = (file: File): Promise<string> => {
         }
     })
 }
+
+export const base64ToFile = (base64String: string | ArrayBuffer | null, filename: string) => {
+    if (!base64String) {
+        return null
+    }
+
+    const base64Data = (base64String as string).replace(/^data:.+;base64,/, '')
+    const byteCharacters = atob(base64Data)
+    const byteNumbers = new Array(byteCharacters.length)
+
+    for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i)
+    }
+
+    const byteArray = new Uint8Array(byteNumbers)
+    const blob = new Blob([byteArray], { type: 'png' })
+
+    const file = new File([blob], filename, { type: 'png' })
+
+    return file
+}
+
+export const buildFormData = (data: { [prop: string]: any }) => {
+    const formData = new FormData()
+
+    for (const key in data) {
+        formData.append(key, data[key])
+    }
+
+    return formData
+}

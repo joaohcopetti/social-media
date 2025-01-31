@@ -25,6 +25,7 @@ Route::prefix('painel')->name('panel.')->middleware([
         Route::get('/{profile}/editar', [PanelProfileController::class, 'edit'])->name('edit');
         Route::patch('/{profile}', [PanelProfileController::class, 'update'])->name('update');
         Route::get('/{profile}/gerenciar-midias', [PanelProfileMediaController::class, 'edit'])->name('manage-media');
+        Route::post('/{profile}/enviar-media', [PanelProfileMediaController::class, 'store'])->name('send-media');
     });
 });
 

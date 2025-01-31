@@ -22,6 +22,12 @@ defineProps<{
                 <ProfileMediaPreviewInfo>
                     <Icon :icon="media.type === 'video' ? 'ph:video-fill' : 'ph:image-fill'" />
                 </ProfileMediaPreviewInfo>
+                <ProfileMediaPreviewInfo
+                    v-if="media.progress !== undefined"
+                    class="text-xs text-white"
+                >
+                    {{ media.progress.toFixed(0) }}%
+                </ProfileMediaPreviewInfo>
             </div>
             <button
                 class="absolute right-0 top-0 flex size-8 items-center justify-center rounded-bl-lg bg-red-500 opacity-80 shadow transition-opacity hover:bg-red-600 hover:opacity-100"

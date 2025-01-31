@@ -14,4 +14,9 @@ class PanelProfileMediaController extends Controller
             'profile' => $profile
         ]);
     }
+
+    public function store(Profile $profile, Request $request)
+    {
+        dd($request->all());
+    }
 }

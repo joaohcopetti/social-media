@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import { Profile } from '@/types/models'
-import { inputImageToBase64, inputVideoToBase64 } from '@/utils/helpers'
+import {
+    base64ToFile,
+    buildFormData,
+    inputImageToBase64,
+    inputVideoToBase64,
+} from '@/utils/helpers'
 import { Icon } from '@iconify/vue/dist/iconify.js'
-import { uniqueId } from 'lodash-es'
+import axios from 'axios'
+import { pick, uniqueId } from 'lodash-es'
 import { computed, ref } from 'vue'
 import ProfileMediaPreview from './ProfileMediaPreview.vue'
 
-defineProps<{
+const props = defineProps<{
     profile: Profile
 }>()
 
@@ -20,6 +26,7 @@ export type Media = {
     thumbnailFile: File | null
     free: boolean
     main: boolean
+    progress?: number
     type: 'video' | 'image'
 }
 
@@ -42,20 +49,43 @@ const onMediaChange = (event: Event) => {
 const uploadMedia = async (file: File) => {
     const type = file.type.includes('image') ? 'image' : 'video'
 
-    const thumbnail = file.type.includes('image')
+    const thumbnailBase64 = file.type.includes('image')
         ? await inputImageToBase64(file)
         : await inputVideoToBase64(file)
 
-    media.value.push({
+    const thumbnailFile = file.type.includes('image')
+        ? file
+        : base64ToFile(thumbnailBase64, file.name)
+
+    const _media: Media = {
         uniqueId: uniqueId(),
         file,
         free: false,
         main: false,
         name: file.name,
         size: file.size,
-        base64: thumbnail,
-        thumbnailFile: null,
+        base64: thumbnailBase64,
+        thumbnailFile,
         type,
+    }
+
+    const formData = buildFormData(pick(_media, ['file', 'free', 'main', 'thumbnailFile']))
+
+    media.value.push(_media)
+
+    const uploadedMedia = media.value.find((m) => m.uniqueId === _media.uniqueId)
+    const url = route('panel.profiles.send-media', { profile: props.profile.slug })
+
+    axios.post(url, formData, {
+        onUploadProgress: (progressEvent) => {
+            if (!progressEvent.lengthComputable) {
+                return
+            }
+
+            const percent = (progressEvent.loaded / progressEvent.total!) * 100
+
+            uploadedMedia!.progress = percent
+        },
     })
 }
 </script>
@@ -67,7 +97,6 @@ const uploadMedia = async (file: File) => {
             for="media"
             class="flex min-h-52 w-full flex-col gap-3 rounded-lg border-2 border-slate-500 bg-slate-600 transition-colors hover:bg-slate-500"
             :class="{
-                '': hasMedia,
                 'items-center justify-center': !hasMedia,
             }"
         >
