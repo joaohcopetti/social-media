@@ -22,7 +22,7 @@ class ProfileMediaController extends Controller
             ? $profileMedia->thumbnail_filename
             : $profileMedia->filename;
 
-        $filepath = storage_path(ProfileMedia::$STORAGE_PATH . $mediaPath);
+        $filepath = storage_path('app/private/midias/' . $mediaPath);
 
         return response()->file($filepath);
     }

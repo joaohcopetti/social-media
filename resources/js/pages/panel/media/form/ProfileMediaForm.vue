@@ -15,7 +15,6 @@ import ProfileMediaPreview from './ProfileMediaPreview.vue'
 export type Media = {
     id?: number
     uniqueId: string
-    name: string
     size: number
     base64?: string | ArrayBuffer | null
     url?: string
@@ -54,12 +53,10 @@ const uploadMedia = async (file: File) => {
     }
 
     const { thumbnailBase64, thumbnailFile } = await generateThumbnails(file, type)
-    const { name, size } = file
 
     const _media: Media = {
         uniqueId: uniqueId(),
-        name,
-        size,
+        size: file.size,
         file,
         type,
         free: false,
@@ -125,8 +122,27 @@ const onMediaRemove = (mediaId: number) => {
     axios.delete(route('panel.profiles.delete-media', { profileMedia: mediaId }))
 }
 
+const populateForm = () => {
+    const profileMedia = props.profile.media
+
+    profileMedia.forEach((_media) => {
+        media.value.push({
+            id: _media.id,
+            uniqueId: uniqueId(),
+            free: _media.is_free,
+            main: _media.show_on_home,
+            size: _media.size,
+            url: _media.thumbnail_url,
+            type: _media.type,
+            file: null,
+            thumbnailFile: null,
+            index: _media.order,
+        })
+    })
+}
+
 onMounted(() => {
-    console.log(props.profile)
+    populateForm()
 })
 </script>
 
