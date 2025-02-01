@@ -29,7 +29,7 @@ defineProps<{
             </div>
             <button
                 class="absolute right-0 top-0 flex size-8 items-center justify-center rounded-bl-lg bg-red-500 opacity-80 shadow transition-opacity hover:bg-red-600 hover:opacity-100"
-                @click="$emit('remove', media.uniqueId)"
+                @click="$emit('remove', media.id)"
             >
                 <Icon
                     icon="ph:trash-fill"

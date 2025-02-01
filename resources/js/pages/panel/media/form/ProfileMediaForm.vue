@@ -8,15 +8,12 @@ import {
 } from '@/utils/helpers'
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import axios from 'axios'
-import { pick, uniqueId } from 'lodash-es'
+import { each, pick, uniqueId } from 'lodash-es'
 import { computed, ref } from 'vue'
 import ProfileMediaPreview from './ProfileMediaPreview.vue'
 
-const props = defineProps<{
-    profile: Profile
-}>()
-
 export type Media = {
+    id?: number
     uniqueId: string
     name: string
     size: number
@@ -28,8 +25,12 @@ export type Media = {
     main: boolean
     progress?: number
     index: number
-    type: 'video' | 'image'
+    type: string
 }
+
+const props = defineProps<{
+    profile: Profile
+}>()
 
 const media = ref<Media[]>([])
 
@@ -42,43 +43,66 @@ const onMediaChange = (event: Event) => {
         return
     }
 
-    Object.values(target.files).forEach((file: File) => {
-        uploadMedia(file)
-    })
+    each(target.files, uploadMedia)
 }
 
 const uploadMedia = async (file: File) => {
-    const type = file.type.includes('image') ? 'image' : 'video'
+    const type = getFileType(file)
 
-    const thumbnailBase64 = file.type.includes('image')
-        ? await inputImageToBase64(file)
-        : await inputVideoToBase64(file)
+    if (!['image', 'video'].includes(type)) {
+        throw new Error('File type not supported')
+    }
 
-    const thumbnailFile = file.type.includes('image')
-        ? file
-        : base64ToFile(thumbnailBase64, file.name)
+    const { thumbnailBase64, thumbnailFile } = await generateThumbnails(file, type)
+    const { name, size } = file
 
     const _media: Media = {
         uniqueId: uniqueId(),
+        name,
+        size,
         file,
+        type,
         free: false,
         main: false,
-        name: file.name,
-        size: file.size,
         base64: thumbnailBase64,
         thumbnailFile,
-        type,
-        index: media.value.length + 1,
+        index: 1,
     }
 
-    const formData = buildFormData(pick(_media, ['file', 'free', 'main', 'thumbnailFile', 'index']))
-
     media.value.push(_media)
+    storeMedia(_media)
+}
 
-    const uploadedMedia = media.value.find((m) => m.uniqueId === _media.uniqueId)
+const getFileType = (file: File) => {
+    return file.type.split('/')[0]
+}
+
+const generateThumbnails = async (file: File, type: string) => {
+    if (type === 'image') {
+        const thumbnailBase64 = await inputImageToBase64(file)
+
+        return { thumbnailBase64, thumbnailFile: null }
+    }
+
+    if (type === 'video') {
+        const thumbnailBase64 = await inputVideoToBase64(file)
+
+        return { thumbnailBase64, thumbnailFile: base64ToFile(thumbnailBase64, file.name) }
+    }
+
+    throw new Error('File type not supported for thumbnail generation')
+}
+
+const storeMedia = async (_media: Media) => {
+    const formData = buildFormData(pick(_media, ['file', 'free', 'main', 'thumbnailFile', 'index']))
+    const uploadedMedia = media.value.find(({ uniqueId }) => uniqueId === _media.uniqueId)
     const url = route('panel.profiles.send-media', { profile: props.profile.slug })
 
-    axios.post(url, formData, {
+    if (!uploadedMedia) {
+        throw new Error("Couldn't find media")
+    }
+
+    const { data } = await axios.post(url, formData, {
         onUploadProgress: (progressEvent) => {
             if (!progressEvent.lengthComputable) {
                 return
@@ -86,14 +110,19 @@ const uploadMedia = async (file: File) => {
 
             const percent = (progressEvent.loaded / progressEvent.total!) * 100
 
-            uploadedMedia!.progress = percent
+            uploadedMedia.progress = percent
         },
     })
+
+    uploadedMedia.id = data.media.id
 }
 
-const onMediaRemove = (id: string) => {
-    const mediaIndex = media.value.findIndex((_media) => _media.uniqueId === id)
+const onMediaRemove = (mediaId: number) => {
+    const mediaIndex = media.value.findIndex(({ id }) => id === mediaId)
+
     media.value.splice(mediaIndex, 1)
+
+    axios.delete(route('panel.profiles.delete-media', { profileMedia: mediaId }))
 }
 </script>
 

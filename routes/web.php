@@ -18,7 +18,7 @@ Route::prefix('painel')->name('panel.')->middleware([
         RoleEnum::ADMIN->value
     ])
 ])->group(function () {
-    Route::name('profiles.')->prefix('perfis')->group(function () {
+    Route::prefix('perfis')->name('profiles.')->group(function () {
         Route::get('/', [PanelProfileController::class, 'index'])->name('index');
         Route::get('/novo', [PanelProfileController::class, 'create'])->name('create');
         Route::post('/novo', [PanelProfileController::class, 'store'])->name('store');
@@ -26,6 +26,7 @@ Route::prefix('painel')->name('panel.')->middleware([
         Route::patch('/{profile}', [PanelProfileController::class, 'update'])->name('update');
         Route::get('/{profile}/gerenciar-midias', [PanelProfileMediaController::class, 'edit'])->name('manage-media');
         Route::post('/{profile}/enviar-media', [PanelProfileMediaController::class, 'store'])->name('send-media');
+        Route::delete('/{profileMedia}/deletar', [PanelProfileMediaController::class, 'destroy'])->name('delete-media');
     });
 });
 
