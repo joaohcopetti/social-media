@@ -32,11 +32,12 @@ class ProfileSeeder extends Seeder
 
     private function seedProfileMedia($profiles)
     {
-        foreach ($profiles as $profile) {
+        foreach ($profiles as $index => $profile) {
             $quantity = fake()->numberBetween(5, 15);
 
             ProfileMedia::factory()->count($quantity)->create([
-                'profile_id' => $profile->id
+                'profile_id' => $profile->id,
+                'order' => $index
             ]);
         }
     }

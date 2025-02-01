@@ -27,6 +27,7 @@ export type Media = {
     free: boolean
     main: boolean
     progress?: number
+    index: number
     type: 'video' | 'image'
 }
 
@@ -67,9 +68,10 @@ const uploadMedia = async (file: File) => {
         base64: thumbnailBase64,
         thumbnailFile,
         type,
+        index: media.value.length + 1,
     }
 
-    const formData = buildFormData(pick(_media, ['file', 'free', 'main', 'thumbnailFile']))
+    const formData = buildFormData(pick(_media, ['file', 'free', 'main', 'thumbnailFile', 'index']))
 
     media.value.push(_media)
 
@@ -87,6 +89,11 @@ const uploadMedia = async (file: File) => {
             uploadedMedia!.progress = percent
         },
     })
+}
+
+const onMediaRemove = (id: string) => {
+    const mediaIndex = media.value.findIndex((_media) => _media.uniqueId === id)
+    media.value.splice(mediaIndex, 1)
 }
 </script>
 
@@ -131,6 +138,7 @@ const uploadMedia = async (file: File) => {
                         :media="_media"
                         :order="index + 1"
                         @click.prevent
+                        @remove="onMediaRemove"
                         @toggle-free="_media.free = $event"
                         @toggle-main="_media.main = $event"
                     />

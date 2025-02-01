@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import AppRadialProgress from '@/components/AppRadialProgress.vue'
 import AppSwitch from '@/components/AppSwitch.vue'
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import type { Media } from './ProfileMediaForm.vue'
 import ProfileMediaPreviewInfo from './ProfileMediaPreviewInfo.vue'
 
-defineEmits(['toggle-free', 'toggle-main'])
+defineEmits(['toggle-free', 'toggle-main', 'remove'])
 
 defineProps<{
     media: Media
@@ -22,15 +23,13 @@ defineProps<{
                 <ProfileMediaPreviewInfo>
                     <Icon :icon="media.type === 'video' ? 'ph:video-fill' : 'ph:image-fill'" />
                 </ProfileMediaPreviewInfo>
-                <ProfileMediaPreviewInfo
-                    v-if="media.progress !== undefined"
-                    class="text-xs text-white"
-                >
-                    {{ media.progress.toFixed(0) }}%
+                <ProfileMediaPreviewInfo v-if="media.progress !== undefined">
+                    <AppRadialProgress :progress="media.progress" />
                 </ProfileMediaPreviewInfo>
             </div>
             <button
                 class="absolute right-0 top-0 flex size-8 items-center justify-center rounded-bl-lg bg-red-500 opacity-80 shadow transition-opacity hover:bg-red-600 hover:opacity-100"
+                @click="$emit('remove', media.uniqueId)"
             >
                 <Icon
                     icon="ph:trash-fill"

@@ -10,7 +10,15 @@ class ProfileMedia extends Model
 {
     use HasFactory;
 
-    public static $STORAGE_PATH = 'app/private/profiles/';
+    protected $fillable = [
+        'description',
+        'is_free',
+        'show_on_home',
+        'filename',
+        'thumbnail_filename',
+        'size',
+        'order'
+    ];
 
     protected $appends = [
         'url',

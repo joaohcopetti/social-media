@@ -10,6 +10,7 @@ export interface Profile {
   updated_at: string | null
   // mutators
   photo_url: string
+  photo_thumb_url: string
   // relations
   media: ProfileMedia[]
   social_networks: SocialNetwork[]
@@ -25,6 +26,7 @@ export interface ProfileMedia {
   filename: string
   thumbnail_filename: string
   size: number
+  order: number
   type: string
   created_at: string | null
   updated_at: string | null
