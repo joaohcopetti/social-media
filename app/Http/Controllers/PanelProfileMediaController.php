@@ -14,7 +14,7 @@ class PanelProfileMediaController extends Controller
     public function edit(Profile $profile)
     {
         return Inertia::render('panel/media/ProfileMediaManagementView', [
-            'profile' => $profile
+            'profile' => $profile->load(['media'])
         ]);
     }
 
@@ -26,7 +26,7 @@ class PanelProfileMediaController extends Controller
             'is_free' => $request->boolean('is_free'),
             'show_on_home' => $request->boolean('is_main'),
             'filename' => pathinfo($storedMedia['filepath'], PATHINFO_BASENAME),
-            'thumbnail_filename' => pathinfo($$storedMedia['thumbnailFilepath'], PATHINFO_BASENAME),
+            'thumbnail_filename' => pathinfo($storedMedia['thumbnailFilepath'], PATHINFO_BASENAME),
             'size' => $request->file('file')->getSize(),
             'order' => $request->input('index'),
             'type' => $storedMedia['type']

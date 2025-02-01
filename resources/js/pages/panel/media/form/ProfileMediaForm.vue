@@ -9,7 +9,7 @@ import {
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import axios from 'axios'
 import { each, pick, uniqueId } from 'lodash-es'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import ProfileMediaPreview from './ProfileMediaPreview.vue'
 
 export type Media = {
@@ -124,6 +124,10 @@ const onMediaRemove = (mediaId: number) => {
 
     axios.delete(route('panel.profiles.delete-media', { profileMedia: mediaId }))
 }
+
+onMounted(() => {
+    console.log(props.profile)
+})
 </script>
 
 <template>
