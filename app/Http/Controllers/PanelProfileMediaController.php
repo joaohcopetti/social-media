@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
+use App\Services\MediaService;
 use Arr;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -21,14 +22,25 @@ class PanelProfileMediaController extends Controller
         $mime = Arr::first(explode('/', $request->file('file')->getMimeType()));
 
         if ($mime === 'image') {
-            $filename = $request->file('file')->store('private/midias');
+            $filename = $request->file('file')->store('midias');
+            $thumbnailFilename = app(MediaService::class)->generateThumbnail(
+                storage_path('app/private/' . $filename)
+            );
+        } else if ($mime === 'video') {
+            $filename = $request->file('file')->store('midias');
+            $thumbnailFilename = $request
+                ->file('thumbnailFile')
+                ->storeAs('midias', pathinfo($filename, PATHINFO_FILENAME) . '_thumb' . '.' . 'png');
         }
 
         $profile->media()->create([
-
+            'is_free' => $request->boolean('is_free'),
+            'show_on_home' => $request->boolean('is_main'),
+            'filename' => pathinfo($filename, PATHINFO_BASENAME),
+            'thumbnail_filename' => pathinfo($thumbnailFilename, PATHINFO_BASENAME),
+            'size' => $request->file('file')->getSize(),
+            'order' => $request->input('index'),
+            'type' => $mime
         ]);
-        dd($mime);
-        dd($request->all());
-        dd($profile);
     }
 }

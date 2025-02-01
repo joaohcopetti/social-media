@@ -17,7 +17,8 @@ class ProfileMedia extends Model
         'filename',
         'thumbnail_filename',
         'size',
-        'order'
+        'order',
+        'type'
     ];
 
     protected $appends = [
