@@ -145,7 +145,7 @@ const onMediaRemove = async (mediaId: number) => {
     await axios.delete(route('panel.profiles.delete-media', { profileMedia: mediaId }))
 }
 
-const toggleMediaState = (state: 'free' | 'showOnHome', _media: Media) => {
+const toggleMediaState = (state: string, _media: Media) => {
     axios.post(
         route('panel.profiles.toggle-state', {
             profileMedia: _media.id,
@@ -158,7 +158,7 @@ const toggleMediaState = (state: 'free' | 'showOnHome', _media: Media) => {
         _media.showOnHome = false
     }
 
-    if (state === 'showOnHome') {
+    if (state === 'show-on-home') {
         _media.showOnHome = !_media.showOnHome
     }
 }
@@ -203,8 +203,7 @@ const toggleMediaState = (state: 'free' | 'showOnHome', _media: Media) => {
                         :order="index + 1"
                         @click.prevent
                         @remove="onMediaRemove"
-                        @toggle-free="toggleMediaState('free', _media)"
-                        @toggle-main="toggleMediaState('showOnHome', _media)"
+                        @toggle="toggleMediaState($event, _media)"
                     />
                 </div>
             </div>

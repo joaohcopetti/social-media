@@ -82,7 +82,7 @@ class PanelProfileMediaController extends Controller
     public function toggleState(ProfileMedia $profileMedia, Request $request)
     {
         $request->validate([
-            'state' => [Rule::in(['free', 'show_on_home'])]
+            'state' => [Rule::in(['free', 'show-on-home'])]
         ]);
 
         if ($request->input('state') === 'free') {
@@ -92,7 +92,7 @@ class PanelProfileMediaController extends Controller
             ]);
         }
 
-        if ($request->input('state') === 'show_on_home') {
+        if ($request->input('state') === 'show-on-home') {
             $profileMedia->update([
                 'show_on_home' => !$profileMedia->show_on_home
             ]);
