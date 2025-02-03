@@ -12,3 +12,10 @@ export type DropdownItem = {
     openInNewTab?: boolean
     onClick?: () => void
 }
+
+export type ProfileTab = {
+    label: string
+    slot: string
+    icon?: string
+    href: string
+}

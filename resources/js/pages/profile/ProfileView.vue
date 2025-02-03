@@ -4,7 +4,6 @@ import { provide } from 'vue'
 import ProfileBackground from './ProfileBackground.vue'
 import ProfileBody from './ProfileBody.vue'
 import ProfileHeader from './ProfileHeader.vue'
-import ProfileContainer from './_partials/ProfileContainer.vue'
 import { profileInjectionKey } from './injection'
 
 const props = defineProps<{
@@ -18,10 +17,12 @@ provide(profileInjectionKey, props.profile)
 <template>
     <div>
         <ProfileBackground />
-        <ProfileContainer class="relative z-10 my-10 overflow-hidden rounded-3xl bg-slate-900">
+        <div
+            class="relative z-10 mx-auto my-10 w-1/3 overflow-hidden rounded-b-lg rounded-t-3xl bg-slate-900 shadow-2xl"
+        >
             <ProfileHeader />
             <ProfileBody :media="props.media" />
-        </ProfileContainer>
+        </div>
     </div>
 </template>
 

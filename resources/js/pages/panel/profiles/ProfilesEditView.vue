@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
-import AppContainer from '@/components/AppContainer.vue'
+import AppPanelContainer from '@/components/AppPanelContainer.vue'
 import { Profile } from '@/types/models'
 import ProfileForm from './form/ProfileForm.vue'
 
@@ -12,18 +12,16 @@ defineProps<{
 </script>
 
 <template>
-    <div>
-        <div class="mb-5">
+    <AppPanelContainer>
+        <template #header>
             <AppButton
                 label="Voltar"
                 :inertia-link-attrs="{ href: PROFILES_INDEX_ROUTE }"
             />
-        </div>
-        <AppContainer>
-            <template #title> Altere dados do perfil </template>
-            <template #body>
-                <ProfileForm :profile="profile" />
-            </template>
-        </AppContainer>
-    </div>
+        </template>
+        <template #title> Altere dados do perfil </template>
+        <template #body>
+            <ProfileForm :profile="profile" />
+        </template>
+    </AppPanelContainer>
 </template>

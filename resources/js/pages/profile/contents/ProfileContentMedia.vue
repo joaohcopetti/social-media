@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ProfileMedia } from '@/types/models'
-import ProfilePreviewMedia from '../_partials/ProfilePreviewMedia.vue'
+import ProfileMediaPreview from '../_partials/ProfileMediaPreview.vue'
 
 defineProps<{
     media: ProfileMedia[]
@@ -9,7 +9,7 @@ defineProps<{
 
 <template>
     <div class="grid grid-cols-3 gap-2">
-        <ProfilePreviewMedia
+        <ProfileMediaPreview
             v-for="_media in media"
             :key="_media.id"
             :media="_media"

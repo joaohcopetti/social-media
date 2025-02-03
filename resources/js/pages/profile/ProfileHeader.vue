@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Profile } from '@/types/models'
 import { inject } from 'vue'
-import ProfileHeaderSocialIcons from './_partials/ProfileHeaderSocialIcons.vue'
+import ProfileHeaderSocialContainer from './_partials/ProfileHeaderSocialContainer.vue'
 import { profileInjectionKey } from './injection'
 
 const profile = inject(profileInjectionKey) as Profile
@@ -23,7 +23,7 @@ const profile = inject(profileInjectionKey) as Profile
                 </h1>
             </div>
 
-            <ProfileHeaderSocialIcons />
+            <ProfileHeaderSocialContainer v-if="profile.social_networks.length" />
         </div>
     </div>
 </template>

@@ -13,7 +13,7 @@ defineProps<{
     >
         <img
             v-if="media.type === 'image'"
-            class="w-full"
+            class="max-h-[400px] min-h-[400px] w-full object-cover"
             :src="media.url"
         />
         <video

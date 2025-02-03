@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
 import AppDropdown from '@/components/AppDropdown.vue'
+import AppPanelContainer from '@/components/AppPanelContainer.vue'
 import AppPaginator from '@/components/paginator/AppPaginator.vue'
 import AppTable from '@/components/table/AppTable.vue'
 import { DropdownItem, TableHeader } from '@/types/components'
@@ -51,47 +52,50 @@ const getDropdownOptions = (data: Profile): DropdownItem[] => {
 </script>
 
 <template>
-    <div>
-        <div class="mb-5">
+    <AppPanelContainer no-horizontal-padding>
+        <template #header>
             <AppButton
                 color="success"
                 label="Novo perfil"
                 :inertia-link-attrs="{ href: route('panel.profiles.create') }"
             />
-        </div>
+        </template>
 
-        <AppTable
-            :header="TABLE_HEADERS"
-            :data="props.profiles.data"
-        >
-            <template #title> Perfis </template>
+        <template #title>
+            <div class="px-5">Perfis</div>
+        </template>
 
-            <template #caption> Gerenciamento de perfis </template>
+        <template #subtitle> <div class="px-5">Gerenciamento de perfis</div> </template>
 
-            <template #[`tbody.photo`]="{ data }">
-                <div class="m-2 flex justify-center">
-                    <img
-                        class="w-12 rounded-full object-cover"
-                        :src="data.photo_thumb_url"
-                    />
-                </div>
-            </template>
-
-            <template #[`tbody.options`]="{ data }">
-                <AppDropdown
-                    :icon="{ icon: 'ph:dots-three-outline-fill' }"
-                    :items="getDropdownOptions(data)"
-                />
-            </template>
-
-            <template #footer>
-                <div class="flex items-center justify-between">
-                    <AppPaginator :pagination="pagination" />
-                    <div class="text-sm">
-                        Exibindo <b>{{ profiles.data.length }}</b> de <b>{{ pagination.total }}</b>
+        <template #body>
+            <AppTable
+                :header="TABLE_HEADERS"
+                :data="props.profiles.data"
+            >
+                <template #[`tbody.photo`]="{ data }">
+                    <div class="m-2 flex justify-center">
+                        <img
+                            class="w-12 rounded-full object-cover"
+                            :src="data.photo_thumb_url"
+                        />
                     </div>
-                </div>
-            </template>
-        </AppTable>
-    </div>
+                </template>
+                <template #[`tbody.options`]="{ data }">
+                    <AppDropdown
+                        :icon="{ icon: 'ph:dots-three-outline-fill' }"
+                        :items="getDropdownOptions(data)"
+                    />
+                </template>
+                <template #footer>
+                    <div class="flex items-center justify-between">
+                        <AppPaginator :pagination="pagination" />
+                        <div class="text-sm">
+                            Exibindo <b>{{ profiles.data.length }}</b> de
+                            <b>{{ pagination.total }}</b>
+                        </div>
+                    </div>
+                </template>
+            </AppTable>
+        </template>
+    </AppPanelContainer>
 </template>

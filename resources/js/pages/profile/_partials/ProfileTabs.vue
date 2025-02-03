@@ -1,16 +1,10 @@
 <script setup lang="ts">
+import { ProfileTab } from '@/types/components'
 import { Profile } from '@/types/models'
 import { TabGroup, TabList } from '@headlessui/vue'
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import { computed } from 'vue'
 import ProfileTabsTab from './ProfileTabsTab.vue'
-
-type ProfileTab = {
-    label: string
-    slot: string
-    icon?: string
-    href: string
-}
 
 const props = defineProps<{
     profile: Profile

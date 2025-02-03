@@ -22,7 +22,7 @@ defineProps<{
             >
                 <Icon
                     class="size-12 rounded-full bg-black/30 p-2"
-                    icon="ph:video-fill"
+                    icon="ph:play-fill"
                 />
             </div>
             <div class="absolute bottom-0 left-0 flex overflow-hidden rounded-tr-lg">
