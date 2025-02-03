@@ -9,8 +9,18 @@ defineProps<{
 <template>
     <div class="overflow-hidden rounded-xl">
         <img
+            v-if="media.type === 'image'"
             class="w-full"
             :src="media.url"
+        />
+        <video
+            v-else
+            :src="media.url"
+            controls
+            controlslist="nodownload"
+            disablepictureinpicture
+            preload="metadata"
+            :poster="media.thumbnail_url"
         />
     </div>
 </template>
