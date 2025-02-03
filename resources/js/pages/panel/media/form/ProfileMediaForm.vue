@@ -3,8 +3,9 @@ import { Profile } from '@/types/models'
 import {
     base64ToFile,
     buildFormData,
-    inputImageToBase64,
-    inputVideoToBase64,
+    fileToBase64,
+    generateVideoThumbnail,
+    getFileType,
 } from '@/utils/helpers'
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import axios from 'axios'
@@ -70,19 +71,15 @@ const uploadMedia = async (file: File) => {
     storeMedia(_media)
 }
 
-const getFileType = (file: File) => {
-    return file.type.split('/')[0]
-}
-
 const generateThumbnails = async (file: File, type: string) => {
     if (type === 'image') {
-        const thumbnailBase64 = await inputImageToBase64(file)
+        const thumbnailBase64 = await fileToBase64(file)
 
         return { thumbnailBase64, thumbnailFile: null }
     }
 
     if (type === 'video') {
-        const thumbnailBase64 = await inputVideoToBase64(file)
+        const thumbnailBase64 = await generateVideoThumbnail(file)
 
         return { thumbnailBase64, thumbnailFile: base64ToFile(thumbnailBase64, file.name) }
     }

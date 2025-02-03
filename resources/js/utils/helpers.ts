@@ -28,7 +28,7 @@ export const formatPaginationFromData = (dataWithPagination: any): Pagination =>
     }
 }
 
-export const inputImageToBase64 = (file: File): Promise<string | ArrayBuffer | null> =>
+export const fileToBase64 = (file: File): Promise<string | ArrayBuffer | null> =>
     new Promise((resolve, reject) => {
         const reader = new FileReader()
         reader.readAsDataURL(file)
@@ -37,7 +37,7 @@ export const inputImageToBase64 = (file: File): Promise<string | ArrayBuffer | n
         reader.onerror = (error) => reject(error)
     })
 
-export const inputVideoToBase64 = (file: File): Promise<string> => {
+export const generateVideoThumbnail = (file: File): Promise<string> => {
     return new Promise((resolve) => {
         const canvas = document.createElement('canvas')
         const video = document.createElement('video')
@@ -98,3 +98,5 @@ export const buildFormData = (data: { [prop: string]: any }) => {
 
     return formData
 }
+
+export const getFileType = (file: File) => file.type.split('/')[0]
