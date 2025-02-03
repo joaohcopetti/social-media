@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AppAbsoluteCenter from '@/components/AppAbsoluteCenter.vue'
 import AppSwitch from '@/components/AppSwitch.vue'
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import type { Media } from './ProfileMediaForm.vue'
@@ -14,18 +15,16 @@ defineProps<{
 <template>
     <div class="relative w-full overflow-hidden rounded-lg shadow hover:outline hover:outline-2">
         <div class="relative">
-            <div
-                v-if="media.type == 'video'"
-                class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-            >
+            <AppAbsoluteCenter v-if="media.type == 'video'">
                 <Icon
                     class="size-12 rounded-full bg-black/30 p-2"
                     icon="ph:play-fill"
                 />
-            </div>
+            </AppAbsoluteCenter>
 
             <button
-                class="absolute right-0 top-0 flex size-8 items-center justify-center rounded-bl-lg bg-red-500 opacity-80 shadow transition-opacity hover:bg-red-600 hover:opacity-100"
+                v-if="media.progress === undefined || media.progress >= 100"
+                class="absolute right-0 top-0 flex size-8 items-center justify-center rounded-bl-lg bg-red-500 shadow transition-opacity hover:bg-red-600 hover:opacity-100"
                 @click="$emit('remove', media.id)"
             >
                 <Icon

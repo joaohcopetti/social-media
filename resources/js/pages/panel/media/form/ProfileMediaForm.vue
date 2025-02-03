@@ -11,7 +11,7 @@ import { Icon } from '@iconify/vue/dist/iconify.js'
 import axios from 'axios'
 import { each, pick, uniqueId } from 'lodash-es'
 import { computed, onMounted, ref } from 'vue'
-import ProfileMediaPreview from './ProfileMediaPreview.vue'
+import ProfileMediaFormPreview from './ProfileMediaFormPreview.vue'
 
 export type Media = {
     id?: number
@@ -36,6 +36,29 @@ const media = ref<Media[]>([])
 
 const hasMedia = computed(() => !!media.value.length)
 
+onMounted(() => {
+    populateForm()
+})
+
+const populateForm = () => {
+    const profileMedia = props.profile.media
+
+    profileMedia.forEach((_media) => {
+        media.value.push({
+            id: _media.id,
+            uniqueId: uniqueId(),
+            isFree: _media.is_free,
+            showOnHome: _media.show_on_home,
+            size: _media.size,
+            url: _media.thumbnail_url,
+            type: _media.type,
+            file: null,
+            thumbnailFile: null,
+            index: _media.order,
+        })
+    })
+}
+
 const onMediaChange = (event: Event) => {
     const target = event.target as HTMLInputElement
 
@@ -43,10 +66,16 @@ const onMediaChange = (event: Event) => {
         return
     }
 
-    each(target.files, uploadMedia)
+    each(target.files, async (file) => {
+        const _media = await formatMedia(file)
+
+        media.value.push(_media)
+
+        uploadMedia(_media)
+    })
 }
 
-const uploadMedia = async (file: File) => {
+const formatMedia = async (file: File): Promise<Media> => {
     const type = getFileType(file)
 
     if (!['image', 'video'].includes(type)) {
@@ -55,7 +84,7 @@ const uploadMedia = async (file: File) => {
 
     const { thumbnailBase64, thumbnailFile } = await generateThumbnails(file, type)
 
-    const _media: Media = {
+    return {
         uniqueId: uniqueId(),
         size: file.size,
         file,
@@ -66,9 +95,6 @@ const uploadMedia = async (file: File) => {
         thumbnailFile,
         index: 1,
     }
-
-    media.value.push(_media)
-    storeMedia(_media)
 }
 
 const generateThumbnails = async (file: File, type: string) => {
@@ -87,7 +113,7 @@ const generateThumbnails = async (file: File, type: string) => {
     throw new Error('File type not supported for thumbnail generation')
 }
 
-const storeMedia = async (_media: Media) => {
+const uploadMedia = async (_media: Media) => {
     const formData = buildFormData(pick(_media, ['file', 'free', 'main', 'thumbnailFile', 'index']))
     const uploadedMedia = media.value.find(({ uniqueId }) => uniqueId === _media.uniqueId)
     const url = route('panel.profiles.send-media', { profile: props.profile.slug })
@@ -111,31 +137,12 @@ const storeMedia = async (_media: Media) => {
     uploadedMedia.id = data.media.id
 }
 
-const onMediaRemove = (mediaId: number) => {
+const onMediaRemove = async (mediaId: number) => {
     const mediaIndex = media.value.findIndex(({ id }) => id === mediaId)
 
     media.value.splice(mediaIndex, 1)
 
-    axios.delete(route('panel.profiles.delete-media', { profileMedia: mediaId }))
-}
-
-const populateForm = () => {
-    const profileMedia = props.profile.media
-
-    profileMedia.forEach((_media) => {
-        media.value.push({
-            id: _media.id,
-            uniqueId: uniqueId(),
-            isFree: _media.is_free,
-            showOnHome: _media.show_on_home,
-            size: _media.size,
-            url: _media.thumbnail_url,
-            type: _media.type,
-            file: null,
-            thumbnailFile: null,
-            index: _media.order,
-        })
-    })
+    await axios.delete(route('panel.profiles.delete-media', { profileMedia: mediaId }))
 }
 
 const toggleMediaState = (state: 'free' | 'showOnHome', _media: Media) => {
@@ -155,10 +162,6 @@ const toggleMediaState = (state: 'free' | 'showOnHome', _media: Media) => {
         _media.showOnHome = !_media.showOnHome
     }
 }
-
-onMounted(() => {
-    populateForm()
-})
 </script>
 
 <template>
@@ -187,16 +190,13 @@ onMounted(() => {
                         icon="ph:image-fill"
                     />
                 </div>
-                <div class="w-full text-center text-xl font-bold text-gray-100">
-                    Envie ou arraste e solte aqui
-                </div>
             </template>
             <div v-else>
                 <div
                     v-auto-animate
                     class="grid grid-cols-6 gap-3 p-3"
                 >
-                    <ProfileMediaPreview
+                    <ProfileMediaFormPreview
                         v-for="(_media, index) in media"
                         :key="_media.uniqueId"
                         :media="_media"
@@ -207,9 +207,9 @@ onMounted(() => {
                         @toggle-main="toggleMediaState('showOnHome', _media)"
                     />
                 </div>
-                <div class="py-5 text-center text-xl font-bold text-gray-100">
-                    Envie ou arraste e solte aqui
-                </div>
+            </div>
+            <div class="py-5 text-center text-xl font-bold text-gray-100">
+                Envie ou arraste e solte aqui
             </div>
         </label>
     </div>

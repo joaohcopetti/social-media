@@ -100,7 +100,7 @@ class PanelProfileMediaController extends Controller
 
         return response()->json([
             'message' => 'Estado alterado!',
-            'profile-media' => $profileMedia
+            'profileMedia' => $profileMedia
         ]);
     }
 }
