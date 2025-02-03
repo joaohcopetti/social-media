@@ -16,13 +16,16 @@ defineProps<{
 <template>
     <div class="relative w-full overflow-hidden rounded-lg shadow hover:outline hover:outline-2">
         <div class="relative">
+            <div
+                v-if="media.type == 'video'"
+                class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            >
+                <Icon
+                    class="size-12 rounded-full bg-black/30 p-2"
+                    icon="ph:video-fill"
+                />
+            </div>
             <div class="absolute bottom-0 left-0 flex overflow-hidden rounded-tr-lg">
-                <ProfileMediaPreviewInfo>
-                    {{ order }}
-                </ProfileMediaPreviewInfo>
-                <ProfileMediaPreviewInfo>
-                    <Icon :icon="media.type === 'video' ? 'ph:video-fill' : 'ph:image-fill'" />
-                </ProfileMediaPreviewInfo>
                 <ProfileMediaPreviewInfo v-if="media.progress !== undefined">
                     <AppRadialProgress :progress="media.progress" />
                 </ProfileMediaPreviewInfo>
@@ -50,7 +53,10 @@ defineProps<{
                 @update:model-value="$emit('toggle-free', $event)"
             />
         </div>
-        <div class="bg-slate-700 text-sm">
+        <div
+            v-if="media.isFree"
+            class="bg-slate-700 text-sm"
+        >
             <AppSwitch
                 :model-value="!!media.showOnHome"
                 class="p-2"
@@ -59,5 +65,9 @@ defineProps<{
                 @update:model-value="$emit('toggle-main', $event)"
             />
         </div>
+        <div
+            v-else
+            class="h-full w-full bg-slate-700"
+        />
     </div>
 </template>

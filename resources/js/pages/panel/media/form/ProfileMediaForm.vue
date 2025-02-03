@@ -141,7 +141,7 @@ const populateForm = () => {
     })
 }
 
-const toggleMediaState = (state: 'free' | 'show_on_home', _media: Media) => {
+const toggleMediaState = (state: 'free' | 'showOnHome', _media: Media) => {
     axios.post(
         route('panel.profiles.toggle-state', {
             profileMedia: _media.id,
@@ -151,9 +151,10 @@ const toggleMediaState = (state: 'free' | 'show_on_home', _media: Media) => {
 
     if (state === 'free') {
         _media.isFree = !_media.isFree
+        _media.showOnHome = false
     }
 
-    if (state === 'show_on_home') {
+    if (state === 'showOnHome') {
         _media.showOnHome = !_media.showOnHome
     }
 }
@@ -206,7 +207,7 @@ onMounted(() => {
                         @click.prevent
                         @remove="onMediaRemove"
                         @toggle-free="toggleMediaState('free', _media)"
-                        @toggle-main="toggleMediaState('show_on_home', _media)"
+                        @toggle-main="toggleMediaState('showOnHome', _media)"
                     />
                 </div>
                 <div class="py-5 text-center text-xl font-bold text-gray-100">

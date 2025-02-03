@@ -87,7 +87,8 @@ class PanelProfileMediaController extends Controller
 
         if ($request->input('state') === 'free') {
             $profileMedia->update([
-                'is_free' => !$profileMedia->is_free
+                'is_free' => !$profileMedia->is_free,
+                'show_on_home' => false
             ]);
         }
 

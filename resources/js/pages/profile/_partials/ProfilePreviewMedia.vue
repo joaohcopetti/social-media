@@ -13,11 +13,15 @@ defineProps<{
         style="min-width: 160px; min-height: 160px"
     >
         <div
-            class="absolute inset-0 z-50 flex items-center justify-center rounded bg-black opacity-0 transition-opacity group-hover:opacity-50"
+            class="absolute inset-0 flex items-center justify-center rounded bg-black opacity-0 transition-opacity group-hover:opacity-50"
+        />
+        <div
+            v-if="media.type === 'video'"
+            class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         >
             <Icon
-                icon="ph:eye"
-                class="text-2xl"
+                icon="ph:play-fill"
+                class="size-10 shadow"
             />
         </div>
         <img

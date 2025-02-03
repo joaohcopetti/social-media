@@ -7,7 +7,10 @@ defineProps<{
 </script>
 
 <template>
-    <div class="overflow-hidden rounded-xl">
+    <div
+        class="overflow-hidden rounded-xl"
+        :class="media.type === 'image' ? 'w-full' : ''"
+    >
         <img
             v-if="media.type === 'image'"
             class="w-full"
