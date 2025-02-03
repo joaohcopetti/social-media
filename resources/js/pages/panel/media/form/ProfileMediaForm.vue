@@ -20,8 +20,8 @@ export type Media = {
     url?: string
     file: File | null
     thumbnailFile: File | null
-    free: boolean
-    main: boolean
+    isFree: boolean
+    showOnHome: boolean
     progress?: number
     index: number
     type: string
@@ -59,8 +59,8 @@ const uploadMedia = async (file: File) => {
         size: file.size,
         file,
         type,
-        free: false,
-        main: false,
+        isFree: false,
+        showOnHome: false,
         base64: thumbnailBase64,
         thumbnailFile,
         index: 1,
@@ -129,8 +129,8 @@ const populateForm = () => {
         media.value.push({
             id: _media.id,
             uniqueId: uniqueId(),
-            free: _media.is_free,
-            main: _media.show_on_home,
+            isFree: _media.is_free,
+            showOnHome: _media.show_on_home,
             size: _media.size,
             url: _media.thumbnail_url,
             type: _media.type,
@@ -139,6 +139,23 @@ const populateForm = () => {
             index: _media.order,
         })
     })
+}
+
+const toggleMediaState = (state: 'free' | 'show_on_home', _media: Media) => {
+    axios.post(
+        route('panel.profiles.toggle-state', {
+            profileMedia: _media.id,
+        }),
+        { state },
+    )
+
+    if (state === 'free') {
+        _media.isFree = !_media.isFree
+    }
+
+    if (state === 'show_on_home') {
+        _media.showOnHome = !_media.showOnHome
+    }
 }
 
 onMounted(() => {
@@ -188,8 +205,8 @@ onMounted(() => {
                         :order="index + 1"
                         @click.prevent
                         @remove="onMediaRemove"
-                        @toggle-free="_media.free = $event"
-                        @toggle-main="_media.main = $event"
+                        @toggle-free="toggleMediaState('free', _media)"
+                        @toggle-main="toggleMediaState('show_on_home', _media)"
                     />
                 </div>
                 <div class="py-5 text-center text-xl font-bold text-gray-100">

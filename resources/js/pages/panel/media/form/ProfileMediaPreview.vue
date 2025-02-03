@@ -43,6 +43,7 @@ defineProps<{
         </div>
         <div class="bg-slate-700 text-sm">
             <AppSwitch
+                :model-value="!!media.isFree"
                 class="p-2"
                 size="sm"
                 label="Free"
@@ -51,6 +52,7 @@ defineProps<{
         </div>
         <div class="bg-slate-700 text-sm">
             <AppSwitch
+                :model-value="!!media.showOnHome"
                 class="p-2"
                 size="sm"
                 label="Destaque"

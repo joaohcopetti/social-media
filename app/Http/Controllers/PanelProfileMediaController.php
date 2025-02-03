@@ -7,6 +7,7 @@ use App\Models\ProfileMedia;
 use App\Services\MediaService;
 use Arr;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class PanelProfileMediaController extends Controller
@@ -33,7 +34,7 @@ class PanelProfileMediaController extends Controller
         ]);
 
         return response()->json([
-            'message' => 'Mídia enviada com sucesso!',
+            'message' => 'Mídia enviada!',
             'media' => $media
         ]);
     }
@@ -76,5 +77,29 @@ class PanelProfileMediaController extends Controller
     public function destroy(ProfileMedia $profileMedia)
     {
         $profileMedia->delete();
+    }
+
+    public function toggleState(ProfileMedia $profileMedia, Request $request)
+    {
+        $request->validate([
+            'state' => [Rule::in(['free', 'show_on_home'])]
+        ]);
+
+        if ($request->input('state') === 'free') {
+            $profileMedia->update([
+                'is_free' => !$profileMedia->is_free
+            ]);
+        }
+
+        if ($request->input('state') === 'show_on_home') {
+            $profileMedia->update([
+                'show_on_home' => !$profileMedia->show_on_home
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Estado alterado!',
+            'profile-media' => $profileMedia
+        ]);
     }
 }
