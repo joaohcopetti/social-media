@@ -6,7 +6,7 @@ import AppTextarea from '@/components/AppTextarea.vue'
 import { Profile } from '@/types/models'
 import { useForm } from '@inertiajs/vue3'
 import { computed, onMounted } from 'vue'
-import ProfilePhotoInput from './ProfilePhotoInput.vue'
+import ProfilesPhotoInput from './ProfilesPhotoInput.vue'
 
 type ProfileForm = {
     name: string
@@ -65,7 +65,7 @@ onMounted(() => {
     >
         <div class="flex gap-5">
             <div>
-                <ProfilePhotoInput
+                <ProfilesPhotoInput
                     :photo="profile?.photo_url"
                     :error="form.errors.photo"
                     @change="((form.photo = $event), form.clearErrors('photo'))"

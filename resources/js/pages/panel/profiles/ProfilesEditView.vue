@@ -2,7 +2,7 @@
 import AppButton from '@/components/AppButton.vue'
 import AppPanelContainer from '@/components/AppPanelContainer.vue'
 import { Profile } from '@/types/models'
-import ProfileForm from './form/ProfileForm.vue'
+import ProfilesForm from './form/ProfilesForm.vue'
 
 const PROFILES_INDEX_ROUTE = route('panel.profiles.index')
 
@@ -21,7 +21,7 @@ defineProps<{
         </template>
         <template #title> Altere dados do perfil </template>
         <template #body>
-            <ProfileForm :profile="profile" />
+            <ProfilesForm :profile="profile" />
         </template>
     </AppPanelContainer>
 </template>

@@ -9,7 +9,7 @@ defineProps<{
 
 <template>
     <div class="flex w-full gap-5">
-        <div class="w-52 overflow-hidden rounded">
+        <div class="w-52 overflow-hidden rounded-lg">
             <img :src="profile.photo_url" />
         </div>
         <div class="flex w-full flex-col gap-3">
