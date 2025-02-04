@@ -18,9 +18,16 @@ type UserFormProps = {
     is_admin: boolean
 }
 
-const props = defineProps<{
-    user: User
-}>()
+const props = withDefaults(
+    defineProps<{
+        user?: User
+        isMyAccountPage?: boolean
+    }>(),
+    {
+        user: undefined,
+        isMyAccountPage: false,
+    },
+)
 
 const form = useForm<UserFormProps>({
     name: '',
@@ -33,6 +40,11 @@ const form = useForm<UserFormProps>({
 const isEdit = computed(() => !!props.user)
 
 const submit = () => {
+    if (props.isMyAccountPage) {
+        updateMyAccount()
+        return
+    }
+
     if (!isEdit.value) {
         create()
     } else {
@@ -50,7 +62,7 @@ const create = () => {
 }
 
 const update = () => {
-    form.patch(route('panel.users.update', { user: props.user.id }), {
+    form.patch(route('panel.users.update', { user: props.user!.id }), {
         preserveState: true,
         onSuccess() {
             emit('submitted')
@@ -58,8 +70,10 @@ const update = () => {
     })
 }
 
+const updateMyAccount = () => {}
+
 const populateForm = () => {
-    const user = props.user
+    const user = props.user!
 
     form.name = user.name
     form.email = user.email
@@ -109,7 +123,13 @@ onMounted(() => {
             }"
             :error="form.errors.password"
         />
-        <div class="-mt-4 mb-5 text-xs text-gray-400">Deixe em branco caso não queira alterar</div>
+
+        <div
+            v-if="isEdit"
+            class="-mt-4 mb-5 text-xs text-gray-400"
+        >
+            Deixe em branco caso não queira alterar
+        </div>
 
         <AppInput
             v-model="form.password_confirmation"
@@ -124,6 +144,7 @@ onMounted(() => {
         />
 
         <AppSwitch
+            v-if="!isMyAccountPage"
             v-model="form.is_admin"
             label="Administrador"
             class="mb-5"

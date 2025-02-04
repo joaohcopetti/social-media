@@ -6,6 +6,7 @@ use App\Enums\RoleEnum;
 use App\Http\Requests\PanelUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Arr;
 
@@ -43,6 +44,8 @@ class PanelUserController extends Controller
 
     public function myAccount()
     {
-        return Inertia::render('panel/users/MyAccountView');
+        return Inertia::render('panel/users/MyAccountView', [
+            'user' => Auth::user()
+        ]);
     }
 }
