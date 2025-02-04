@@ -3,10 +3,26 @@ import AppButton from '@/components/AppButton.vue'
 import AppForm from '@/components/AppForm.vue'
 import AppInput from '@/components/AppInput.vue'
 import AppSwitch from '@/components/AppSwitch.vue'
+import { User } from '@/types/models'
 import { useForm } from '@inertiajs/vue3'
+import { map } from 'lodash-es'
+import { computed, onMounted } from 'vue'
 
 const emit = defineEmits(['submitted'])
-const form = useForm({
+
+type UserFormProps = {
+    name: string
+    email: string
+    password: string
+    password_confirmation: string
+    is_admin: boolean
+}
+
+const props = defineProps<{
+    user: User
+}>()
+
+const form = useForm<UserFormProps>({
     name: '',
     email: '',
     password: '',
@@ -14,7 +30,17 @@ const form = useForm({
     is_admin: false,
 })
 
+const isEdit = computed(() => !!props.user)
+
 const submit = () => {
+    if (isEdit.value) {
+        update()
+    } else {
+        create()
+    }
+}
+
+const create = () => {
     form.post(route('panel.users.store'), {
         preserveState: true,
         onSuccess() {
@@ -22,6 +48,29 @@ const submit = () => {
         },
     })
 }
+
+const update = () => {
+    form.patch(route('panel.users.update', { user: props.user.id }), {
+        preserveState: true,
+        onSuccess() {
+            emit('submitted')
+        },
+    })
+}
+
+const populateForm = () => {
+    const user = props.user
+
+    form.name = user.name
+    form.email = user.email
+    form.is_admin = map(user.roles, 'name').includes('admin')
+}
+
+onMounted(() => {
+    if (isEdit.value) {
+        populateForm()
+    }
+})
 </script>
 
 <template>
@@ -51,7 +100,7 @@ const submit = () => {
 
         <AppInput
             v-model="form.password"
-            label="Senha"
+            :label="isEdit ? 'Nova senha' : 'Senha'"
             name="password"
             :hint="form.password"
             :input-attrs="{
@@ -60,6 +109,7 @@ const submit = () => {
             }"
             :error="form.errors.password"
         />
+        <div class="-mt-4 mb-5 text-xs text-gray-400">Deixe em branco caso não queira alterar</div>
 
         <AppInput
             v-model="form.password_confirmation"
@@ -81,7 +131,7 @@ const submit = () => {
 
         <AppButton
             type="submit"
-            label="Cadastrar"
+            :label="isEdit ? 'Atualizar' : 'Cadastrar'"
             color="success"
             class="w-full"
             :disabled="form.processing"

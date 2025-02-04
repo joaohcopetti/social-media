@@ -5,16 +5,19 @@ import { User } from '@/types/models'
 import UserForm from './UserForm.vue'
 
 defineProps<{
-    user: User
+    user: User | null
 }>()
 </script>
 
 <template>
     <AppModal>
-        <template #title> Altere dados do perfil </template>
+        <template #title> Alterar dados do perfil </template>
 
-        <template #body>
-            <UserForm />
+        <template
+            v-if="user"
+            #body
+        >
+            <UserForm :user="user" />
         </template>
     </AppModal>
 </template>

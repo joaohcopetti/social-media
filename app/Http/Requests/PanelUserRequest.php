@@ -23,11 +23,24 @@ class PanelUserRequest extends FormRequest
      */
     public function rules(): array
     {
+        $isEdit = $this->routeIs('panel.users.update');
+        $user = null;
+
+        if ($isEdit) {
+            $user = $this->user;
+        }
+
         return [
             'name' => ['required', 'min:3', 'max:255'],
-            'email' => ['required', 'email', Rule::unique('users', 'email')],
-            'password' => ['required', 'confirmed'],
-            'password_confirmation' => ['required'],
+            'email' => [
+                'required',
+                'email',
+                !$isEdit
+                ? Rule::unique('users', 'email')
+                : Rule::unique('users', 'email')->ignore($user->id, 'id')
+            ],
+            'password' => [!$isEdit ? 'required' : 'nullable', 'confirmed', 'min:5'],
+            'password_confirmation' => [!$isEdit ? 'required' : 'nullable'],
             'is_admin' => ['nullable', 'boolean']
         ];
     }

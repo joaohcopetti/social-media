@@ -51,7 +51,6 @@ export interface User {
   email: string
   email_verified_at: string | null
   password?: string
-  is_admin: boolean
   remember_token?: string | null
   created_at: string | null
   updated_at: string | null

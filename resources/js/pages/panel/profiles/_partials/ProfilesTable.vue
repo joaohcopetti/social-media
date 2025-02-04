@@ -18,33 +18,31 @@ const props = defineProps<{ profiles: any }>()
 
 const pagination = computed(() => formatPaginationFromData(props.profiles))
 
-const getDropdownOptions = (profile: Profile): DropdownItem[] => {
-    return [
-        {
-            label: 'Ver',
-            href: route('profile.index', { profile: profile.slug }),
-            icon: 'ph:eye',
-            openInNewTab: true,
+const getDropdownOptions = (profile: Profile): DropdownItem[] => [
+    {
+        label: 'Ver',
+        href: route('profile.index', { profile: profile.slug }),
+        icon: 'ph:eye',
+        openInNewTab: true,
+    },
+    {
+        label: 'Editar',
+        href: route('panel.profiles.edit', { profile: profile.slug }),
+        icon: 'ph:pencil',
+    },
+    {
+        label: 'Gerenciar mídias',
+        href: route('panel.profiles.manage-media', { profile: profile.slug }),
+        icon: 'ph:image',
+    },
+    {
+        label: 'Excluir',
+        icon: 'ph:trash',
+        onClick: () => {
+            console.log('ola')
         },
-        {
-            label: 'Editar',
-            href: route('panel.profiles.edit', { profile: profile.slug }),
-            icon: 'ph:pencil',
-        },
-        {
-            label: 'Gerenciar mídias',
-            href: route('panel.profiles.manage-media', { profile: profile.slug }),
-            icon: 'ph:image',
-        },
-        {
-            label: 'Excluir',
-            icon: 'ph:trash',
-            onClick: () => {
-                console.log('ola')
-            },
-        },
-    ]
-}
+    },
+]
 </script>
 
 <template>

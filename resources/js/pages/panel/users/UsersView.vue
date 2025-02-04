@@ -16,6 +16,11 @@ const editUserModal = ref<{ isOpen: boolean; user: User | null }>({
     isOpen: false,
     user: null,
 })
+
+const onUserEdit = ({ user }: any) => {
+    editUserModal.value.user = user
+    editUserModal.value.isOpen = true
+}
 </script>
 
 <template>
@@ -36,7 +41,10 @@ const editUserModal = ref<{ isOpen: boolean; user: User | null }>({
                 :user="editUserModal.user!"
             />
 
-            <UsersTable :users="users" />
+            <UsersTable
+                :users="users"
+                @edit="onUserEdit"
+            />
         </template>
     </AppPanelContainer>
 </template>
