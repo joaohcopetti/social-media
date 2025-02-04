@@ -17,22 +17,23 @@ const TABLE_HEADERS: TableHeader[] = [
 const props = defineProps<{ profiles: any }>()
 
 const pagination = computed(() => formatPaginationFromData(props.profiles))
-const getDropdownOptions = (data: Profile): DropdownItem[] => {
+
+const getDropdownOptions = (profile: Profile): DropdownItem[] => {
     return [
         {
             label: 'Ver',
-            href: route('profile.index', { profile: data.slug }),
+            href: route('profile.index', { profile: profile.slug }),
             icon: 'ph:eye',
             openInNewTab: true,
         },
         {
             label: 'Editar',
-            href: route('panel.profiles.edit', { profile: data.slug }),
+            href: route('panel.profiles.edit', { profile: profile.slug }),
             icon: 'ph:pencil',
         },
         {
             label: 'Gerenciar mídias',
-            href: route('panel.profiles.manage-media', { profile: data.slug }),
+            href: route('panel.profiles.manage-media', { profile: profile.slug }),
             icon: 'ph:image',
         },
         {
@@ -68,10 +69,6 @@ const getDropdownOptions = (data: Profile): DropdownItem[] => {
         <template #footer>
             <div class="flex items-center justify-between">
                 <AppPaginator :pagination="pagination" />
-                <div class="text-sm">
-                    Exibindo <b>{{ profiles.data.length }}</b> de
-                    <b>{{ pagination.total }}</b>
-                </div>
             </div>
         </template>
     </AppTable>

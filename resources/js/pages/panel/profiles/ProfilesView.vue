@@ -3,7 +3,7 @@ import AppButton from '@/components/AppButton.vue'
 import AppPanelContainer from '@/components/AppPanelContainer.vue'
 import ProfilesTable from './_partials/ProfilesTable.vue'
 
-const props = defineProps<{
+defineProps<{
     profiles: any
 }>()
 </script>
