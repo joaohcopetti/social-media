@@ -24,8 +24,8 @@ const sidebarItems = computed(() => [
     },
     {
         label: 'Minha conta',
-        url: route('panel.users.my-account'),
-        isActive: appStore.currentRoute.includes('panel.users.my-account'),
+        url: route('panel.my-account.index'),
+        isActive: appStore.currentRoute.includes('panel.my-account'),
         icon: 'ph:user-circle-duotone',
     },
 ])

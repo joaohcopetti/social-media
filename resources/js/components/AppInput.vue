@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { InputHTMLAttributes } from 'vue'
+import { InputHTMLAttributes, onMounted, ref } from 'vue'
 
 const value = defineModel<string>()
+const input = ref<HTMLInputElement | null>(null)
 
 type AppInputProps = {
     label: string
@@ -9,11 +10,14 @@ type AppInputProps = {
     inputAttrs?: InputHTMLAttributes
     error?: string
     hint?: string
+    autofocus?: boolean
 }
 
-withDefaults(defineProps<AppInputProps>(), {
+const props = withDefaults(defineProps<AppInputProps>(), {
     error: '',
     inputAttrs: undefined,
+    hint: '',
+    autofocus: false,
 })
 
 const onInput = (event: Event) => {
@@ -21,6 +25,12 @@ const onInput = (event: Event) => {
 
     value.value = target.value
 }
+
+onMounted(() => {
+    if (props.autofocus && input.value) {
+        input.value.focus()
+    }
+})
 </script>
 
 <template>
@@ -32,6 +42,7 @@ const onInput = (event: Event) => {
         >
         <input
             :id="name"
+            ref="input"
             v-model="value"
             :name="name"
             v-bind="inputAttrs"

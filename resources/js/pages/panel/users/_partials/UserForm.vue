@@ -70,7 +70,9 @@ const update = () => {
     })
 }
 
-const updateMyAccount = () => {}
+const updateMyAccount = () => {
+    form.patch(route('panel.my-account.update'))
+}
 
 const populateForm = () => {
     const user = props.user!
@@ -96,8 +98,10 @@ onMounted(() => {
             v-model="form.name"
             label="Nome"
             name="name"
+            autofocus
             :input-attrs="{
                 placeholder: 'Digite o nome...',
+                autofocus: true,
             }"
             :error="form.errors.name"
         />

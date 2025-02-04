@@ -16,6 +16,7 @@ Route::prefix('painel')->name('panel.')->middleware([
 ])->group(function () {
     require __DIR__ . '/partials/panel-profiles-routes.php';
     require __DIR__ . '/partials/panel-users-routes.php';
+    require __DIR__ . '/partials/panel-my-account-routes.php';
 });
 
 require __DIR__ . '/partials/profile-routes.php';

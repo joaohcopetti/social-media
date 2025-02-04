@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\RoleEnum;
+use App\Http\Requests\MyAccountRequest;
 use App\Http\Requests\PanelUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -40,12 +41,5 @@ class PanelUserController extends Controller
         } else {
             $user->removeRole(RoleEnum::ADMIN->value);
         }
-    }
-
-    public function myAccount()
-    {
-        return Inertia::render('panel/users/MyAccountView', [
-            'user' => Auth::user()
-        ]);
     }
 }
