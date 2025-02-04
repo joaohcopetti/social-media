@@ -33,10 +33,10 @@ const form = useForm<UserFormProps>({
 const isEdit = computed(() => !!props.user)
 
 const submit = () => {
-    if (isEdit.value) {
-        update()
-    } else {
+    if (!isEdit.value) {
         create()
+    } else {
+        update()
     }
 }
 

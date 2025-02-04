@@ -32,6 +32,11 @@ const getDropdownOptions = (user: User): DropdownItem[] => [
         :header="TABLE_HEADERS"
         :data="users.data"
     >
+        <template #[`tbody.name`]="{ data }: { data: User }">
+            <div class="flex items-center gap-2 px-6 py-4">
+                <span>{{ data.name }}</span>
+            </div>
+        </template>
         <template #[`tbody.subscription`]> 20/03/2025 </template>
         <template #[`tbody.options`]="{ data }">
             <AppDropdown

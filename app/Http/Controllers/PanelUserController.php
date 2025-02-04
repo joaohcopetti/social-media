@@ -40,4 +40,9 @@ class PanelUserController extends Controller
             $user->removeRole(RoleEnum::ADMIN->value);
         }
     }
+
+    public function myAccount()
+    {
+        return Inertia::render('panel/users/MyAccountView');
+    }
 }

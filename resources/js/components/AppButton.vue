@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import { Link } from '@inertiajs/vue3'
+import { computed } from 'vue'
 
 const COLOR_CLASSES = {
     'primary': 'bg-blue-700 hover:bg-blue-600 active:bg-blue-800 hover:text-white',
@@ -19,7 +20,7 @@ type AppButtonProps = {
     inertiaLinkAttrs?: InstanceType<typeof Link>['$props']
 }
 
-withDefaults(defineProps<AppButtonProps>(), {
+const props = withDefaults(defineProps<AppButtonProps>(), {
     color: 'primary',
     label: '',
     icon: undefined,
@@ -27,19 +28,22 @@ withDefaults(defineProps<AppButtonProps>(), {
     inertiaLinkAttrs: undefined,
     ghost: false,
 })
+
+const hasLabel = computed(() => !!props.label)
+const hasIcon = computed(() => !!props.icon)
 </script>
 
 <template>
     <Component
-        :is="inertiaLinkAttrs ? Link : 'button'"
-        class="scale-100 rounded-lg font-bold text-gray-100 transition-all"
         v-bind="inertiaLinkAttrs"
+        :is="inertiaLinkAttrs ? Link : 'button'"
+        class="inline-block scale-100 rounded-lg font-bold text-gray-100 transition-all"
         :class="[
             ghost ? 'bg-transparent hover:bg-slate-700 active:bg-slate-600' : COLOR_CLASSES[color],
             {
-                'px-6 py-2': !!label,
-                'p-3': !label && !!icon,
-                'flex items-center gap-1': !!icon,
+                'px-6 py-2': hasLabel,
+                'p-3': !hasLabel && hasIcon,
+                'flex items-center gap-1': hasIcon,
                 'disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-200': disabled,
             },
         ]"
