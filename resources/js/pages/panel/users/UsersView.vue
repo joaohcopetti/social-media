@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
 import AppPanelContainer from '@/components/AppPanelContainer.vue'
+import UsersTable from './_partials/UsersTable.vue'
 
 defineProps<{
     users: any
@@ -8,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-    <AppPanelContainer>
+    <AppPanelContainer no-horizontal-padding>
         <template #header>
             <AppButton
                 label="Novo usuário"
@@ -18,8 +19,10 @@ defineProps<{
                 }"
             />
         </template>
-        <template #title>Usuários</template>
-        <template #subtitle> Gerenciamento de usuários do sistema </template>
-        <template #body> Olá mundo </template>
+        <template #title><div class="px-5">Usuários</div></template>
+        <template #subtitle><div class="px-5">Gerenciamento de usuários do sistema</div></template>
+        <template #body>
+            <UsersTable :users="users" />
+        </template>
     </AppPanelContainer>
 </template>
