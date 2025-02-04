@@ -4,6 +4,7 @@ use App\Enums\RoleEnum;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PanelProfileController;
 use App\Http\Controllers\PanelProfileMediaController;
+use App\Http\Controllers\PanelUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfileMediaController;
 use Illuminate\Auth\Middleware\Authenticate;
@@ -30,6 +31,11 @@ Route::prefix('painel')->name('panel.')->middleware([
             ->name('toggle-state');
 
         Route::delete('/{profileMedia}/deletar', [PanelProfileMediaController::class, 'destroy'])->name('delete-media');
+
+    });
+
+    Route::prefix('usuarios')->name('users.')->group(function () {
+        Route::get('/', [PanelUserController::class, 'index'])->name('index');
     });
 });
 

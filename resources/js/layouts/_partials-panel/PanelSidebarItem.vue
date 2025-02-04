@@ -7,6 +7,7 @@ withDefaults(
         label: string
         active?: boolean
         url: string
+        icon: string
     }>(),
     {
         active: false,
@@ -24,7 +25,7 @@ withDefaults(
             }"
         >
             <Icon
-                icon="ph:users-bold"
+                :icon="icon"
                 style="font-size: 1.2rem"
             />
             <span class="ms-3">{{ label }}</span>

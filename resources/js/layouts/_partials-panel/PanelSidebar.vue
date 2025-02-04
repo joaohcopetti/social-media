@@ -9,6 +9,13 @@ const sidebarItems = computed(() => [
         label: 'Perfis',
         url: route('panel.profiles.index'),
         isActive: route().current().includes('panel.profiles'),
+        icon: 'ph:user-square-duotone',
+    },
+    {
+        label: 'Usuários',
+        url: route('panel.users.index'),
+        isActive: route().current().includes('panel.users'),
+        icon: 'ph:users-three-duotone',
     },
 ])
 </script>
@@ -35,6 +42,7 @@ const sidebarItems = computed(() => [
                     :label="sidebarItem.label"
                     :active="sidebarItem.isActive"
                     :url="sidebarItem.url"
+                    :icon="sidebarItem.icon"
                 />
             </ul>
         </div>
