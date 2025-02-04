@@ -8,6 +8,7 @@ type AppInputProps = {
     name: string
     inputAttrs?: InputHTMLAttributes
     error?: string
+    hint?: string
 }
 
 withDefaults(defineProps<AppInputProps>(), {
@@ -41,6 +42,14 @@ const onInput = (event: Event) => {
             }"
             @input="onInput"
         />
+        <div v-auto-animate>
+            <p
+                v-if="hint"
+                class="mt-2 text-sm text-gray-300 dark:text-gray-400"
+            >
+                {{ hint }}
+            </p>
+        </div>
         <div v-auto-animate>
             <p
                 v-if="error"

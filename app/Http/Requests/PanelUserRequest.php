@@ -3,8 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Unique;
 
-class ProfileRequest extends FormRequest
+class PanelUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,12 +23,12 @@ class ProfileRequest extends FormRequest
      */
     public function rules(): array
     {
-        $isEdit = $this->getMethod() === 'PATCH';
-
         return [
-            'name' => ['required', 'string', 'max:255', 'min:3'],
-            'description' => ['nullable', 'string', 'max:1000'],
-            'photo' => [!$isEdit ? 'required' : 'nullable', 'file', 'mimes:jpeg,jpg,png', 'max:1024']
+            'name' => ['required', 'min:3', 'max:255'],
+            'email' => ['required', 'email', Rule::unique('users', 'email')],
+            'password' => ['required', 'confirmed'],
+            'password_confirmation' => ['required'],
+            'is_admin' => ['nullable', 'boolean']
         ];
     }
 }

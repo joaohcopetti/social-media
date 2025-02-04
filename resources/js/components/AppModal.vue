@@ -1,7 +1,15 @@
 <script setup lang="ts">
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 
-const isOpen = defineModel<boolean>('modelValue')
+const emit = defineEmits(['hidden'])
+const isOpen = defineModel<boolean>()
+
+const onTransitionLeave = () => {
+    if (!isOpen.value) {
+        emit('hidden')
+        return
+    }
+}
 </script>
 
 <template>
@@ -9,6 +17,7 @@ const isOpen = defineModel<boolean>('modelValue')
         appear
         :show="isOpen"
         as="template"
+        @after-leave="onTransitionLeave"
     >
         <Dialog
             as="div"

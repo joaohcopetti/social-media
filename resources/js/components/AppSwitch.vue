@@ -33,7 +33,10 @@ const classes = computed(() => SIZES_CLASS[props.size])
 </script>
 
 <template>
-    <SwitchGroup as="div">
+    <SwitchGroup
+        as="div"
+        class="cursor-pointer"
+    >
         <SwitchLabel
             class="flex w-full items-center gap-2"
             as="div"

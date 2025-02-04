@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileRequest;
+use App\Http\Requests\PanelProfileRequest;
 use App\Models\Profile;
 use App\Services\MediaService;
 use Illuminate\Http\Request;
@@ -22,7 +22,7 @@ class PanelProfileController extends Controller
         return Inertia::render('panel/profiles/ProfilesCreateView');
     }
 
-    public function store(ProfileRequest $request)
+    public function store(PanelProfileRequest $request)
     {
         $filepath = $request->file('photo')->store('perfis', 'public');
         $filename = pathinfo($filepath, PATHINFO_BASENAME);
@@ -47,7 +47,7 @@ class PanelProfileController extends Controller
         ]);
     }
 
-    public function update(Profile $profile, ProfileRequest $request)
+    public function update(Profile $profile, PanelProfileRequest $request)
     {
         if ($request->hasFile('photo')) {
             $filepath = $request->file('photo')->store('perfis', 'public');
