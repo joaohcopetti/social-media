@@ -9,10 +9,8 @@ defineProps<{
 
 <template>
     <div class="overflow-x-auto">
-        <table class="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
-            <thead
-                class="bg-gray-50 text-xs uppercase text-slate-700 dark:bg-slate-700 dark:text-gray-200"
-            >
+        <table class="w-full text-left text-sm text-gray-400 rtl:text-right">
+            <thead class="bg-slate-700 text-xs uppercase text-gray-200">
                 <tr>
                     <th
                         v-for="column in header"
@@ -32,7 +30,7 @@ defineProps<{
                 <tr
                     v-for="row in data"
                     :key="row"
-                    class="border-b border-gray-200 bg-white text-gray-200 transition-colors duration-75 hover:bg-gray-50 dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-600"
+                    class="200 border-b border-slate-700 bg-slate-800 text-gray-200 transition-colors duration-75 hover:bg-slate-600"
                 >
                     <template
                         v-for="column in header"

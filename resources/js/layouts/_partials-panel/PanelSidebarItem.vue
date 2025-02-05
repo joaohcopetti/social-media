@@ -19,7 +19,7 @@ withDefaults(
     <li>
         <Link
             :href="url"
-            class="group flex items-center rounded-lg p-2 text-gray-900 transition-colors hover:bg-gray-100 dark:text-white dark:hover:bg-slate-600"
+            class="group flex items-center rounded-lg p-2 text-white transition-colors hover:bg-slate-600"
             :class="{
                 'bg-slate-700 font-bold': active,
             }"

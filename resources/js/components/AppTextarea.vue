@@ -31,7 +31,7 @@ const onInput = (event: Event) => {
             :for="name"
             class="mb-2 flex gap-2 text-sm"
         >
-            <span class="font-bold text-slate-900 dark:text-white">{{ label }}</span>
+            <span class="font-bold text-white">{{ label }}</span>
             <span v-if="optional">(opcional)</span>
         </label>
 
@@ -39,10 +39,10 @@ const onInput = (event: Event) => {
             :id="name"
             v-model="value"
             :name="name"
-            class="block w-full rounded-lg border bg-slate-50 p-2.5 text-sm text-slate-900 focus:border-blue-500 focus:ring-blue-500 dark:border dark:bg-slate-700 dark:text-white dark:placeholder-slate-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+            class="block w-full rounded-lg border bg-slate-700 p-2.5 text-sm text-white placeholder-slate-400 focus:border-blue-500 focus:ring-blue-500"
             :class="{
-                'dark:border-red-400': error,
-                'border-slate-300 dark:border-slate-600': !error,
+                'border-red-400': error,
+                'border-slate-600': !error,
             }"
             :placeholder="placeholder"
             v-bind="textareaAttrs"

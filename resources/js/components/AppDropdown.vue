@@ -49,7 +49,7 @@ const getComponent = (item: DropdownItem) => {
             leave-to-class="transform scale-95 opacity-0"
         >
             <MenuItems
-                class="absolute right-0 z-10 mt-2 w-56 origin-top-right overflow-hidden rounded-md shadow-lg focus:outline-none dark:bg-slate-700"
+                class="absolute right-0 z-10 mt-2 w-56 origin-top-right overflow-hidden rounded-md bg-slate-700 shadow-lg focus:outline-none"
             >
                 <div
                     v-for="item in items"
