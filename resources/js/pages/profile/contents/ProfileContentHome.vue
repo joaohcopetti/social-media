@@ -3,6 +3,7 @@ import type { Profile, ProfileMedia } from '@/types/models'
 import { inject } from 'vue'
 import ProfilePost from '../_partials/ProfilePost.vue'
 import { profileInjectionKey } from '../injection'
+import ProfileContentEmpty from './ProfileContentEmpty.vue'
 
 defineProps<{
     media: ProfileMedia[]
@@ -19,12 +20,16 @@ const profile = inject(profileInjectionKey) as Profile
         >
             {{ profile.description }}
         </div>
-        <div class="flex flex-col gap-3">
+        <div
+            v-if="media.length"
+            class="flex flex-col gap-3"
+        >
             <ProfilePost
                 v-for="_media in media"
                 :key="_media.id"
                 :media="_media"
             />
         </div>
+        <ProfileContentEmpty v-else />
     </div>
 </template>

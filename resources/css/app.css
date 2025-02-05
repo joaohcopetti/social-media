@@ -26,8 +26,20 @@
     }
 }
 
+@layer base {
+    :root, html, body, #app {
+        @apply h-full
+    }
+}
+
 @layer utilities {
     .font-fancy {
         font-family: 'Berkshire Swash';
     }
 }
+
+.v-toast .v-toast__item {
+    @apply rounded-lg text-sm font-bold
+}
+
+

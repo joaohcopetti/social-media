@@ -1,9 +1,12 @@
-<script setup>
+<script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
 import AppInput from '@/components/AppInput.vue'
 import AppModal from '@/components/AppModal.vue'
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import { useForm } from '@inertiajs/vue3'
+import { useToast } from 'vue-toast-notification'
+
+const isModalOpen = defineModel<boolean>()
 
 const form = useForm({
     email: '',
@@ -11,12 +14,18 @@ const form = useForm({
 })
 
 const submit = () => {
-    form.post(route('login'))
+    form.post(route('login'), {
+        onSuccess() {
+            isModalOpen.value = false
+            useToast().success('Boas vindas')
+            form.reset()
+        },
+    })
 }
 </script>
 
 <template>
-    <AppModal>
+    <AppModal v-model="isModalOpen">
         <template #title>Entre com sua conta</template>
         <template #body>
             <div class="my-5 flex justify-center">

@@ -4,10 +4,11 @@ import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import { createPinia } from 'pinia'
 import { createApp, DefineComponent, h } from 'vue'
+import ToastPlugin from 'vue-toast-notification'
+import 'vue-toast-notification/dist/theme-default.css'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy'
 import MainLayout from './layouts/MainLayout.vue'
 import PanelLayout from './layouts/PanelLayout.vue'
-
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
 createInertiaApp({
@@ -31,6 +32,7 @@ createInertiaApp({
             .use(ZiggyVue)
             .use(autoAnimatePlugin)
             .use(pinia)
+            .use(ToastPlugin)
             .mount(el)
     },
     progress: {

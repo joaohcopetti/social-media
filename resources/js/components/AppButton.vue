@@ -39,7 +39,9 @@ const hasIcon = computed(() => !!props.icon)
         :is="inertiaLinkAttrs ? Link : 'button'"
         class="inline-block scale-100 rounded-lg font-bold text-gray-100 transition-all"
         :class="[
-            ghost ? 'bg-transparent hover:bg-slate-700 active:bg-slate-600' : COLOR_CLASSES[color],
+            ghost
+                ? 'bg-transparent hover:bg-slate-700/30 active:bg-slate-600/30'
+                : COLOR_CLASSES[color],
             {
                 'px-6 py-2': hasLabel,
                 'p-3': !hasLabel && hasIcon,

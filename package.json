@@ -42,6 +42,7 @@
         "@iconify-json/ph": "^1.2.2",
         "@types/lodash-es": "^4.17.12",
         "lodash-es": "^4.17.21",
-        "pinia": "^2.3.1"
+        "pinia": "^2.3.1",
+        "vue-toast-notification": "^3.1.3"
     }
 }
