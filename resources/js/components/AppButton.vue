@@ -45,7 +45,7 @@ const hasIcon = computed(() => !!props.icon)
             {
                 'px-6 py-2': hasLabel,
                 'p-3': !hasLabel && hasIcon,
-                'flex items-center gap-1': hasIcon,
+                'flex items-center': hasIcon,
                 'disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-200': disabled,
             },
         ]"
@@ -54,6 +54,7 @@ const hasIcon = computed(() => !!props.icon)
         <Icon
             v-if="icon"
             v-bind="icon"
+            class="-ml-1 mr-2"
         />
         <template v-if="label">
             {{ label }}

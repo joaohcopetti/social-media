@@ -16,7 +16,9 @@ class PanelProfileController extends Controller
     public function index()
     {
         return Inertia::render('panel/profiles/ProfilesView', [
-            'profiles' => Profile::withCount('media')->paginate()
+            'profiles' => Profile::withCount('media')
+                ->orderBy('created_at', 'desc')
+                ->paginate()
         ]);
     }
 

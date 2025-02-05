@@ -16,7 +16,7 @@ class PanelUserController extends Controller
     public function index()
     {
         return Inertia::render('panel/users/UsersView', [
-            'users' => User::orderBy('created_at', 'desc')
+            'users' => User::orderBy('name')
                 ->with(['roles'])
                 ->paginate()
         ]);

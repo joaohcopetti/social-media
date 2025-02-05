@@ -15,10 +15,20 @@ defineProps<{
         <div class="flex w-full flex-col gap-3">
             <div class="text-xl font-bold">{{ profile.name }}</div>
             <div>{{ profile.description }}</div>
-            <div class="mt-auto self-end">
+            <div class="mt-auto flex gap-2 self-end">
                 <AppButton
                     ghost
-                    label="Editar perfil"
+                    :icon="{ icon: 'ph:eye' }"
+                    label="Ver"
+                    :inertia-link-attrs="{
+                        href: route('profile.index', { profile: profile.slug }),
+                    }"
+                    color="primary-dark"
+                />
+                <AppButton
+                    ghost
+                    :icon="{ icon: 'ph:pencil' }"
+                    label="Editar"
                     :inertia-link-attrs="{
                         href: route('panel.profiles.edit', { profile: profile.slug }),
                     }"
