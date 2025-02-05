@@ -30,14 +30,14 @@ class PanelProfileController extends Controller
         $thumbnailFilepath = app(MediaService::class)->generateThumbnail(storage_path('app/public/' . $filepath));
         $thumbnailFilename = pathinfo($thumbnailFilepath, PATHINFO_BASENAME);
 
-        Profile::create([
+        $profile = Profile::create([
             'name' => $request->name,
             'description' => $request->description,
             'photo' => $filename,
             'thumbnail_photo' => $thumbnailFilename
         ]);
 
-        return redirect()->route('panel.profiles.index');
+        return redirect()->route('panel.profiles.manage-media', ['profile' => $profile->slug]);
     }
 
     public function edit(Profile $profile)

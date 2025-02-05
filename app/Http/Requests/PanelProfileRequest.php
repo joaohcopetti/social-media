@@ -26,7 +26,12 @@ class PanelProfileRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255', 'min:3'],
             'description' => ['nullable', 'string', 'max:1000'],
-            'photo' => [!$isEdit ? 'required' : 'nullable', 'file', 'mimes:jpeg,jpg,png', 'max:1024']
+            'photo' => [!$isEdit ? 'required' : 'nullable', 'file', 'mimes:jpeg,jpg,png', 'max:1024'],
+            'facebook' => ['nullable', 'url', 'regex:/facebook.com/'],
+            'instagram' => ['nullable', 'url', 'regex:/instagram.com/'],
+            'x' => ['nullable', 'url', 'regex:/x.com/'],
+            'tiktok' => ['nullable', 'url', 'regex:/tiktok.com/'],
+            'youtube' => ['nullable', 'url', 'regex:/youtube.com/'],
         ];
     }
 }

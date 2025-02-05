@@ -12,6 +12,11 @@ type ProfileForm = {
     name: string
     description?: string
     photo: File | null
+    facebook: string
+    instagram: string
+    x_twitter: string
+    tiktok: string
+    youtube: string
     _method: 'POST' | 'PATCH'
 }
 
@@ -25,6 +30,11 @@ const form = useForm<ProfileForm>({
     name: '',
     description: '',
     photo: null,
+    facebook: '',
+    instagram: '',
+    x_twitter: '',
+    tiktok: '',
+    youtube: '',
     _method: 'POST',
 })
 
@@ -72,6 +82,8 @@ onMounted(() => {
                 />
             </div>
             <div class="flex w-full flex-col">
+                <div class="text-lg font-bold">Dados principais</div>
+                <hr class="my-3 border-slate-600" />
                 <div>
                     <AppInput
                         v-model="form.name"
@@ -91,6 +103,60 @@ onMounted(() => {
                         label="Descrição do perfil"
                         placeholder="Digite uma descrição para o perfil..."
                         :textarea-attrs="{ class: 'h-20' }"
+                        optional
+                    />
+                </div>
+                <div class="mt-5 text-lg font-bold">Redes sociais</div>
+                <hr class="my-3 border-slate-600" />
+                <div>
+                    {{ form.errors }}
+                    <AppInput
+                        v-model="form.facebook"
+                        name="facebook"
+                        label="Facebook"
+                        :input-attrs="{ placeholder: 'Perfil do Facebook...' }"
+                        optional
+                        :error="form.errors.facebook"
+                    />
+                </div>
+                <div>
+                    <AppInput
+                        v-model="form.instagram"
+                        name="instagram"
+                        label="Instagram"
+                        :input-attrs="{ placeholder: 'Perfil do Instagram...' }"
+                        optional
+                        :error="form.errors.instagram"
+                    />
+                </div>
+                <div>
+                    <AppInput
+                        v-model="form.x_twitter"
+                        name="x_twitter"
+                        label="X/Twitter"
+                        :input-attrs="{ placeholder: 'Perfil do Twitter...' }"
+                        optional
+                        :error="form.errors.x_twitter"
+                    />
+                </div>
+                <div>
+                    <AppInput
+                        v-model="form.tiktok"
+                        name="tiktok"
+                        label="Tiktok"
+                        :input-attrs="{ placeholder: 'Perfil do Tiktok...' }"
+                        optional
+                        :error="form.errors.tiktok"
+                    />
+                </div>
+                <div>
+                    <AppInput
+                        v-model="form.youtube"
+                        name="youtube"
+                        label="YouTube"
+                        :input-attrs="{ placeholder: 'Perfil do YouTube...' }"
+                        optional
+                        :error="form.errors.youtube"
                     />
                 </div>
                 <div class="text-right">

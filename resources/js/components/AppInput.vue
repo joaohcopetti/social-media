@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Icon } from '@iconify/vue/dist/iconify.js'
 import { InputHTMLAttributes, onMounted, ref } from 'vue'
 
 const value = defineModel<string>()
@@ -6,18 +7,22 @@ const input = ref<HTMLInputElement | null>(null)
 
 type AppInputProps = {
     label: string
+    labelIcon?: string
     name: string
     inputAttrs?: InputHTMLAttributes
     error?: string
     hint?: string
     autofocus?: boolean
+    optional?: boolean
 }
 
 const props = withDefaults(defineProps<AppInputProps>(), {
+    labelIcon: '',
     error: '',
     inputAttrs: undefined,
     hint: '',
     autofocus: false,
+    optional: false,
 })
 
 const onInput = (event: Event) => {
@@ -37,9 +42,15 @@ onMounted(() => {
     <div class="mb-5">
         <label
             :for="name"
-            class="mb-2 block text-sm font-bold text-slate-900 dark:text-white"
-            >{{ label }}</label
+            class="mb-2 flex items-center gap-2 text-sm"
         >
+            <Icon
+                v-if="labelIcon"
+                :icon="labelIcon"
+            />
+            <span class="font-bold text-slate-900 dark:text-white">{{ label }}</span>
+            <span v-if="optional">(opcional)</span>
+        </label>
         <input
             :id="name"
             ref="input"
