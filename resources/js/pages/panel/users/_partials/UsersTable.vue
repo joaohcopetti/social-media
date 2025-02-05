@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import AppDropdown from '@/components/AppDropdown.vue'
+import AppPaginator from '@/components/paginator/AppPaginator.vue'
 import AppTable from '@/components/table/AppTable.vue'
 import { DropdownItem, TableHeader } from '@/types/components'
 import { User } from '@/types/models'
+import { formatPaginationFromData } from '@/utils/helpers'
+import { computed } from 'vue'
 
 const TABLE_HEADERS: TableHeader[] = [
     { label: 'Nome', prop: 'name' },
@@ -12,9 +15,11 @@ const TABLE_HEADERS: TableHeader[] = [
 
 const emit = defineEmits(['edit'])
 
-defineProps<{
+const props = defineProps<{
     users: any
 }>()
+
+const pagination = computed(() => formatPaginationFromData(props.users))
 
 const getDropdownOptions = (user: User): DropdownItem[] => [
     {
@@ -43,6 +48,10 @@ const getDropdownOptions = (user: User): DropdownItem[] => [
                 :icon="{ icon: 'ph:dots-three-outline-fill' }"
                 :items="getDropdownOptions(data)"
             />
+        </template>
+
+        <template #footer>
+            <AppPaginator :pagination="pagination" />
         </template>
     </AppTable>
 </template>

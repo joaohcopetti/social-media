@@ -25,7 +25,7 @@ class ProfileSeeder extends Seeder
 
     private function seedProfiles()
     {
-        $PROFILE_QUANTITY = fake()->numberBetween(10, 25);
+        $PROFILE_QUANTITY = fake()->numberBetween(30, 100);
 
         return Profile::factory()->count($PROFILE_QUANTITY)->create();
     }

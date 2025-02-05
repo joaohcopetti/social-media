@@ -21,13 +21,11 @@ withDefaults(
         :href="href"
         :class="[
             'flex h-10 items-center justify-center border px-4 leading-tight transition-colors',
-            'border-slate-300 bg-white',
-            'hover:bg-slate-100 hover:text-slate-700',
-            'dark:border-slate-700 dark:bg-slate-800',
-            'disabled:text-slate-500 dark:hover:bg-slate-700 dark:hover:text-white',
+            'border-slate-700',
+            'hover:bg-slate-700 hover:text-white disabled:text-slate-500',
             {
-                'font-bold dark:bg-slate-600': active,
-                'text-slate-500 dark:text-slate-300': !active,
+                'bg-slate-700 font-bold': active,
+                'text-slate-300': !active,
                 'text pointer-events-none cursor-default': !href,
             },
         ]"

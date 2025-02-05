@@ -29,5 +29,7 @@ class UserSeeder extends Seeder
         }
 
         User::firstWhere('email', 'admin@email.com')->assignRole(RoleEnum::ADMIN);
+
+        User::factory(100)->create();
     }
 }
