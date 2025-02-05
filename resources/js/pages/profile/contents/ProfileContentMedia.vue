@@ -22,7 +22,7 @@ const onMediaSelect = (media: ProfileMedia) => {
             @dismiss="mediaSelected = null"
         />
 
-        <div class="mb-3 grid grid-cols-3 gap-2">
+        <div class="grid grid-cols-3 gap-2">
             <ProfileMediaPreview
                 v-for="_media in media"
                 :key="_media.id"

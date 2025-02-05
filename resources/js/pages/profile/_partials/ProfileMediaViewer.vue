@@ -63,6 +63,7 @@ onBeforeUnmount(() => {
                     <video
                         v-else
                         :src="media.url"
+                        controls
                     />
                 </div>
             </div>
