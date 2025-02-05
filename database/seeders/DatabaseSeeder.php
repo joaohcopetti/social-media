@@ -15,14 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        File::deleteDirectory(storage_path('app/private/profiles'));
-        File::deleteDirectory(storage_path('app/public/profiles'));
-
         $this->call([
             PermissionSeeder::class,
             SocialNetworkSeeder::class,
-            UserSeeder::class,
-            ProfileSeeder::class,
         ]);
     }
 }
