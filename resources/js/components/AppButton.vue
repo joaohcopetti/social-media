@@ -54,7 +54,9 @@ const hasIcon = computed(() => !!props.icon)
         <Icon
             v-if="icon"
             v-bind="icon"
-            class="-ml-1 mr-2"
+            :class="{
+                '-ml-1 mr-2': label,
+            }"
         />
         <template v-if="label">
             {{ label }}
