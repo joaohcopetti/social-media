@@ -3,7 +3,6 @@ import { Pagination } from '@/utils/helpers'
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import { computed } from 'vue'
 import PaginatorItem from '../paginator/PaginatorItem.vue'
-
 const props = defineProps<{
     pagination: Pagination
 }>()
