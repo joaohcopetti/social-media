@@ -6,6 +6,7 @@ use App\Models\Profile;
 use App\Models\ProfileMedia;
 use App\Services\MediaService;
 use Arr;
+use File;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -76,6 +77,9 @@ class PanelProfileMediaController extends Controller
 
     public function destroy(ProfileMedia $profileMedia)
     {
+        File::delete(storage_path('app/private/midias/' . $profileMedia->filename));
+        File::delete(storage_path('app/private/midias/' . $profileMedia->thumbnail_filename));
+
         $profileMedia->delete();
     }
 

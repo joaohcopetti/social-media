@@ -7,6 +7,7 @@ use App\Models\Profile;
 use App\Models\SocialNetwork;
 use App\Services\MediaService;
 use DB;
+use File;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -79,6 +80,9 @@ class PanelProfileController extends Controller
     public function update(Profile $profile, PanelProfileRequest $request)
     {
         if ($request->hasFile('photo')) {
+            File::delete(storage_path('app/public/perfis/' . $profile->photo));
+            File::delete(storage_path('app/public/perfis/' . $profile->thumbnail_photo));
+
             $filepath = $request->file('photo')->store('perfis', 'public');
             $filename = pathinfo($filepath, PATHINFO_BASENAME);
 
