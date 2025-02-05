@@ -7,6 +7,7 @@ import { User } from '@/types/models'
 import { useForm } from '@inertiajs/vue3'
 import { map } from 'lodash-es'
 import { computed, onMounted } from 'vue'
+import { useToast } from 'vue-toast-notification'
 
 const emit = defineEmits(['submitted'])
 
@@ -65,13 +66,18 @@ const update = () => {
     form.patch(route('panel.users.update', { user: props.user!.id }), {
         preserveState: true,
         onSuccess() {
+            useToast().success('Perfil atualizado!')
             emit('submitted')
         },
     })
 }
 
 const updateMyAccount = () => {
-    form.patch(route('panel.my-account.update'))
+    form.patch(route('panel.my-account.update'), {
+        onSuccess() {
+            useToast().success('Perfil atualizado!')
+        },
+    })
 }
 
 const populateForm = () => {
