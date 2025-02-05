@@ -208,7 +208,7 @@ const toggleMediaState = (state: string, _media: Media) => {
                 </div>
             </div>
             <div class="py-5 text-center text-xl font-bold text-gray-100">
-                Envie ou arraste e solte aqui
+                Clique aqui para enviar
             </div>
         </label>
     </div>

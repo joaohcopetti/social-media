@@ -11,6 +11,7 @@ Route::prefix('perfis')->name('profiles.')->group(function () {
     Route::patch('/{profile}', [PanelProfileController::class, 'update'])->name('update');
     Route::get('/{profile}/gerenciar-midias', [PanelProfileMediaController::class, 'edit'])->name('manage-media');
     Route::post('/{profile}/enviar-media', [PanelProfileMediaController::class, 'store'])->name('send-media');
+
     Route::post('/{profileMedia}/toggle-state', [PanelProfileMediaController::class, 'toggleState'])
         ->name('toggle-state');
 

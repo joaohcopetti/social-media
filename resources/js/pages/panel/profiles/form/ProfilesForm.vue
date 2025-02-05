@@ -59,6 +59,10 @@ const populateForm = () => {
         name: profile.name,
         description: profile.description,
     })
+
+    profile.social_networks.forEach((socialNetwork) => {
+        form[socialNetwork.name] = socialNetwork.pivot.url
+    })
 }
 
 onMounted(() => {
@@ -109,7 +113,6 @@ onMounted(() => {
                 <div class="mt-5 text-lg font-bold">Redes sociais</div>
                 <hr class="my-3 border-slate-600" />
                 <div>
-                    {{ form.errors }}
                     <AppInput
                         v-model="form.facebook"
                         name="facebook"
