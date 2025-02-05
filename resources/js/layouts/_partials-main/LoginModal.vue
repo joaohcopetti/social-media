@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
+import AppForm from '@/components/AppForm.vue'
 import AppInput from '@/components/AppInput.vue'
 import AppModal from '@/components/AppModal.vue'
 import { Icon } from '@iconify/vue/dist/iconify.js'
@@ -34,13 +35,17 @@ const submit = () => {
                     icon="ph:user-circle-duotone"
                 />
             </div>
-            <form @submit.prevent="submit">
+            <AppForm
+                :form="form"
+                @submit.prevent="submit"
+            >
                 <div>
                     <AppInput
                         v-model="form.email"
                         label="E-mail"
                         name="email"
                         :error="form.errors.email"
+                        :input-attrs="{ placeholder: 'Digite seu e-mail...' }"
                     />
                 </div>
                 <div>
@@ -48,7 +53,7 @@ const submit = () => {
                         v-model="form.password"
                         label="Senha"
                         name="password"
-                        :input-attrs="{ type: 'password' }"
+                        :input-attrs="{ placeholder: 'Digite sua senha...', type: 'password' }"
                         :error="form.errors.password"
                     />
                 </div>
@@ -59,7 +64,7 @@ const submit = () => {
                         :disabled="form.processing"
                     />
                 </div>
-            </form>
+            </AppForm>
         </template>
     </AppModal>
 </template>
