@@ -19,7 +19,7 @@ defineProps<{
             preserve-scroll
             :class="[
                 selected
-                    ? 'bg-white text-base-500 shadow'
+                    ? 'bg-white text-slate-700 shadow'
                     : 'text-gray-300 hover:bg-slate-700 hover:text-white',
             ]"
         >
