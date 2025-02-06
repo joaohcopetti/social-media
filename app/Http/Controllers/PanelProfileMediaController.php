@@ -17,7 +17,7 @@ class PanelProfileMediaController extends Controller
     public function edit(Profile $profile)
     {
         return Inertia::render('panel/media/ProfileMediaManagementView', [
-            'profile' => $profile->load(['media'])
+            'profile' => $profile->load(['media' => fn($q) => $q->orderBy('order', 'asc')])
         ]);
     }
 

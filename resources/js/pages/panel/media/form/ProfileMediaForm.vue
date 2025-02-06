@@ -94,7 +94,7 @@ const formatMedia = async (file: File): Promise<Media> => {
         showOnHome: false,
         base64: thumbnailBase64,
         thumbnailFile,
-        index: 1,
+        index: media.value.length,
     }
 }
 
@@ -141,9 +141,11 @@ const uploadMedia = async (_media: Media) => {
         const error = e as AxiosError
 
         if (error.request.status === 422) {
-            const responseErrors = error.response!.data as { message: string }
+            const responseErrors = error.response!.data as { message?: string }
 
-            useToast().error(responseErrors.message, { duration: 5000 })
+            useToast().error(responseErrors.message || 'Tipo de arquivo não suportado', {
+                duration: 5000,
+            })
         }
 
         onMediaRemove(uploadedMedia.uniqueId)
