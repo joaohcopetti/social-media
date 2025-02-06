@@ -75,6 +75,7 @@ const update = () => {
 const updateMyAccount = () => {
     form.patch(route('panel.my-account.update'), {
         onSuccess() {
+            form.reset()
             useToast().success('Perfil atualizado!')
         },
     })
@@ -83,9 +84,13 @@ const updateMyAccount = () => {
 const populateForm = () => {
     const user = props.user!
 
-    form.name = user.name
-    form.email = user.email
-    form.is_admin = map(user.roles, 'name').includes('admin')
+    form.defaults({
+        name: user.name,
+        email: user.email,
+        is_admin: map(user.roles, 'name').includes('admin'),
+    })
+
+    form.reset()
 }
 
 onMounted(() => {

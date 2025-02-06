@@ -26,7 +26,7 @@ class MyAccountRequest extends FormRequest
         return [
             'name' => ['required', 'min:3'],
             'email' => ['required', 'email', Rule::unique('users', 'email')->ignore(Auth::id(), 'id')],
-            'password' => ['nullable', 'confirmed'],
+            'password' => ['nullable', 'confirmed', 'min:6'],
             'password_confirmation' => ['nullable']
         ];
     }
