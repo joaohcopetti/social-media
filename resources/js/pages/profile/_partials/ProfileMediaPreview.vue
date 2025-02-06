@@ -12,7 +12,7 @@ defineProps<{
 
 <template>
     <div
-        class="group relative min-h-[160px] min-w-[160px] cursor-pointer overflow-hidden rounded"
+        class="group relative max-h-[160px] min-h-[160px] min-w-[160px] max-w-[160px] cursor-pointer overflow-hidden rounded"
         @click.prevent="$emit('selected', media)"
     >
         <div
@@ -23,7 +23,7 @@ defineProps<{
         </AppAbsoluteCenter>
         <img
             :src="media.thumbnail_url"
-            class="min-h-[160px] min-w-[160px] object-cover"
+            class="max-h-[160px] min-h-[160px] min-w-[160px] max-w-[160px] object-cover"
         />
     </div>
 </template>
