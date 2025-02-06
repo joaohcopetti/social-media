@@ -15,7 +15,7 @@ defineProps<{
     >
         <Icon
             v-bind="icon"
-            class="size-8 rounded-full bg-gray-200 p-1.5 text-base-400 shadow-md hover:bg-gray-100"
+            class="size-8 rounded-full bg-gray-200 p-1.5 text-slate-700 shadow-md hover:bg-gray-100"
         />
     </a>
 </template>
