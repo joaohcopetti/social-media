@@ -8,7 +8,7 @@ import {
     getFileType,
 } from '@/utils/helpers'
 import { Icon } from '@iconify/vue/dist/iconify.js'
-import axios, { AxiosError } from 'axios'
+import { AxiosError } from 'axios'
 import { each, pick, uniqueId } from 'lodash-es'
 import { computed, onMounted, ref } from 'vue'
 import { useToast } from 'vue-toast-notification'

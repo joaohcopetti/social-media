@@ -7,8 +7,10 @@ import { createApp, DefineComponent, h } from 'vue'
 import ToastPlugin from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-default.css'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy'
+import './bootstrap'
 import MainLayout from './layouts/MainLayout.vue'
 import PanelLayout from './layouts/PanelLayout.vue'
+
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
 createInertiaApp({
