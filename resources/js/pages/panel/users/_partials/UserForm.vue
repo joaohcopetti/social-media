@@ -106,7 +106,7 @@ onMounted(() => {
             name="name"
             autofocus
             :input-attrs="{
-                placeholder: 'Digite o nome...',
+                placeholder: !isMyAccountPage ? 'Digite o nome...' : 'Digite seu nome...',
                 autofocus: true,
             }"
             :error="form.errors.name"
@@ -117,7 +117,7 @@ onMounted(() => {
             label="E-mail"
             name="email"
             :input-attrs="{
-                placeholder: 'Digite o e-mail...',
+                placeholder: !isMyAccountPage ? 'Digite o e-mail...' : 'Digite seu e-mail',
             }"
             :error="form.errors.email"
         />
@@ -129,7 +129,7 @@ onMounted(() => {
             :hint="form.password"
             :input-attrs="{
                 type: 'password',
-                placeholder: 'Senha do usuário...',
+                placeholder: !isMyAccountPage ? 'Senha do usuário...' : 'Digite sua senha...',
             }"
             :error="form.errors.password"
         />
@@ -148,7 +148,7 @@ onMounted(() => {
             :hint="form.password_confirmation"
             :input-attrs="{
                 type: 'password',
-                placeholder: 'Repita a senha do usuário...',
+                placeholder: !isMyAccountPage ? 'Repita a senha do usuário...' : 'Repita sua senha',
             }"
             :error="form.errors.password_confirmation"
         />
