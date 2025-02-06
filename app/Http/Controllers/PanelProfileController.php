@@ -88,7 +88,9 @@ class PanelProfileController extends Controller
             $filepath = $request->file('photo')->store('perfis', 'public');
             $filename = pathinfo($filepath, PATHINFO_BASENAME);
 
-            $thumbnailFilepath = app(MediaService::class)->generateThumbnail(storage_path('app/public/' . $filepath));
+            $thumbnailFilepath = app(MediaService::class)
+                ->generateThumbnail(storage_path('app/public/' . $filepath));
+
             $thumbnailFilename = pathinfo($thumbnailFilepath, PATHINFO_BASENAME);
         }
 
