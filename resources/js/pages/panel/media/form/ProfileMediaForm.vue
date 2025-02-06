@@ -8,9 +8,10 @@ import {
     getFileType,
 } from '@/utils/helpers'
 import { Icon } from '@iconify/vue/dist/iconify.js'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { each, pick, uniqueId } from 'lodash-es'
 import { computed, onMounted, ref } from 'vue'
+import { useToast } from 'vue-toast-notification'
 import ProfileMediaFormPreview from './ProfileMediaFormPreview.vue'
 
 export type Media = {
@@ -122,23 +123,37 @@ const uploadMedia = async (_media: Media) => {
         throw new Error("Couldn't find media")
     }
 
-    const { data } = await axios.post(url, formData, {
-        onUploadProgress: (progressEvent) => {
-            if (!progressEvent.lengthComputable) {
-                return
-            }
+    try {
+        const { data } = await axios.post(url, formData, {
+            onUploadProgress: (progressEvent) => {
+                if (!progressEvent.lengthComputable) {
+                    return
+                }
 
-            const percent = (progressEvent.loaded / progressEvent.total!) * 100
+                const percent = (progressEvent.loaded / progressEvent.total!) * 100
 
-            uploadedMedia.progress = percent
-        },
-    })
+                uploadedMedia.progress = percent
+            },
+        })
 
-    uploadedMedia.id = data.media.id
+        uploadedMedia.id = data.media.id
+    } catch (e) {
+        const error = e as AxiosError
+
+        if (error.request.status === 422) {
+            const responseErrors = error.response!.data as { message: string }
+
+            useToast().error(responseErrors.message, { duration: 5000 })
+        }
+
+        onMediaRemove(uploadedMedia.uniqueId)
+    }
 }
 
-const onMediaRemove = async (mediaId: number) => {
-    const mediaIndex = media.value.findIndex(({ id }) => id === mediaId)
+const onMediaRemove = async (mediaId: number | string) => {
+    const mediaIndex = media.value.findIndex(
+        ({ id, uniqueId }) => id === mediaId || uniqueId === mediaId,
+    )
 
     media.value.splice(mediaIndex, 1)
 

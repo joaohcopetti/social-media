@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PanelProfileMediaRequest;
 use App\Models\Profile;
 use App\Models\ProfileMedia;
 use App\Services\MediaService;
@@ -20,7 +21,7 @@ class PanelProfileMediaController extends Controller
         ]);
     }
 
-    public function store(Profile $profile, Request $request)
+    public function store(Profile $profile, PanelProfileMediaRequest $request)
     {
         $storedMedia = $this->storeMedia($request);
 
