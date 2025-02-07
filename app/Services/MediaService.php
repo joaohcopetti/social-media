@@ -9,6 +9,7 @@ class MediaService
     public function generateThumbnail(string $filepath, int $relativeDimension = 400)
     {
         $image = new \Imagick($filepath);
+        $image->autoOrient();
         $image->thumbnailImage($relativeDimension, $relativeDimension, true);
 
         $pathInfo = pathinfo($filepath);
