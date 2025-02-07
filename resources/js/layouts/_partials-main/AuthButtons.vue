@@ -26,7 +26,7 @@ const onLogoutClick = () => {
 
 <template>
     <div
-        class="fixed right-0 z-20 flex gap-3 rounded-bl-3xl p-3 px-5 backdrop-blur-md sm:top-0"
+        class="fixed right-0 z-20 flex gap-3 rounded-bl-3xl p-3 px-5 backdrop-blur-md sm:top-0 sm:backdrop-blur-0"
         :class="{
             'bg-black/60 sm:bg-transparent': authStore.user,
         }"
