@@ -77,8 +77,8 @@ onMounted(() => {
         :form="form"
         @submit.prevent="submit"
     >
-        <div class="flex gap-5">
-            <div>
+        <div class="flex flex-col gap-5 sm:flex-row">
+            <div class="mx-auto sm:mx-0">
                 <ProfilesPhotoInput
                     :photo="profile?.photo_url"
                     :error="form.errors.photo"

@@ -9,6 +9,7 @@ import AppPanelContainer from '@/components/AppPanelContainer.vue'
     <AppPanelContainer>
         <template #header>
             <AppButton
+                :icon-left="{ icon: 'ph:arrow-circle-left-bold' }"
                 label="Voltar"
                 :inertia-link="{ href: route('panel.profiles.index') }"
             />

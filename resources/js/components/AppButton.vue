@@ -19,7 +19,7 @@ type AppButtonProps = {
     disabled?: boolean
     ghost?: boolean
     inertiaLink?: InstanceType<typeof Link>['$props']
-    link?: keyof HTMLAnchorElement
+    link?: object
 }
 
 const props = withDefaults(defineProps<AppButtonProps>(), {
@@ -79,14 +79,17 @@ const classes = computed(() => {
         classes.push('px-4 py-2')
     }
 
-    return [classes, hasIcon.value ? 'flex items-center justify-center gap-2' : 'inline-block']
+    return [
+        classes,
+        hasIcon.value ? 'inline-flex items-center justify-center gap-2' : 'inline-block',
+    ]
 })
 </script>
 
 <template>
     <Component
         :is="component.component"
-        v-bind="component.attrs as object"
+        v-bind="component.attrs"
         class="inline-block rounded-lg font-bold transition-all"
         :class="classes"
         :disabled="disabled ? 'disabled' : undefined"

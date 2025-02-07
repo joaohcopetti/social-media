@@ -12,6 +12,7 @@ defineProps<{
     <AppPanelContainer no-horizontal-padding>
         <template #header>
             <AppButton
+                :icon-left="{ icon: 'ph:plus-bold' }"
                 color="success"
                 label="Novo perfil"
                 :inertia-link="{ href: route('panel.profiles.create') }"

@@ -27,6 +27,7 @@ const onUserEdit = ({ user }: any) => {
     <AppPanelContainer no-horizontal-padding>
         <template #header>
             <AppButton
+                :icon-left="{ icon: 'ph:plus-bold' }"
                 label="Novo usuário"
                 color="success"
                 @click.prevent="newUserModal = true"

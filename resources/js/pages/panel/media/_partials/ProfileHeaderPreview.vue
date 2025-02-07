@@ -8,8 +8,8 @@ defineProps<{
 </script>
 
 <template>
-    <div class="flex w-full gap-5">
-        <div class="w-1/4 overflow-hidden rounded-lg">
+    <div class="flex w-full flex-col gap-5 sm:flex-row">
+        <div class="overflow-hidden rounded-lg sm:w-1/4">
             <img
                 :src="profile.photo_url"
                 class="rounded-lg"
@@ -23,8 +23,10 @@ defineProps<{
                     ghost
                     :icon-left="{ icon: 'ph:eye' }"
                     label="Ver"
-                    :href="route('profile.index', { profile: profile.slug })"
-                    open-link-in-new-tab
+                    :link="{
+                        href: route('profile.index', { profile: profile.slug }),
+                        target: '_blank',
+                    }"
                     color="primary-dark"
                 />
                 <AppButton

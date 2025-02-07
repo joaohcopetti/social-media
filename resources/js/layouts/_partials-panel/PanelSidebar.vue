@@ -58,7 +58,7 @@ onBeforeUnmount(() => {
 
 <template>
     <AppButton
-        :icon="{ icon: isOpen ? 'ph:x' : 'ph:list' }"
+        :icon-left="{ icon: isOpen ? 'ph:x-bold' : 'ph:list-bold' }"
         type="button"
         ghost
         class="sticky z-50 m-3 sm:hidden"

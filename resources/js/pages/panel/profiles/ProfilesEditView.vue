@@ -15,6 +15,7 @@ defineProps<{
     <AppPanelContainer>
         <template #header>
             <AppButton
+                :icon-left="{ icon: 'ph:arrow-circle-left-bold' }"
                 label="Voltar"
                 :inertia-link="{ href: PROFILES_INDEX_ROUTE }"
             />

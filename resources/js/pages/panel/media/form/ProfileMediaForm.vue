@@ -211,7 +211,7 @@ const toggleMediaState = (state: string, _media: Media) => {
             <div v-else>
                 <div
                     v-auto-animate
-                    class="grid grid-cols-6 gap-3 p-3"
+                    class="grid grid-cols-2 gap-3 p-3 sm:grid-cols-6"
                 >
                     <ProfileMediaFormPreview
                         v-for="(_media, index) in media"
