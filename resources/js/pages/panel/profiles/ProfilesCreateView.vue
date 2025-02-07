@@ -10,7 +10,7 @@ import AppPanelContainer from '@/components/AppPanelContainer.vue'
         <template #header>
             <AppButton
                 label="Voltar"
-                :inertia-link-attrs="{ href: route('panel.profiles.index') }"
+                :inertia-link="{ href: route('panel.profiles.index') }"
             />
         </template>
         <template #title> Cadastre um novo perfil </template>

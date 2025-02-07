@@ -21,7 +21,7 @@ defineProps<{
             <div class="mt-auto flex gap-2 self-end">
                 <AppButton
                     ghost
-                    :icon="{ icon: 'ph:eye' }"
+                    :icon-left="{ icon: 'ph:eye' }"
                     label="Ver"
                     :href="route('profile.index', { profile: profile.slug })"
                     open-link-in-new-tab
@@ -29,9 +29,9 @@ defineProps<{
                 />
                 <AppButton
                     ghost
-                    :icon="{ icon: 'ph:pencil' }"
+                    :icon-left="{ icon: 'ph:pencil' }"
                     label="Editar"
-                    :inertia-link-attrs="{
+                    :inertia-link="{
                         href: route('panel.profiles.edit', { profile: profile.slug }),
                     }"
                 />

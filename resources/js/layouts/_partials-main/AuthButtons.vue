@@ -28,9 +28,9 @@ const onLogoutClick = () => {
     <div class="fixed right-0 top-0 z-50 flex gap-3 rounded-bl-xl p-3 px-5">
         <template v-if="!authStore.user">
             <AppButton
-                color="primary-dark"
+                color="primary"
                 label="Entre"
-                :icon="{ icon: 'ph:sign-in-fill' }"
+                :icon-left="{ icon: 'ph:sign-in-fill' }"
                 @click="$emit('login-click')"
             />
             <AppButton
@@ -41,10 +41,10 @@ const onLogoutClick = () => {
         <template v-else>
             <AppButton
                 v-if="authStore.authIs('admin')"
-                :icon="{ icon: 'ph:gauge' }"
+                :icon-left="{ icon: 'ph:gauge' }"
                 color="primary"
                 label="Painel"
-                :inertia-link-attrs="{ href: route('panel.profiles.index') }"
+                :inertia-link="{ href: route('panel.profiles.index') }"
             />
             <AppButton
                 label="Sair"

@@ -15,7 +15,7 @@ defineProps<{
         <template #header>
             <AppButton
                 label="Voltar"
-                :inertia-link-attrs="{
+                :inertia-link="{
                     href: route('panel.profiles.index'),
                 }"
             />

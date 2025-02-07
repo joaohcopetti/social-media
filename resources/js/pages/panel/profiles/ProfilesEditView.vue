@@ -16,7 +16,7 @@ defineProps<{
         <template #header>
             <AppButton
                 label="Voltar"
-                :inertia-link-attrs="{ href: PROFILES_INDEX_ROUTE }"
+                :inertia-link="{ href: PROFILES_INDEX_ROUTE }"
             />
         </template>
         <template #title> Altere dados do perfil </template>

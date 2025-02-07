@@ -34,7 +34,7 @@ const getComponent = (item: DropdownItem) => {
         <MenuButton
             :as="AppButton"
             v-bind="{
-                icon,
+                iconLeft: icon,
                 label,
                 ghost: true,
             }"

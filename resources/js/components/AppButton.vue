@@ -5,7 +5,7 @@ import { computed } from 'vue'
 
 const COLOR_CLASSES = {
     'primary': 'bg-blue-700 hover:bg-blue-600 active:bg-blue-800 hover:text-white',
-    'primary-dark': 'bg-slate-700 hover:bg-slate-600 hover:text-white',
+    'primary-dark': 'bg-indigo-700 hover:bg-indigo-600 hover:text-white',
     'danger': 'bg-red-700 hover:bg-red-600 active:bg-red-800 hover:text-white',
     'success': 'bg-green-700 hover:bg-green-600 active:bg-green-800  hover:text-white',
     'light': 'bg-gray-300 text-gray-900 hover:bg-gray-200',
@@ -14,69 +14,91 @@ const COLOR_CLASSES = {
 type AppButtonProps = {
     color?: keyof typeof COLOR_CLASSES
     label?: string
-    icon?: InstanceType<typeof Icon>['$props']
+    iconLeft?: InstanceType<typeof Icon>['$props']
+    iconRight?: InstanceType<typeof Icon>['$props']
     disabled?: boolean
     ghost?: boolean
-    inertiaLinkAttrs?: InstanceType<typeof Link>['$props']
-    openLinkInNewTab?: boolean
-    href?: string
+    inertiaLink?: InstanceType<typeof Link>['$props']
+    link?: keyof HTMLAnchorElement
 }
 
 const props = withDefaults(defineProps<AppButtonProps>(), {
     color: 'primary',
     label: '',
-    icon: undefined,
+    iconLeft: undefined,
+    iconRight: undefined,
     disabled: false,
-    inertiaLinkAttrs: undefined,
     ghost: false,
-    openLinkInNewTab: false,
-    href: undefined,
+    inertiaLink: undefined,
+    link: undefined,
 })
 
-const hasLabel = computed(() => !!props.label)
-const hasIcon = computed(() => !!props.icon)
+const hasIcon = computed(() => !!props.iconLeft || !!props.iconRight)
+
 const component = computed(() => {
-    if (props.href) {
-        return 'a'
+    if (props.link) {
+        return {
+            component: 'a',
+            attrs: props.link,
+        }
     }
 
-    if (props.inertiaLinkAttrs) {
-        return Link
+    if (props.inertiaLink) {
+        return {
+            component: Link,
+            attrs: props.inertiaLink,
+        }
     }
 
-    return 'button'
+    return {
+        component: 'button',
+        attrs: {},
+    }
+})
+
+const classes = computed(() => {
+    const classes = []
+
+    if (props.disabled) {
+        classes.push('bg-gray-600 text-gray-400 cursor-default pointer-events-none')
+    }
+
+    if (props.ghost) {
+        classes.push('bg-transparent hover:bg-white/20 active:bg-white/10')
+    }
+
+    if (!props.disabled && !props.ghost) {
+        classes.push(COLOR_CLASSES[props.color])
+    }
+
+    if (hasIcon.value) {
+        classes.push('w-10 h-10')
+    }
+
+    if (!hasIcon.value) {
+        classes.push('px-4 py-2')
+    }
+
+    return [classes, hasIcon.value ? 'flex items-center justify-center gap-2' : 'inline-block']
 })
 </script>
 
 <template>
     <Component
-        v-bind="inertiaLinkAttrs"
-        :is="component"
-        :href="href"
-        :target="props.openLinkInNewTab ? '_blank' : undefined"
-        class="inline-block scale-100 rounded-lg font-bold text-gray-100 transition-all"
-        :class="[
-            ghost
-                ? 'bg-transparent hover:bg-slate-700/30 active:bg-slate-600/30'
-                : COLOR_CLASSES[color],
-            {
-                'px-6 py-2': hasLabel,
-                'p-3': !hasLabel && hasIcon,
-                'flex items-center': hasIcon,
-                'disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-200': disabled,
-            },
-        ]"
-        :disabled="disabled"
+        :is="component.component"
+        v-bind="component.attrs as object"
+        class="inline-block rounded-lg font-bold transition-all"
+        :class="classes"
+        :disabled="disabled ? 'disabled' : undefined"
     >
         <Icon
-            v-if="icon"
-            v-bind="icon"
-            :class="{
-                '-ml-1 mr-2': label,
-            }"
+            v-if="iconLeft"
+            v-bind="iconLeft"
         />
-        <template v-if="label">
-            {{ label }}
-        </template>
+        <span v-if="label">{{ label }}</span>
+        <Icon
+            v-if="iconRight"
+            v-bind="iconRight"
+        />
     </Component>
 </template>

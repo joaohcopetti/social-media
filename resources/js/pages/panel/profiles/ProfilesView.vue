@@ -14,7 +14,7 @@ defineProps<{
             <AppButton
                 color="success"
                 label="Novo perfil"
-                :inertia-link-attrs="{ href: route('panel.profiles.create') }"
+                :inertia-link="{ href: route('panel.profiles.create') }"
             />
         </template>
 
