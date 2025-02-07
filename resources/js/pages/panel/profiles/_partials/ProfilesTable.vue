@@ -53,7 +53,7 @@ const getDropdownOptions = (profile: Profile): DropdownItem[] => [
         <template #[`tbody.photo`]="{ data }">
             <div class="m-2 flex justify-center">
                 <img
-                    class="w-12 rounded-full object-cover"
+                    class="size-12 rounded-full object-cover"
                     :src="data.photo_thumb_url"
                 />
             </div>

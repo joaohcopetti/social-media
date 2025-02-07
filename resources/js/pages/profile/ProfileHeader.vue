@@ -11,6 +11,7 @@ const profile = inject(profileInjectionKey) as Profile
     <div class="relative">
         <img
             class="w-full object-cover"
+            style="max-height: 80vh"
             :src="profile.photo_url"
         />
 

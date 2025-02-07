@@ -9,8 +9,11 @@ defineProps<{
 
 <template>
     <div class="flex w-full gap-5">
-        <div class="w-52 overflow-hidden rounded-lg">
-            <img :src="profile.photo_url" />
+        <div class="w-1/4 overflow-hidden rounded-lg">
+            <img
+                :src="profile.photo_url"
+                class="rounded-lg"
+            />
         </div>
         <div class="flex w-full flex-col gap-3">
             <div class="text-xl font-bold">{{ profile.name }}</div>
