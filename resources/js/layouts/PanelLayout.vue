@@ -4,7 +4,7 @@ import PanelSidebar from './_partials-panel/PanelSidebar.vue'
 
 <template>
     <PanelSidebar />
-    <div class="px-10 py-16 sm:ml-64">
+    <div class="px-3 py-6 sm:ml-64 sm:px-10 sm:py-16">
         <slot />
     </div>
 </template>

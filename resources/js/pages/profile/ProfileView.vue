@@ -17,9 +17,9 @@ provide(profileInjectionKey, props.profile)
 <template>
     <div>
         <ProfileBackground />
-        <div class="py-10">
+        <div class="sm:py-10">
             <div
-                class="relative z-10 mx-auto w-1/3 overflow-hidden rounded-3xl bg-slate-900 shadow-2xl"
+                class="relative z-10 mx-auto overflow-hidden rounded-3xl bg-slate-900 shadow-2xl sm:w-1/3"
             >
                 <ProfileHeader />
                 <ProfileBody :media="props.media" />

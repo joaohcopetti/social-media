@@ -10,7 +10,7 @@ defineProps<{
 </script>
 
 <template>
-    <AppPanelContainer class="mx-auto w-1/2">
+    <AppPanelContainer class="mx-auto sm:w-1/2">
         <template #title>Minha conta</template>
         <template #subtitle> Altere os dados da sua conta </template>
         <template #body>
