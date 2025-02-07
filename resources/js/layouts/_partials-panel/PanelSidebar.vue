@@ -2,7 +2,7 @@
 import AppButton from '@/components/AppButton.vue'
 import PanelSidebarItem from '@/layouts/_partials-panel/PanelSidebarItem.vue'
 import { useAppStore } from '@/stores/app-store'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import PanelSidebarHeader from './PanelSidebarHeader.vue'
 
 const appStore = useAppStore()
@@ -42,11 +42,17 @@ const toggleSidebar = () => {
     }
 }
 
+const closeSidebar = () => {
+    isOpen.value = false
+    document.body.classList.remove('overflow-y-hidden')
+}
+
 onMounted(() => {
-    document.addEventListener('inertia:navigate', () => {
-        isOpen.value = false
-        document.body.classList.remove('overflow-y-hidden')
-    })
+    document.addEventListener('inertia:navigate', closeSidebar)
+})
+
+onBeforeUnmount(() => {
+    document.removeEventListener('inertia:navigate', closeSidebar)
 })
 </script>
 

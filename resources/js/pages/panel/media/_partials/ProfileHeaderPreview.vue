@@ -23,9 +23,8 @@ defineProps<{
                     ghost
                     :icon="{ icon: 'ph:eye' }"
                     label="Ver"
-                    :inertia-link-attrs="{
-                        href: route('profile.index', { profile: profile.slug }),
-                    }"
+                    :href="route('profile.index', { profile: profile.slug })"
+                    open-link-in-new-tab
                     color="primary-dark"
                 />
                 <AppButton

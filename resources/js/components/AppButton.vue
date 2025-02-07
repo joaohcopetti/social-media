@@ -18,6 +18,8 @@ type AppButtonProps = {
     disabled?: boolean
     ghost?: boolean
     inertiaLinkAttrs?: InstanceType<typeof Link>['$props']
+    openLinkInNewTab?: boolean
+    href?: string
 }
 
 const props = withDefaults(defineProps<AppButtonProps>(), {
@@ -27,16 +29,31 @@ const props = withDefaults(defineProps<AppButtonProps>(), {
     disabled: false,
     inertiaLinkAttrs: undefined,
     ghost: false,
+    openLinkInNewTab: false,
+    href: undefined,
 })
 
 const hasLabel = computed(() => !!props.label)
 const hasIcon = computed(() => !!props.icon)
+const component = computed(() => {
+    if (props.href) {
+        return 'a'
+    }
+
+    if (props.inertiaLinkAttrs) {
+        return Link
+    }
+
+    return 'button'
+})
 </script>
 
 <template>
     <Component
         v-bind="inertiaLinkAttrs"
-        :is="inertiaLinkAttrs ? Link : 'button'"
+        :is="component"
+        :href="href"
+        :target="props.openLinkInNewTab ? '_blank' : undefined"
         class="inline-block scale-100 rounded-lg font-bold text-gray-100 transition-all"
         :class="[
             ghost

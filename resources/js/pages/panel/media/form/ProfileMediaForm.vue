@@ -225,7 +225,7 @@ const toggleMediaState = (state: string, _media: Media) => {
                 </div>
             </div>
             <div class="py-5 text-center text-xl font-bold text-gray-100">
-                Clique aqui para enviar
+                Clique aqui para adicionar
             </div>
         </label>
     </div>
