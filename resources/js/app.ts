@@ -3,7 +3,9 @@ import '../css/app.css'
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import { createPinia } from 'pinia'
+import 'tippy.js/dist/tippy.css' // optional for styling
 import { createApp, DefineComponent, h } from 'vue'
+import VueTippy from 'vue-tippy'
 import ToastPlugin from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-default.css'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy'
@@ -35,6 +37,7 @@ createInertiaApp({
             .use(autoAnimatePlugin)
             .use(pinia)
             .use(ToastPlugin)
+            .use(VueTippy)
             .mount(el)
     },
     progress: {

@@ -71,11 +71,11 @@ const classes = computed(() => {
         classes.push(COLOR_CLASSES[props.color])
     }
 
-    if (hasIcon.value) {
+    if (hasIcon.value && !props.label) {
         classes.push('w-10 h-10')
     }
 
-    if (!hasIcon.value) {
+    if (props.label) {
         classes.push('px-4 py-2')
     }
 
