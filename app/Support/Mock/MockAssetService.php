@@ -21,11 +21,11 @@ class MockAssetService
         return $response;
     }
 
-    public function storeMockImage(string $folder, string $body)
+    public function storeMockImage(string $body)
     {
         $filename = Str::random() . '.jpg';
 
-        $path = storage_path(static::$STORAGE_PATH . '/' . $folder);
+        $path = storage_path(static::$STORAGE_PATH);
         $filepath = "$path/$filename";
 
         if (!is_dir($path)) {
@@ -37,11 +37,11 @@ class MockAssetService
         return $filepath;
     }
 
-    public function copyRandomImageAndThumb(ImageMockDimensionEnum $dimension, string $toDir)
+    public function copyRandomImageAndThumb(string $toDir)
     {
         $this->makeDirIfNotExists($toDir);
 
-        [$imagePath, $thumbPath] = $this->retrieveRandomImageAndThumb($dimension);
+        [$imagePath, $thumbPath] = $this->retrieveRandomImageAndThumb();
 
         $randomFilename = Str::random();
         $destImage = $toDir
@@ -72,11 +72,9 @@ class MockAssetService
         mkdir($dir, 0777, true);
     }
 
-    private function retrieveRandomImageAndThumb(ImageMockDimensionEnum $dimension)
+    private function retrieveRandomImageAndThumb()
     {
-        $mockImagesGlobPattern = storage_path(
-            static::$STORAGE_PATH . '/' . $dimension->value . '/*'
-        );
+        $mockImagesGlobPattern = storage_path(static::$STORAGE_PATH . '/*');
 
         $allImages = collect(glob($mockImagesGlobPattern));
 

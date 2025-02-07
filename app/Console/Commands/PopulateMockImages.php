@@ -23,11 +23,6 @@ class PopulateMockImages extends Command
      */
     protected $description = 'Command description';
 
-    protected static $DIMENSION_QUANTITY_MAP = [
-        ImageMockDimensionEnum::_1000x1000->value => 10,
-        ImageMockDimensionEnum::_1980x1080->value => 20
-    ];
-
     /**
      * Execute the console command.
      */
@@ -35,26 +30,23 @@ class PopulateMockImages extends Command
     {
         $assetMockService = app(MockAssetService::class);
         $mediaService = app(MediaService::class);
+        $quantity = 10;
 
-        foreach (static::$DIMENSION_QUANTITY_MAP as $dimension => $quantity) {
-            [$width, $height] = explode('x', $dimension);
+        $this->info("Storing images on " . MockAssetService::$STORAGE_PATH . '/');
+        $bar = $this->output->createProgressBar($quantity);
 
-            $this->info(
-                "Storing $quantity images ($dimension) on " . MockAssetService::$STORAGE_PATH . '/' . $dimension
-            );
+        for ($i = 0; $i < $quantity; $i++) {
+            $width = fake()->numberBetween(1000, 3000);
+            $height = fake()->numberBetween(1000, 3000);
 
-            $bar = $this->output->createProgressBar($quantity);
+            $image = $assetMockService->fetchImage($width, $height);
+            $filepath = $assetMockService->storeMockImage($image->body());
+            $mediaService->generateThumbnail($filepath);
 
-            for ($i = 0; $i < $quantity; $i++) {
-                $image = $assetMockService->fetchImage($width, $height);
-                $filepath = $assetMockService->storeMockImage($dimension, $image->body());
-                $mediaService->generateThumbnail($filepath);
-
-                $bar->advance();
-            }
-
-            $bar->finish();
-            $this->newLine();
+            $bar->advance();
         }
+
+        $bar->finish();
+        $this->newLine();
     }
 }

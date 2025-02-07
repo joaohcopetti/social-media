@@ -24,7 +24,6 @@ class ProfileFactory extends Factory
     {
         $name = fake()->firstNameFemale() . ' ' . fake()->lastName();
         $photo = app(MockAssetService::class)->copyRandomImageAndThumb(
-            ImageMockDimensionEnum::_1000x1000,
             storage_path('app/public/perfis/')
         );
 
