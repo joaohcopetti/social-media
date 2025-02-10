@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Panel;
 
 use App\Enums\RolesEnum;
 use App\Http\Requests\PanelProfileRequest;
@@ -8,10 +8,11 @@ use App\Models\Profile;
 use App\Models\SocialNetwork;
 use App\Models\User;
 use App\Services\MediaService;
-use DB;
-use File;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class PanelProfileController extends Controller
 {

@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Str;
-
 class MediaService
 {
     public function generateThumbnail(string $filepath, int $relativeDimension = 400)

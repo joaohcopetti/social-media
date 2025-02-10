@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Panel;
 
 use App\Enums\RolesEnum;
 use App\Http\Requests\MyAccountRequest;
@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Arr;
+use App\Http\Controllers\Controller;
 
 class PanelUserController extends Controller
 {

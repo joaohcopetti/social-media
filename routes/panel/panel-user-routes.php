@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\PanelUserController;
+use App\Http\Controllers\Panel\PanelUserController;
+use Illuminate\Support\Facades\Route;
+
 
 Route::prefix('usuarios')->name('users.')->group(function () {
     Route::get('/', [PanelUserController::class, 'index'])->name('index');

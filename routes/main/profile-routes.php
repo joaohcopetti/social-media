@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileMediaController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Panel\ProfileController;
+use App\Http\Controllers\Panel\ProfileMediaController;
+use Illuminate\Support\Facades\Route;
+
 
 Route::name('profile.')->group(function () {
     Route::get('/{profile}', [ProfileController::class, 'index'])->name('index');

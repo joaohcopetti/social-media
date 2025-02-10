@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Panel;
 
 use App\Http\Requests\PanelProfileMediaRequest;
 use App\Models\Profile;
@@ -11,6 +11,7 @@ use File;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use App\Http\Controllers\Controller;
 
 class PanelProfileMediaController extends Controller
 {

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Panel;
 
 use Illuminate\Http\Request;
 use App\Models\ProfileMedia;
 use Str;
+use App\Http\Controllers\Controller;
 
 class ProfileMediaController extends Controller
 {

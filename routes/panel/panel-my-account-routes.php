@@ -1,9 +1,10 @@
 <?php
 
 use App\Enums\RolesEnum;
-use App\Http\Controllers\PanelMyAccountController;
 use Illuminate\Auth\Middleware\Authenticate;
 use Spatie\Permission\Middleware\RoleMiddleware;
+use App\Http\Controllers\Panel\PanelMyAccountController;
+use Illuminate\Support\Facades\Route;
 
 Route::name('user.')->group(function () {
     Route::middleware([

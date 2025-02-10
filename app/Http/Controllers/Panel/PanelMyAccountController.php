@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Panel;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MyAccountRequest;
 use Illuminate\Support\Arr;
+use App\Http\Controllers\Controller;
 
 class PanelMyAccountController extends Controller
 {

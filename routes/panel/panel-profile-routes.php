@@ -1,10 +1,11 @@
 <?php
 
 use App\Enums\RolesEnum;
-use App\Http\Controllers\PanelProfileController;
-use App\Http\Controllers\PanelProfileMediaController;
 use Illuminate\Auth\Middleware\Authenticate;
 use Spatie\Permission\Middleware\RoleMiddleware;
+use App\Http\Controllers\Panel\PanelProfileController;
+use App\Http\Controllers\Panel\PanelProfileMediaController;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('perfis')->name('profiles.')->group(function () {
     Route::middleware([
