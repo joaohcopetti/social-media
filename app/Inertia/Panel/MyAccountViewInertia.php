@@ -10,7 +10,7 @@ class MyAccountViewInertia
 {
     public function render(User|Authenticatable $user)
     {
-        return Inertia::render('users/MyAccountView', [
+        return Inertia::render('panel/users/MyAccountView', [
             'user' => $user
         ]);
     }

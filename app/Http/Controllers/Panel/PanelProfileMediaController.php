@@ -3,22 +3,21 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Requests\PanelProfileMediaRequest;
-use App\Inertia\Panel\ProfileMediaView;
+use App\Inertia\Panel\ProfileMediaViewInertia;
 use App\Models\Profile;
 use App\Models\ProfileMedia;
 use App\Services\MediaService;
-use Arr;
-use File;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\File;
 
 class PanelProfileMediaController extends Controller
 {
     public function edit(Profile $profile)
     {
-        return app(ProfileMediaView::class)->render($profile);
+        return app(ProfileMediaViewInertia::class)->render($profile);
     }
 
     public function store(Profile $profile, PanelProfileMediaRequest $request)

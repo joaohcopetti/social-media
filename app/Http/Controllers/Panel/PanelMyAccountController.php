@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Inertia\Panel\MyAccountViewInertia;
-use App\Inertia\Panel\ProfileMediaView;
+use App\Inertia\Panel\ProfileMediaViewInertia;
 use App\Inertia\Panel\ProfilesEditViewInertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MyAccountRequest;
@@ -36,6 +36,6 @@ class PanelMyAccountController extends Controller
 
     public function myMedias()
     {
-        return app(ProfileMediaView::class)->render(Auth::user()->profile);
+        return app(ProfileMediaViewInertia::class)->render(Auth::user()->profile);
     }
 }

@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Enums\RolesEnum;
-use App\Http\Requests\MyAccountRequest;
 use App\Http\Requests\PanelUserRequest;
 use App\Inertia\Panel\UsersViewInertia;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Inertia\Inertia;
 use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
 
