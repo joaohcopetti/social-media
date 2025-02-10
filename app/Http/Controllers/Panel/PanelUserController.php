@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Panel;
 use App\Enums\RolesEnum;
 use App\Http\Requests\MyAccountRequest;
 use App\Http\Requests\PanelUserRequest;
+use App\Inertia\Panel\UsersViewInertia;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,11 +17,11 @@ class PanelUserController extends Controller
 {
     public function index()
     {
-        return Inertia::render('panel/users/UsersView', [
-            'users' => User::orderBy('name')
+        return app(UsersViewInertia::class)->render(
+            User::orderBy('name')
                 ->with(['roles'])
                 ->paginate()
-        ]);
+        );
     }
 
     public function store(PanelUserRequest $request)

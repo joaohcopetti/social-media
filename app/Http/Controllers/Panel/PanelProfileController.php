@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Panel;
 
 use App\Enums\RolesEnum;
 use App\Http\Requests\PanelProfileRequest;
+use App\Inertia\Panel\ProfilesCreateViewInertia;
+use App\Inertia\Panel\ProfilesEditViewInertia;
+use App\Inertia\Panel\ProfilesIndexViewInertia;
 use App\Models\Profile;
 use App\Models\SocialNetwork;
 use App\Models\User;
@@ -18,16 +21,16 @@ class PanelProfileController extends Controller
 {
     public function index()
     {
-        return Inertia::render('panel/profiles/ProfilesView', [
-            'profiles' => Profile::withCount('media')
+        return app(ProfilesIndexViewInertia::class)->render(
+            Profile::withCount('media')
                 ->orderBy('created_at', 'desc')
                 ->paginate()
-        ]);
+        );
     }
 
     public function create()
     {
-        return Inertia::render('panel/profiles/ProfilesCreateView');
+        return app(ProfilesCreateViewInertia::class)->render();
     }
 
     public function store(PanelProfileRequest $request)
@@ -88,9 +91,7 @@ class PanelProfileController extends Controller
 
     public function edit(Profile $profile)
     {
-        return Inertia::render('panel/profiles/ProfilesEditView', [
-            'profile' => $profile->load(['socialNetworks', 'user'])
-        ]);
+        return app(ProfilesEditViewInertia::class)->render($profile);
     }
 
     public function update(Profile $profile, PanelProfileRequest $request)

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Panel;
 
-use Illuminate\Http\Request;
-use Inertia\Inertia;
+use App\Inertia\Panel\MyAccountViewInertia;
+use App\Inertia\Panel\ProfileMediaView;
+use App\Inertia\Panel\ProfilesEditViewInertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MyAccountRequest;
 use Illuminate\Support\Arr;
@@ -13,9 +14,7 @@ class PanelMyAccountController extends Controller
 {
     public function myAccount()
     {
-        return Inertia::render('panel/users/MyAccountView', [
-            'user' => Auth::user()
-        ]);
+        return app(MyAccountViewInertia::class)->render(Auth::user());
     }
 
     public function myAccountUpdate(MyAccountRequest $request)
@@ -32,15 +31,11 @@ class PanelMyAccountController extends Controller
 
     public function myProfile()
     {
-        return Inertia::render('panel/profiles/ProfilesEditView', [
-            'profile' => Auth::user()->profile->load(['socialNetworks', 'user'])
-        ]);
+        return app(ProfilesEditViewInertia::class)->render(Auth::user()->profile);
     }
 
     public function myMedias()
     {
-        return Inertia::render('panel/media/ProfileMediaManagementView', [
-            'profile' => Auth::user()->profile->load(['socialNetworks', 'user', 'media'])
-        ]);
+        return app(ProfileMediaView::class)->render(Auth::user()->profile);
     }
 }

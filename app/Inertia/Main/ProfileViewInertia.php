@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Inertia;
+namespace App\Inertia\Main;
 
 use App\Models\Profile;
 use Illuminate\Support\Collection;

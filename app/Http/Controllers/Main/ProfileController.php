@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Panel;
 
-use App\Inertia\ProfileViewInertia;
 use App\Models\Profile;
 use App\Http\Controllers\Controller;
+use App\Inertia\Main\ProfileViewInertia;
 
 class ProfileController extends Controller
 {

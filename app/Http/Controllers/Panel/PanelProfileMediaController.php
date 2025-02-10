@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Requests\PanelProfileMediaRequest;
+use App\Inertia\Panel\ProfileMediaView;
 use App\Models\Profile;
 use App\Models\ProfileMedia;
 use App\Services\MediaService;
@@ -17,9 +18,7 @@ class PanelProfileMediaController extends Controller
 {
     public function edit(Profile $profile)
     {
-        return Inertia::render('panel/media/ProfileMediaManagementView', [
-            'profile' => $profile->load(['media' => fn($q) => $q->orderBy('order', 'asc')])
-        ]);
+        return app(ProfileMediaView::class)->render($profile);
     }
 
     public function store(Profile $profile, PanelProfileMediaRequest $request)
