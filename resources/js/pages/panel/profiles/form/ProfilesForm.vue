@@ -4,8 +4,9 @@ import AppForm from '@/components/AppForm.vue'
 import AppInput from '@/components/AppInput.vue'
 import AppSwitch from '@/components/AppSwitch.vue'
 import AppTextarea from '@/components/AppTextarea.vue'
+import { useAppStore } from '@/stores/app-store'
 import { Profile } from '@/types/models'
-import { Link, useForm } from '@inertiajs/vue3'
+import { useForm } from '@inertiajs/vue3'
 import { computed, onMounted } from 'vue'
 import ProfilesFormSection from './ProfilesFormSection.vue'
 import ProfilesPhotoInput from './ProfilesPhotoInput.vue'
@@ -76,6 +77,8 @@ const populateForm = () => {
     })
 }
 
+const isUserRoute = computed(() => useAppStore().currentRouteContains('panel.user.my-profile'))
+
 onMounted(() => {
     if (isEdit.value) {
         populateForm()
@@ -124,13 +127,11 @@ onMounted(() => {
                     />
                 </ProfilesFormSection>
                 <div
+                    v-if="!isUserRoute"
                     v-auto-animate
                     class="mt-5"
                 >
-                    <ProfilesFormSection
-                        v-if="form.is_user"
-                        title="Dados de login"
-                    >
+                    <ProfilesFormSection title="Dados de login">
                         <template v-if="form.is_user">
                             <AppInput
                                 v-model="form.email"
@@ -164,17 +165,6 @@ onMounted(() => {
                                 }"
                             />
                         </template>
-                        <div
-                            v-else
-                            class="mb-5"
-                        >
-                            Este perfil possui usuário, altere os dados na
-                            <Link
-                                class="font-bold text-blue-500 hover:text-blue-400"
-                                :href="route('panel.users.index')"
-                                >página de usuários</Link
-                            >
-                        </div>
                     </ProfilesFormSection>
                 </div>
 

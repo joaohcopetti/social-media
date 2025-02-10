@@ -23,7 +23,7 @@ const sidebarItems = computed((): SidebarItem[] => [
     {
         label: 'Perfis',
         url: route('panel.profiles.index'),
-        isActive: appStore.currentRoute!.includes('panel.profiles'),
+        isActive: appStore.currentRouteContains('panel.profiles'),
         icon: 'ph:users-duotone',
         visible: authStore.userHasAnyRole('admin'),
     },
@@ -31,29 +31,29 @@ const sidebarItems = computed((): SidebarItem[] => [
         label: 'Usuários',
         url: route('panel.users.index'),
         isActive:
-            appStore.currentRoute!.includes('panel.users') &&
-            !appStore.currentRoute!.includes('panel.users.my-account'),
+            appStore.currentRouteContains('panel.users') &&
+            !appStore.currentRouteContains('panel.users.my-account'),
         icon: 'ph:user-list-duotone',
         visible: authStore.userHasAnyRole('admin'),
     },
     {
         label: 'Meu perfil',
         url: route('panel.user.my-profile'),
-        isActive: false,
+        isActive: appStore.currentRouteContains('panel.user.my-profile'),
         icon: 'ph:user-focus-duotone',
         visible: authStore.userHasAnyRole('influencer'),
     },
     {
         label: 'Minhas mídias',
         url: route('panel.user.my-media'),
-        isActive: false,
+        isActive: appStore.currentRouteContains('panel.user.my-media'),
         icon: 'ph:images-duotone',
         visible: authStore.userHasAnyRole('influencer'),
     },
     {
         label: 'Minha conta',
         url: route('panel.user.my-account'),
-        isActive: appStore.currentRoute!.includes('panel.user.my-account'),
+        isActive: appStore.currentRouteContains('panel.user.my-account'),
         icon: 'ph:user-circle-duotone',
         visible: authStore.userHasAnyRole('influencer') || authStore.userHasAnyRole('admin'),
     },

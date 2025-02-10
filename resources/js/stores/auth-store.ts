@@ -9,7 +9,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     const userHasAnyRole = (roles: Roles | Roles[]) =>
         Array.isArray(roles)
-            ? user.value.roles.some((role) => roles.includes(role))
+            ? user.value.roles.some((role) => roles.includes(role.name))
             : user.value.roles.some(({ name }) => name === roles)
 
     const userHasRoles = (roles: Roles[]) => user.value.roles.every((role) => roles.includes(role))
