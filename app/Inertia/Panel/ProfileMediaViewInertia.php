@@ -9,8 +9,10 @@ class ProfileMediaViewInertia
 {
     public function render(Profile $profile)
     {
-        return Inertia::render('panel/media/ProfileMediaManagementView', [
-            'profile' => $profile->loadMissing(['media' => fn($q) => $q->orderBy('order', 'asc')])
+        return Inertia::render('panel/media/ProfileMediaView', [
+            'profile' => $profile->loadMissing([
+                'media' => fn($query) => $query->orderBy('order', 'asc')
+            ])
         ]);
     }
 }
