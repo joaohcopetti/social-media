@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\RoleEnum;
+use App\Enums\RolesEnum;
 use App\Http\Controllers\PanelProfileController;
 use App\Http\Controllers\PanelProfileMediaController;
 use Illuminate\Auth\Middleware\Authenticate;
@@ -9,7 +9,7 @@ use Spatie\Permission\Middleware\RoleMiddleware;
 Route::prefix('perfis')->name('profiles.')->group(function () {
     Route::middleware([
         Authenticate::class,
-        RoleMiddleware::using([RoleEnum::ADMIN->value])
+        RoleMiddleware::using([RolesEnum::ADMIN->value])
     ])->group(function () {
         Route::get('/', [PanelProfileController::class, 'index'])->name('index');
         Route::get('/novo', [PanelProfileController::class, 'create'])->name('create');

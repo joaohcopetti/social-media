@@ -5,7 +5,7 @@ namespace App\Enums;
 use App\Support\HasEnumUtilsTrait;
 
 
-enum MediaTypeEnum: string
+enum MediaTypesEnum: string
 {
     use HasEnumUtilsTrait;
 

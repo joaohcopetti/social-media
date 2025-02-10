@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\RoleEnum;
+use App\Enums\RolesEnum;
 use App\Http\Requests\MyAccountRequest;
 use App\Http\Requests\PanelUserRequest;
 use App\Models\User;
@@ -39,9 +39,9 @@ class PanelUserController extends Controller
         );
 
         if ($request->boolean('is_admin')) {
-            $user->assignRole(RoleEnum::ADMIN->value);
+            $user->assignRole(RolesEnum::ADMIN->value);
         } else {
-            $user->removeRole(RoleEnum::ADMIN->value);
+            $user->removeRole(RolesEnum::ADMIN->value);
         }
     }
 }

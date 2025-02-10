@@ -4,7 +4,7 @@ namespace App\Enums;
 
 use App\Support\HasEnumUtilsTrait;
 
-enum SocialNetworkEnum: string
+enum SocialNetworksEnum: string
 {
     use HasEnumUtilsTrait;
 

@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\RoleEnum;
+use App\Enums\RolesEnum;
 use App\Http\Controllers\PanelMyAccountController;
 use Illuminate\Auth\Middleware\Authenticate;
 use Spatie\Permission\Middleware\RoleMiddleware;
@@ -9,8 +9,8 @@ Route::name('user.')->group(function () {
     Route::middleware([
         Authenticate::class,
         RoleMiddleware::using([
-            RoleEnum::ADMIN->value,
-            RoleEnum::INFLUENCER->value
+            RolesEnum::ADMIN->value,
+            RolesEnum::INFLUENCER->value
         ])
     ])->group(function () {
         Route::get('/minha-conta', [PanelMyAccountController::class, 'myAccount'])->name('my-account');

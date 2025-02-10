@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\MediaTypeEnum;
+use App\Enums\MediaTypesEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -26,8 +26,8 @@ return new class extends Migration {
             $table->unsignedMediumInteger('order');
 
             $table->enum('type', [
-                MediaTypeEnum::IMAGE->value,
-                MediaTypeEnum::VIDEO->value
+                MediaTypesEnum::IMAGE->value,
+                MediaTypesEnum::VIDEO->value
             ]);
 
             $table->timestamps();

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Enums\SocialNetworkEnum;
+use App\Enums\SocialNetworksEnum;
 
 return new class extends Migration {
     /**
@@ -14,11 +14,11 @@ return new class extends Migration {
         Schema::create('social_networks', function (Blueprint $table) {
             $table->id();
             $table->enum('name', [
-                SocialNetworkEnum::FACEBOOK->value,
-                SocialNetworkEnum::X_TWITTER->value,
-                SocialNetworkEnum::INSTAGRAM->value,
-                SocialNetworkEnum::TIKTOK->value,
-                SocialNetworkEnum::YOUTUBE->value,
+                SocialNetworksEnum::FACEBOOK->value,
+                SocialNetworksEnum::X_TWITTER->value,
+                SocialNetworksEnum::INSTAGRAM->value,
+                SocialNetworksEnum::TIKTOK->value,
+                SocialNetworksEnum::YOUTUBE->value,
             ]);
 
             $table->unsignedTinyInteger('order')->default(0);

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\RoleEnum;
+use App\Enums\RolesEnum;
 use App\Http\Requests\PanelProfileRequest;
 use App\Models\Profile;
 use App\Models\SocialNetwork;
@@ -49,7 +49,7 @@ class PanelProfileController extends Controller
                 'password' => $request->password,
             ]);
 
-            $user->assignRole(RoleEnum::INFLUENCER->value);
+            $user->assignRole(RolesEnum::INFLUENCER->value);
         }
 
         $profile = Profile::create([

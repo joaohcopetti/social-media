@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Enums\SocialNetworkEnum;
+use App\Enums\SocialNetworksEnum;
 use App\Models\Profile;
 use App\Models\SocialNetwork;
 use DB;

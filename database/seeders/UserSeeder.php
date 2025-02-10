@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Enums\RoleEnum;
+use App\Enums\RolesEnum;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -45,7 +45,7 @@ class UserSeeder extends Seeder
             }
         }
 
-        User::firstWhere('email', 'admin@email.com')->assignRole(RoleEnum::ADMIN);
+        User::firstWhere('email', 'admin@email.com')->assignRole(RolesEnum::ADMIN);
 
         User::factory(100)->create();
     }
