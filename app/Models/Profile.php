@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -19,6 +21,7 @@ class Profile extends Model
         'description',
         'photo',
         'thumbnail_photo',
+        'user_id'
     ];
 
     protected $appends = [
@@ -62,5 +65,10 @@ class Profile extends Model
         return $this->belongsToMany(SocialNetwork::class)
             ->orderBy('order')
             ->withPivot(['url']);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

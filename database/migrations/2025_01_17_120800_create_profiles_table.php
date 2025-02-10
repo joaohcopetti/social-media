@@ -12,6 +12,12 @@ return new class extends Migration {
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')
+                ->unique()
+                ->nullable()
+                ->constrained('users')
+                ->cascadeOnDelete();
+
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('photo');

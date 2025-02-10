@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\RoleEnum;
 use App\Http\Requests\PanelProfileRequest;
 use App\Models\Profile;
 use App\Models\SocialNetwork;
+use App\Models\User;
 use App\Services\MediaService;
 use DB;
 use File;
@@ -40,11 +42,22 @@ class PanelProfileController extends Controller
 
         $thumbnailFilename = pathinfo($thumbnailFilepath, PATHINFO_BASENAME);
 
+        if ($request->boolean('is_user')) {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password,
+            ]);
+
+            $user->assignRole(RoleEnum::INFLUENCER->value);
+        }
+
         $profile = Profile::create([
             'name' => $request->name,
             'description' => $request->description,
             'photo' => $filename,
-            'thumbnail_photo' => $thumbnailFilename
+            'thumbnail_photo' => $thumbnailFilename,
+            'user_id' => $user?->id
         ]);
 
         $this->syncSocialNetworks($request, $profile);
@@ -75,7 +88,7 @@ class PanelProfileController extends Controller
     public function edit(Profile $profile)
     {
         return Inertia::render('panel/profiles/ProfilesEditView', [
-            'profile' => $profile->load('socialNetworks')
+            'profile' => $profile->load(['socialNetworks', 'user'])
         ]);
     }
 

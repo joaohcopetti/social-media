@@ -1,6 +1,7 @@
 export interface Profile {
   // columns
   id: number
+  user_id: number | null
   name: string
   slug: string
   photo: string
@@ -14,6 +15,7 @@ export interface Profile {
   // relations
   media: ProfileMedia[]
   social_networks: SocialNetwork[]
+  user: User
 }
 
 export interface ProfileMedia {
@@ -55,6 +57,7 @@ export interface User {
   created_at: string | null
   updated_at: string | null
   // relations
+  profile: Profile
   notifications: DatabaseNotification[]
   roles: Role[]
   permissions: Permission[]

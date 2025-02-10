@@ -22,10 +22,12 @@ const props = withDefaults(
     defineProps<{
         size?: 'sm' | 'md'
         label?: string
+        hint?: string
     }>(),
     {
         size: 'md',
         label: '',
+        hint: '',
     },
 )
 
@@ -33,12 +35,9 @@ const classes = computed(() => SIZES_CLASS[props.size])
 </script>
 
 <template>
-    <SwitchGroup
-        as="div"
-        class="cursor-pointer"
-    >
+    <SwitchGroup as="div">
         <SwitchLabel
-            class="flex w-full items-center gap-2"
+            class="flex w-full cursor-pointer items-center gap-2"
             as="div"
         >
             <Switch
@@ -56,5 +55,11 @@ const classes = computed(() => SIZES_CLASS[props.size])
             </Switch>
             <span>{{ label }}</span>
         </SwitchLabel>
+        <div
+            v-if="hint"
+            class="mt-1 text-sm text-gray-400"
+        >
+            {{ hint }}
+        </div>
     </SwitchGroup>
 </template>

@@ -2,16 +2,22 @@
 import AppButton from '@/components/AppButton.vue'
 import AppForm from '@/components/AppForm.vue'
 import AppInput from '@/components/AppInput.vue'
+import AppSwitch from '@/components/AppSwitch.vue'
 import AppTextarea from '@/components/AppTextarea.vue'
 import { Profile } from '@/types/models'
-import { useForm } from '@inertiajs/vue3'
+import { Link, useForm } from '@inertiajs/vue3'
 import { computed, onMounted } from 'vue'
+import ProfilesFormSection from './ProfilesFormSection.vue'
 import ProfilesPhotoInput from './ProfilesPhotoInput.vue'
 
 type ProfileForm = {
     name: string
     description?: string
     photo: File | null
+    is_user: boolean
+    email?: string
+    password?: string
+    password_confirmation?: string
     facebook: string
     instagram: string
     x_twitter: string
@@ -30,6 +36,10 @@ const form = useForm<ProfileForm>({
     name: '',
     description: '',
     photo: null,
+    is_user: false,
+    email: '',
+    password: '',
+    password_confirmation: '',
     facebook: '',
     instagram: '',
     x_twitter: '',
@@ -58,6 +68,7 @@ const populateForm = () => {
     Object.assign(form, {
         name: profile.name,
         description: profile.description,
+        is_user: !!profile.user,
     })
 
     profile.social_networks.forEach((socialNetwork) => {
@@ -86,9 +97,7 @@ onMounted(() => {
                 />
             </div>
             <div class="flex w-full flex-col">
-                <div class="text-lg font-bold">Dados principais</div>
-                <hr class="my-3 border-slate-600" />
-                <div>
+                <ProfilesFormSection title="Dados principais">
                     <AppInput
                         v-model="form.name"
                         label="Nome"
@@ -98,8 +107,6 @@ onMounted(() => {
                             placeholder: 'Digite o nome...',
                         }"
                     />
-                </div>
-                <div>
                     <AppTextarea
                         v-model="form.description"
                         :error="form.errors.description"
@@ -109,59 +116,111 @@ onMounted(() => {
                         :textarea-attrs="{ class: 'h-20' }"
                         optional
                     />
+                    <AppSwitch
+                        v-if="!isEdit"
+                        v-model="form.is_user"
+                        label="Usuário do sistema"
+                        hint="O usuário pode logar com e-mail e senha e gerenciar seu próprio perfil"
+                    />
+                </ProfilesFormSection>
+                <div
+                    v-auto-animate="{ duration: form.is_user && !isEdit ? 250 : 0 }"
+                    class="mt-5"
+                >
+                    <ProfilesFormSection
+                        v-if="form.is_user"
+                        title="Dados de login"
+                    >
+                        <template v-if="form.is_user && !isEdit">
+                            <AppInput
+                                v-model="form.email"
+                                name="user.email"
+                                label="E-mail"
+                                :error="form.errors.email"
+                                :input-attrs="{
+                                    placeholder: 'Digite o e-mail...',
+                                }"
+                            />
+                            <AppInput
+                                v-model="form.password"
+                                name="password"
+                                label="Senha"
+                                :error="form.errors.password"
+                                :hint="form.password"
+                                :input-attrs="{
+                                    type: 'password',
+                                    placeholder: 'Digite a senha...',
+                                }"
+                            />
+                            <AppInput
+                                v-model="form.password_confirmation"
+                                name="password_confirmation"
+                                label="Repita a senha"
+                                :error="form.errors.password_confirmation"
+                                :hint="form.password_confirmation"
+                                :input-attrs="{
+                                    type: 'password',
+                                    placeholder: 'Digite a senha...',
+                                }"
+                            />
+                        </template>
+                        <div
+                            v-else
+                            class="mb-5"
+                        >
+                            Este perfil possui usuário, altere os dados na
+                            <Link
+                                class="font-bold text-blue-500 hover:text-blue-400"
+                                :href="route('panel.users.index')"
+                                >página de usuários</Link
+                            >
+                        </div>
+                    </ProfilesFormSection>
                 </div>
-                <div class="mt-5 text-lg font-bold">Redes sociais</div>
-                <hr class="my-3 border-slate-600" />
-                <div>
+
+                <ProfilesFormSection title="Redes sociais">
                     <AppInput
                         v-model="form.facebook"
-                        name="facebook"
+                        name="networks.facebook"
                         label="Facebook"
                         :input-attrs="{ placeholder: 'Perfil do Facebook...' }"
                         optional
                         :error="form.errors.facebook"
                     />
-                </div>
-                <div>
                     <AppInput
                         v-model="form.instagram"
-                        name="instagram"
+                        name="networks.instagram"
                         label="Instagram"
                         :input-attrs="{ placeholder: 'Perfil do Instagram...' }"
                         optional
                         :error="form.errors.instagram"
                     />
-                </div>
-                <div>
                     <AppInput
                         v-model="form.x_twitter"
-                        name="x_twitter"
+                        name="networks.x_twitter"
                         label="X/Twitter"
                         :input-attrs="{ placeholder: 'Perfil do Twitter...' }"
                         optional
                         :error="form.errors.x_twitter"
                     />
-                </div>
-                <div>
                     <AppInput
                         v-model="form.tiktok"
-                        name="tiktok"
+                        name="networks.tiktok"
                         label="Tiktok"
                         :input-attrs="{ placeholder: 'Perfil do Tiktok...' }"
                         optional
                         :error="form.errors.tiktok"
                     />
-                </div>
-                <div>
                     <AppInput
                         v-model="form.youtube"
-                        name="youtube"
+                        name="networks.youtube"
                         label="YouTube"
                         :input-attrs="{ placeholder: 'Perfil do YouTube...' }"
                         optional
                         :error="form.errors.youtube"
                     />
-                </div>
+                </ProfilesFormSection>
+
                 <div class="text-right">
                     <AppButton
                         :disabled="form.processing"

@@ -32,7 +32,7 @@ class ProfileFactory extends Factory
             'slug' => Str::slug($name),
             'photo' => pathinfo($photo['image_path'], PATHINFO_BASENAME),
             'thumbnail_photo' => pathinfo($photo['thumb_path'], PATHINFO_BASENAME),
-            'description' => fake()->optional(.5, null)->sentence()
+            'description' => fake()->optional(.5, null)->sentence(),
         ];
     }
 }

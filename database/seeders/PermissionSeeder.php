@@ -15,5 +15,6 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         Role::create(['name' => RoleEnum::ADMIN->value]);
+        Role::create(['name' => RoleEnum::INFLUENCER->value]);
     }
 }

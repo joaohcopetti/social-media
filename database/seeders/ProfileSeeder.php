@@ -30,7 +30,7 @@ class ProfileSeeder extends Seeder
         return Profile::factory()->count($PROFILE_QUANTITY)->create();
     }
 
-    private function seedProfileMedia($profiles)
+    public function seedProfileMedia($profiles)
     {
         foreach ($profiles as $index => $profile) {
             $quantity = fake()->numberBetween(5, 15);
@@ -42,7 +42,7 @@ class ProfileSeeder extends Seeder
         }
     }
 
-    private function seedProfileSocialNetworks($profiles)
+    public function seedProfileSocialNetworks($profiles)
     {
         $profileSocialNetworks = [];
 
