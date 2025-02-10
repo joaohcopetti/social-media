@@ -3,15 +3,15 @@ import '../css/app.css'
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import { createPinia } from 'pinia'
-import 'tippy.js/dist/tippy.css' // optional for styling
+import 'tippy.js/dist/tippy.css'
 import { createApp, DefineComponent, h } from 'vue'
 import VueTippy from 'vue-tippy'
 import ToastPlugin from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-default.css'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy'
 import './bootstrap'
-import MainLayout from './layouts/MainLayout.vue'
-import PanelLayout from './layouts/PanelLayout.vue'
+import MainLayout from './pages/main/_layouts/MainLayout.vue'
+import PanelLayout from './pages/panel/_layouts/PanelLayout.vue'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 

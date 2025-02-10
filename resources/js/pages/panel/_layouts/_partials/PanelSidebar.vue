@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
-import PanelSidebarItem from '@/layouts/_partials-panel/PanelSidebarItem.vue'
 import { useAppStore } from '@/stores/app-store'
 import { useAuthStore } from '@/stores/auth-store'
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import PanelSidebarHeader from './PanelSidebarHeader.vue'
+import PanelSidebarItem from './PanelSidebarItem.vue'
 
 const appStore = useAppStore()
 const authStore = useAuthStore()

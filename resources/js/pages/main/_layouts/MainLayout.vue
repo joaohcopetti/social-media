@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import AuthButtons from './_partials-main/AuthButtons.vue'
-import LoginModal from './_partials-main/LoginModal.vue'
+import AuthButtons from './_partials/AuthButtons.vue'
+import LoginModal from './_partials/LoginModal.vue'
 const loginModal = ref(false)
 </script>
 

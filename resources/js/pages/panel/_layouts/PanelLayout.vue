@@ -1,5 +1,5 @@
 <script setup>
-import PanelSidebar from './_partials-panel/PanelSidebar.vue'
+import PanelSidebar from './_partials/PanelSidebar.vue'
 </script>
 
 <template>
