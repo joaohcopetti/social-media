@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Panel;
 
 use App\Enums\RolesEnum;
 use App\Http\Requests\PanelUserRequest;
-use App\Inertia\Panel\UsersViewInertia;
+use App\Inertia\Panel\UsersIndexViewInertia;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
@@ -13,7 +13,7 @@ class PanelUserController extends Controller
 {
     public function index()
     {
-        return app(UsersViewInertia::class)->render(
+        return app(UsersIndexViewInertia::class)->render(
             User::orderBy('name')
                 ->with(['roles'])
                 ->paginate()

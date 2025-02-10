@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Panel;
+namespace App\Http\Controllers\Main;
 
 use Illuminate\Http\Request;
 use App\Models\ProfileMedia;

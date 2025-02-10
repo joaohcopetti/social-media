@@ -5,11 +5,11 @@ namespace App\Inertia\Panel;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Inertia\Inertia;
 
-class UsersViewInertia
+class UsersIndexViewInertia
 {
     public function render(LengthAwarePaginator $users)
     {
-        return Inertia::render('panel/users/UsersView', [
+        return Inertia::render('panel/users/UsersIndexView', [
             'users' => $users
         ]);
     }
