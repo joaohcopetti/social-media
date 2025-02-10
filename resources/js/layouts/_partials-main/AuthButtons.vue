@@ -2,7 +2,7 @@
 import AppButton from '@/components/AppButton.vue'
 import { useAuthStore } from '@/stores/auth-store'
 import { router } from '@inertiajs/vue3'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 defineEmits(['login-click', 'subscribe-click'])
 
 const authStore = useAuthStore()
@@ -22,6 +22,16 @@ const onLogoutClick = () => {
         },
     )
 }
+
+const panelStartUrl = computed(() => {
+    if (authStore.userHasRole('admin')) {
+        return route('panel.profiles.index')
+    }
+
+    if (authStore.userHasRole('influencer')) {
+        return route('panel.user.my-media')
+    }
+})
 </script>
 
 <template>
@@ -45,11 +55,11 @@ const onLogoutClick = () => {
         </template>
         <template v-else>
             <AppButton
-                v-if="authStore.authIs('admin')"
+                v-if="authStore.userHasRole('admin') || authStore.userHasRole('influencer')"
                 v-tippy="{ content: 'Painel' }"
                 :icon-left="{ icon: 'ph:gauge-bold' }"
                 ghost
-                :inertia-link="{ href: route('panel.profiles.index') }"
+                :inertia-link="{ href: panelStartUrl }"
             />
             <AppButton
                 v-tippy="{ content: 'Sair' }"

@@ -2,33 +2,60 @@
 import AppButton from '@/components/AppButton.vue'
 import PanelSidebarItem from '@/layouts/_partials-panel/PanelSidebarItem.vue'
 import { useAppStore } from '@/stores/app-store'
+import { useAuthStore } from '@/stores/auth-store'
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import PanelSidebarHeader from './PanelSidebarHeader.vue'
 
 const appStore = useAppStore()
+const authStore = useAuthStore()
 
 const isOpen = ref<boolean>(false)
 
-const sidebarItems = computed(() => [
+export type SidebarItem = {
+    label: string
+    url: string
+    isActive: boolean
+    icon: string
+    visible: boolean
+}
+
+const sidebarItems = computed((): SidebarItem[] => [
     {
         label: 'Perfis',
         url: route('panel.profiles.index'),
-        isActive: appStore.currentRoute?.includes('panel.profiles'),
-        icon: 'ph:user-square-duotone',
+        isActive: appStore.currentRoute!.includes('panel.profiles'),
+        icon: 'ph:users-duotone',
+        visible: authStore.userHasRole('admin'),
     },
     {
         label: 'Usuários',
         url: route('panel.users.index'),
         isActive:
-            appStore.currentRoute?.includes('panel.users') &&
-            !appStore.currentRoute?.includes('panel.users.my-account'),
-        icon: 'ph:users-three-duotone',
+            appStore.currentRoute!.includes('panel.users') &&
+            !appStore.currentRoute!.includes('panel.users.my-account'),
+        icon: 'ph:user-list-duotone',
+        visible: authStore.userHasRole('admin'),
+    },
+    {
+        label: 'Meu perfil',
+        url: route('panel.user.my-profile'),
+        isActive: false,
+        icon: 'ph:user-focus-duotone',
+        visible: authStore.userHasRole('influencer'),
+    },
+    {
+        label: 'Minhas mídias',
+        url: route('panel.user.my-media'),
+        isActive: false,
+        icon: 'ph:images-duotone',
+        visible: authStore.userHasRole('influencer'),
     },
     {
         label: 'Minha conta',
-        url: route('panel.my-account.index'),
-        isActive: appStore.currentRoute?.includes('panel.my-account'),
+        url: route('panel.user.my-account'),
+        isActive: appStore.currentRoute!.includes('panel.user.my-account'),
         icon: 'ph:user-circle-duotone',
+        visible: authStore.userHasRole('influencer') || authStore.userHasRole('admin'),
     },
 ])
 
@@ -90,14 +117,15 @@ onBeforeUnmount(() => {
         <div class="h-full overflow-y-auto bg-slate-800 px-3 py-4">
             <PanelSidebarHeader />
             <ul class="space-y-2 font-medium">
-                <PanelSidebarItem
+                <template
                     v-for="sidebarItem in sidebarItems"
                     :key="sidebarItem.url"
-                    :label="sidebarItem.label"
-                    :active="sidebarItem.isActive"
-                    :url="sidebarItem.url"
-                    :icon="sidebarItem.icon"
-                />
+                >
+                    <PanelSidebarItem
+                        v-if="sidebarItem.visible"
+                        :item="sidebarItem"
+                    />
+                </template>
             </ul>
         </div>
     </aside>

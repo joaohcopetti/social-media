@@ -10,14 +10,14 @@ use Illuminate\Support\Arr;
 
 class PanelMyAccountController extends Controller
 {
-    public function index()
+    public function myAccount()
     {
         return Inertia::render('panel/users/MyAccountView', [
             'user' => Auth::user()
         ]);
     }
 
-    public function update(MyAccountRequest $request)
+    public function myAccountUpdate(MyAccountRequest $request)
     {
         Auth::user()->update(
             Arr::where(
@@ -26,6 +26,20 @@ class PanelMyAccountController extends Controller
             )
         );
 
-        return redirect()->route('panel.my-account.index');
+        return redirect()->route('panel.user.my-account');
+    }
+
+    public function myProfile()
+    {
+        return Inertia::render('panel/profiles/ProfilesEditView', [
+            'profile' => Auth::user()->profile->load(['socialNetworks', 'user'])
+        ]);
+    }
+
+    public function myMedias()
+    {
+        return Inertia::render('panel/media/ProfileMediaManagementView', [
+            'profile' => Auth::user()->profile->load(['socialNetworks', 'user', 'media'])
+        ]);
     }
 }

@@ -2,33 +2,27 @@
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import { Link } from '@inertiajs/vue3'
 
-withDefaults(
-    defineProps<{
-        label: string
-        active?: boolean
-        url: string
-        icon: string
-    }>(),
-    {
-        active: false,
-    },
-)
+import type { SidebarItem } from './PanelSidebar.vue'
+
+defineProps<{
+    item: SidebarItem
+}>()
 </script>
 
 <template>
     <li>
         <Link
-            :href="url"
+            :href="item.url"
             class="group flex items-center rounded-lg p-2 text-white transition-colors hover:bg-slate-600"
             :class="{
-                'bg-slate-700 font-bold': active,
+                'bg-slate-700 font-bold': item.isActive,
             }"
         >
             <Icon
-                :icon="icon"
+                :icon="item.icon"
                 style="font-size: 1.2rem"
             />
-            <span class="ms-3">{{ label }}</span>
+            <span class="ms-3">{{ item.label }}</span>
         </Link>
     </li>
 </template>
