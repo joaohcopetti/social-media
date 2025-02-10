@@ -25,7 +25,7 @@ const sidebarItems = computed((): SidebarItem[] => [
         url: route('panel.profiles.index'),
         isActive: appStore.currentRoute!.includes('panel.profiles'),
         icon: 'ph:users-duotone',
-        visible: authStore.userHasRole('admin'),
+        visible: authStore.userHasAnyRole('admin'),
     },
     {
         label: 'Usuários',
@@ -34,28 +34,28 @@ const sidebarItems = computed((): SidebarItem[] => [
             appStore.currentRoute!.includes('panel.users') &&
             !appStore.currentRoute!.includes('panel.users.my-account'),
         icon: 'ph:user-list-duotone',
-        visible: authStore.userHasRole('admin'),
+        visible: authStore.userHasAnyRole('admin'),
     },
     {
         label: 'Meu perfil',
         url: route('panel.user.my-profile'),
         isActive: false,
         icon: 'ph:user-focus-duotone',
-        visible: authStore.userHasRole('influencer'),
+        visible: authStore.userHasAnyRole('influencer'),
     },
     {
         label: 'Minhas mídias',
         url: route('panel.user.my-media'),
         isActive: false,
         icon: 'ph:images-duotone',
-        visible: authStore.userHasRole('influencer'),
+        visible: authStore.userHasAnyRole('influencer'),
     },
     {
         label: 'Minha conta',
         url: route('panel.user.my-account'),
         isActive: appStore.currentRoute!.includes('panel.user.my-account'),
         icon: 'ph:user-circle-duotone',
-        visible: authStore.userHasRole('influencer') || authStore.userHasRole('admin'),
+        visible: authStore.userHasAnyRole('influencer') || authStore.userHasAnyRole('admin'),
     },
 ])
 

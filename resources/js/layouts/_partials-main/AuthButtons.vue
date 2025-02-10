@@ -24,11 +24,11 @@ const onLogoutClick = () => {
 }
 
 const panelStartUrl = computed(() => {
-    if (authStore.userHasRole('admin')) {
+    if (authStore.userHasAnyRole('admin')) {
         return route('panel.profiles.index')
     }
 
-    if (authStore.userHasRole('influencer')) {
+    if (authStore.userHasAnyRole('influencer')) {
         return route('panel.user.my-media')
     }
 })
@@ -55,7 +55,7 @@ const panelStartUrl = computed(() => {
         </template>
         <template v-else>
             <AppButton
-                v-if="authStore.userHasRole('admin') || authStore.userHasRole('influencer')"
+                v-if="authStore.userHasAnyRole('admin') || authStore.userHasAnyRole('influencer')"
                 v-tippy="{ content: 'Painel' }"
                 :icon-left="{ icon: 'ph:gauge-bold' }"
                 ghost

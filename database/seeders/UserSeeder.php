@@ -7,21 +7,25 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 class UserSeeder extends Seeder
 {
-    protected static $USERS = [
+    protected static $STATIC_USERS = [
         [
             'email' => 'admin@email.com',
-            'password' => 'secret'
+            'password' => 'secret',
+            'role' => RolesEnum::ADMIN->value
         ],
         [
             'email' => 'influencer@email.com',
-            'password' => 'secret'
+            'password' => 'secret',
+            'role' => RolesEnum::INFLUENCER->value
         ],
         [
             'email' => 'customer@email.com',
-            'password' => 'secret'
+            'password' => 'secret',
+            'role' => null
         ]
     ];
 
@@ -30,23 +34,27 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach (static::$USERS as $user) {
-            $createdUser = User::factory()->create($user);
+        foreach (static::$STATIC_USERS as $staticUser) {
+            $credentials = Arr::only($staticUser, ['email', 'password']);
 
-            if ($user['email'] === 'influencer@email.com') {
-                $profile = Profile::factory()->create([
-                    'name' => $createdUser->name,
-                    'slug' => Str::slug($createdUser->name),
-                    'user_id' => $createdUser->id
-                ]);
+            $user = User::factory()->create($credentials);
+            $user->assignRole($staticUser['role']);
 
-                app(ProfileSeeder::class)->seedProfileMedia([$profile]);
-                app(ProfileSeeder::class)->seedProfileSocialNetworks([$profile]);
+            if ($staticUser['email'] === 'influencer@email.com') {
+                $this->seedUserProfile($user);
             }
         }
+    }
 
-        User::firstWhere('email', 'admin@email.com')->assignRole(RolesEnum::ADMIN);
+    private function seedUserProfile($user)
+    {
+        $profile = Profile::factory()->create([
+            'name' => $user->name,
+            'slug' => Str::slug($user->name),
+            'user_id' => $user->id
+        ]);
 
-        User::factory(100)->create();
+        app(ProfileSeeder::class)->seedProfileMedia([$profile]);
+        app(ProfileSeeder::class)->seedProfileSocialNetworks([$profile]);
     }
 }

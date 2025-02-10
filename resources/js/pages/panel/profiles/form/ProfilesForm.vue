@@ -124,14 +124,14 @@ onMounted(() => {
                     />
                 </ProfilesFormSection>
                 <div
-                    v-auto-animate="{ duration: form.is_user && !isEdit ? 250 : 0 }"
+                    v-auto-animate
                     class="mt-5"
                 >
                     <ProfilesFormSection
                         v-if="form.is_user"
                         title="Dados de login"
                     >
-                        <template v-if="form.is_user && !isEdit">
+                        <template v-if="form.is_user">
                             <AppInput
                                 v-model="form.email"
                                 name="user.email"
