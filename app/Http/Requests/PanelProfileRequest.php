@@ -24,7 +24,6 @@ class PanelProfileRequest extends FormRequest
     {
         $isEdit = $this->getMethod() === 'PATCH';
 
-        // dd($this->all());
         return [
             'name' => ['required', 'string', 'max:255', 'min:3'],
             'description' => ['nullable', 'string', 'max:1000'],

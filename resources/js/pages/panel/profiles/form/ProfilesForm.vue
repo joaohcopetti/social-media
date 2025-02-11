@@ -126,16 +126,18 @@ onMounted(() => {
                         hint="O usuário pode logar com e-mail e senha e gerenciar seu próprio perfil"
                     />
                 </ProfilesFormSection>
-                <div
-                    v-if="!isUserRoute"
-                    v-auto-animate
-                    class="mt-5"
-                >
-                    <ProfilesFormSection title="Dados de login">
-                        <template v-if="form.is_user">
+                <template v-if="!isUserRoute">
+                    <div
+                        v-auto-animate
+                        class="mt-5"
+                    >
+                        <ProfilesFormSection
+                            v-if="form.is_user"
+                            title="Dados de login"
+                        >
                             <AppInput
                                 v-model="form.email"
-                                name="user.email"
+                                name="email"
                                 label="E-mail"
                                 :error="form.errors.email"
                                 :input-attrs="{
@@ -164,9 +166,9 @@ onMounted(() => {
                                     placeholder: 'Digite a senha...',
                                 }"
                             />
-                        </template>
-                    </ProfilesFormSection>
-                </div>
+                        </ProfilesFormSection>
+                    </div>
+                </template>
 
                 <ProfilesFormSection title="Redes sociais">
                     <AppInput

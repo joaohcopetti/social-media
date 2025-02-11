@@ -66,7 +66,7 @@ const onPhotoChange = async (event: Event) => {
                 <div class="size-64 overflow-hidden rounded-lg">
                     <img
                         :src="photoBase64 || photo"
-                        class="h-full w-full"
+                        class="h-full w-full object-cover"
                     />
                 </div>
             </template>

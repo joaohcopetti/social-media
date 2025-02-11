@@ -12,7 +12,7 @@ defineProps<{
         <div class="overflow-hidden rounded-lg sm:w-1/4">
             <img
                 :src="profile.photo_url"
-                class="rounded-lg"
+                class="size-64 rounded-lg object-cover"
             />
         </div>
         <div class="flex w-full flex-col gap-3">
