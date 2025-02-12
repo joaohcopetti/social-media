@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Panel;
 
+use App\Actions\ProfileMediaDeleteAction;
 use App\Actions\ProfileMediaStoreAction;
 use App\Actions\ProfileMediaUploadAction;
 use App\Http\Requests\PanelProfileMediaRequest;
@@ -11,7 +12,6 @@ use App\Models\ProfileMedia;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\File;
 
 class PanelProfileMediaController extends Controller
 {
@@ -23,23 +23,25 @@ class PanelProfileMediaController extends Controller
     public function store(Profile $profile, PanelProfileMediaRequest $request)
     {
         $storedMediaData = app(ProfileMediaUploadAction::class)->execute($request->file('file'));
+
         $media = app(ProfileMediaStoreAction::class)->execute(
             $profile,
             array_merge($request->all(), $storedMediaData)
         );
 
         return response()->json([
-            'message' => 'Mídia enviada!',
+            'message' => 'Media uploaded',
             'media' => $media
         ]);
     }
 
     public function destroy(ProfileMedia $profileMedia)
     {
-        File::delete(storage_path('app/private/midias/' . $profileMedia->filename));
-        File::delete(storage_path('app/private/midias/' . $profileMedia->thumbnail_filename));
+        app(ProfileMediaDeleteAction::class)->execute($profileMedia);
 
-        $profileMedia->delete();
+        return response()->json([
+            'message' => 'Media deleted'
+        ]);
     }
 
     public function toggleState(ProfileMedia $profileMedia, Request $request)
