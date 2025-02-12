@@ -34,15 +34,14 @@ class ProfileMediaUploadAction
             );
         }
 
+        if ($type === 'video' && !$thumbnailFile) {
+            throw new Error('Video thumbnail not found');
+        }
+
         if ($type === 'video') {
             $thumbnailFilename = app(MediaService::class)->generateThumbnailFilename($mediaFilepath);
 
-            if (!$thumbnailFile) {
-                throw new Error('Video thumbnail not found');
-            }
-
             return $thumbnailFile->storeAs('midias', $thumbnailFilename);
-
         }
 
         throw new Error('Media type not supported');
