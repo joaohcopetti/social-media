@@ -35,7 +35,7 @@ class ProfileMediaUploadAction
         }
 
         if ($type === 'video') {
-            $thumbnailFilename = pathinfo($mediaFilepath, PATHINFO_FILENAME) . '_thumb.png';
+            $thumbnailFilename = app(MediaService::class)->generateThumbnailFilename($mediaFilepath);
 
             if (!$thumbnailFile) {
                 throw new Error('Video thumbnail not found');
