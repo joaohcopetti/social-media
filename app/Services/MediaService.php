@@ -10,12 +10,18 @@ class MediaService
         $image->autoOrient();
         $image->thumbnailImage($relativeDimension, $relativeDimension, true);
 
-        $pathInfo = pathinfo($filepath);
-        $thumbnailFilename = $pathInfo['filename'] . '_thumb.' . $pathInfo['extension'];
-        $thumbnailFilepath = $pathInfo['dirname'] . '/' . $thumbnailFilename;
+        $thumbnailFilename = $this->generateThumbnailFilename($filepath);
+        $thumbnailFilepath = pathinfo($filepath, PATHINFO_DIRNAME) . '/' . $thumbnailFilename;
 
         $image->writeImage($thumbnailFilepath);
 
         return $thumbnailFilepath;
+    }
+
+    public function generateThumbnailFilename(string $filepath)
+    {
+        $pathInfo = pathinfo($filepath);
+
+        return $pathInfo['filename'] . '_thumb.' . $pathInfo['extension'];
     }
 }
