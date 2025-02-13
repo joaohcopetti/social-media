@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Main;
 
-use Illuminate\Http\Request;
 use App\Models\ProfileMedia;
 use Str;
 use App\Http\Controllers\Controller;
