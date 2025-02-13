@@ -8,7 +8,6 @@ use App\Inertia\Panel\ProfileMediaViewInertia;
 use App\Inertia\Panel\ProfilesEditViewInertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MyAccountRequest;
-use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
 
 class PanelMyAccountController extends Controller
@@ -20,7 +19,10 @@ class PanelMyAccountController extends Controller
 
     public function myAccountUpdate(MyAccountRequest $request)
     {
-        app(UserUpdateAction::class)->execute(Auth::user(), $request->validated());
+        app(UserUpdateAction::class)->execute(
+            Auth::user(),
+            $request->validated()
+        );
 
         return redirect()->route('panel.user.my-account');
     }
