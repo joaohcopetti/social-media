@@ -69,9 +69,9 @@ const update = () => {
 }
 
 const updateMyAccount = () => {
-    form.patch(route('panel.my-account.update'), {
+    form.patch(route('panel.user.my-account-update'), {
         onSuccess() {
-            form.reset()
+            form.reset('password', 'password_confirmation')
             useToast().success('Perfil atualizado!')
         },
     })

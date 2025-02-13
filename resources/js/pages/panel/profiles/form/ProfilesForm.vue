@@ -49,13 +49,29 @@ const form = useForm<ProfileForm>({
     _method: 'POST',
 })
 
+const appStore = useAppStore()
+
 const submit = () => {
-    if (isEdit.value) {
-        form._method = 'PATCH'
-        form.post(route('panel.profiles.update', { profile: props.profile?.slug }))
+    if (!isEdit.value) {
+        create()
         return
     }
 
+    update()
+}
+
+const update = () => {
+    form._method = 'PATCH'
+
+    if (appStore.currentRoute === 'panel.user.my-profile') {
+        form.post(route('panel.user.my-profile-update'))
+        return
+    }
+
+    form.post(route('panel.profiles.update', { profile: props.profile?.slug }))
+}
+
+const create = () => {
     form.post(route('panel.profiles.store'))
 }
 

@@ -23,6 +23,7 @@ class PanelProfileRequest extends FormRequest
     public function rules(): array
     {
         $isEdit = $this->getMethod() === 'PATCH';
+        $isMyAccount = $this->routeIs('panel.user.my-profile-update');
 
         return [
             'name' => ['required', 'string', 'max:255', 'min:3'],
@@ -31,23 +32,23 @@ class PanelProfileRequest extends FormRequest
             'is_user' => ['required', 'boolean'],
             'facebook' => ['nullable', 'url', 'regex:/facebook.com/'],
             'instagram' => ['nullable', 'url', 'regex:/instagram.com/'],
-            'x' => ['nullable', 'url', 'regex:/x.com/'],
+            'x_twitter' => ['nullable', 'url', 'regex:/x.com/'],
             'tiktok' => ['nullable', 'url', 'regex:/tiktok.com/'],
             'youtube' => ['nullable', 'url', 'regex:/youtube.com/'],
             'email' => [
-                'required_if_accepted:is_user',
+                !$isMyAccount ? 'required_if_accepted:is_user' : null,
                 'nullable',
                 'email',
                 Rule::unique('users', 'email')
             ],
             'password' => [
-                'required_if_accepted:is_user',
+                !$isMyAccount ? 'required_if_accepted:is_user' : null,
                 'nullable',
                 'min:6',
                 'confirmed'
             ],
             'password_confirmation' => [
-                'required_if_accepted:is_user',
+                !$isMyAccount ? 'required_if_accepted:is_user' : null,
                 'nullable',
                 'min:6'
             ]

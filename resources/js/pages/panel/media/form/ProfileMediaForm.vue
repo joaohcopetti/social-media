@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useAppStore } from '@/stores/app-store'
 import { Profile } from '@/types/models'
 import {
     base64ToFile,
@@ -33,6 +34,7 @@ const props = defineProps<{
     profile: Profile
 }>()
 
+const appStore = useAppStore()
 const media = ref<Media[]>([])
 
 const hasMedia = computed(() => !!media.value.length)
@@ -117,7 +119,11 @@ const generateThumbnails = async (file: File, type: string) => {
 const uploadMedia = async (_media: Media) => {
     const formData = buildFormData(pick(_media, ['file', 'free', 'main', 'thumbnailFile', 'index']))
     const uploadedMedia = media.value.find(({ uniqueId }) => uniqueId === _media.uniqueId)
-    const url = route('panel.profiles.send-media', { profile: props.profile.slug })
+
+    const url =
+        appStore.currentRoute !== 'panel.user.my-media'
+            ? route('panel.user.send-media', { profile: props.profile.slug })
+            : route('panel.user.my-media-upload')
 
     if (!uploadedMedia) {
         throw new Error("Couldn't find media")
@@ -139,6 +145,7 @@ const uploadMedia = async (_media: Media) => {
         uploadedMedia.id = data.media.id
     } catch (e) {
         const error = e as AxiosError
+        console.log(e)
 
         if (error.request.status === 422) {
             const responseErrors = error.response!.data as { message?: string }
@@ -159,7 +166,9 @@ const onMediaRemove = async (mediaId: number | string) => {
 
     media.value.splice(mediaIndex, 1)
 
-    await axios.delete(route('panel.profiles.delete-media', { profileMedia: mediaId }))
+    appStore.currentRoute !== 'panel.user.my-media'
+        ? await axios.delete(route('panel.profiles.delete-media', { profileMedia: mediaId }))
+        : await axios.delete(route('panel.user.my-media-delete', { profileMedia: mediaId }))
 }
 
 const toggleMediaState = (state: string, _media: Media) => {

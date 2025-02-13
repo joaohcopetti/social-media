@@ -19,6 +19,14 @@ Route::name('user.')->group(function () {
             ->name('my-account-update');
 
         Route::get('/meu-perfil', [PanelMyAccountController::class, 'myProfile'])->name('my-profile');
-        Route::get('/minhas-midias', [PanelMyAccountController::class, 'myMedias'])->name('my-media');
+        Route::patch('/meu-perfil', [PanelMyAccountController::class, 'myProfileUpdate'])
+            ->name('my-profile-update');
+
+        Route::get('/minhas-midias', [PanelMyAccountController::class, 'myMedia'])->name('my-media');
+        Route::post('/minhas-midias', [PanelMyAccountController::class, 'myMediaUpdate'])
+            ->name('my-media-upload');
+
+        Route::delete('{profileMedia}/deletar', [PanelMyAccountController::class, 'myMediaDelete'])
+            ->name('my-media-delete');
     });
 });
