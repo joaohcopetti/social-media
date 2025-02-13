@@ -2,10 +2,8 @@
 import AppButton from '@/components/AppButton.vue'
 import AppForm from '@/components/AppForm.vue'
 import AppInput from '@/components/AppInput.vue'
-import AppSwitch from '@/components/AppSwitch.vue'
 import { User } from '@/types/models'
 import { useForm } from '@inertiajs/vue3'
-import { map } from 'lodash-es'
 import { computed, onMounted } from 'vue'
 import { useToast } from 'vue-toast-notification'
 
@@ -16,7 +14,6 @@ type UserFormProps = {
     email: string
     password: string
     password_confirmation: string
-    is_admin: boolean
 }
 
 const props = withDefaults(
@@ -35,7 +32,6 @@ const form = useForm<UserFormProps>({
     email: '',
     password: '',
     password_confirmation: '',
-    is_admin: false,
 })
 
 const isEdit = computed(() => !!props.user)
@@ -87,7 +83,6 @@ const populateForm = () => {
     form.defaults({
         name: user.name,
         email: user.email,
-        is_admin: map(user.roles, 'name').includes('admin'),
     })
 
     form.reset()
@@ -156,13 +151,6 @@ onMounted(() => {
                 placeholder: !isMyAccountPage ? 'Repita a senha do usuário...' : 'Repita sua senha',
             }"
             :error="form.errors.password_confirmation"
-        />
-
-        <AppSwitch
-            v-if="!isMyAccountPage"
-            v-model="form.is_admin"
-            label="Administrador"
-            class="mb-5"
         />
 
         <AppButton

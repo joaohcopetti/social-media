@@ -41,7 +41,6 @@ class PanelUserRequest extends FormRequest
             ],
             'password' => [!$isEdit ? 'required' : 'nullable', 'confirmed', 'min:5'],
             'password_confirmation' => [!$isEdit ? 'required' : 'nullable'],
-            'is_admin' => ['nullable', 'boolean']
         ];
     }
 }

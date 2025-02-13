@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Panel;
 
+use App\Actions\UserUpdateAction;
 use App\Inertia\Panel\MyAccountViewInertia;
 use App\Inertia\Panel\ProfileMediaViewInertia;
 use App\Inertia\Panel\ProfilesEditViewInertia;
@@ -19,12 +20,7 @@ class PanelMyAccountController extends Controller
 
     public function myAccountUpdate(MyAccountRequest $request)
     {
-        Auth::user()->update(
-            Arr::where(
-                $request->validated(),
-                fn($value) => $value !== null
-            )
-        );
+        app(UserUpdateAction::class)->execute(Auth::user(), $request->validated());
 
         return redirect()->route('panel.user.my-account');
     }
