@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Unique;
 
 class PanelUserRequest extends FormRequest
 {
@@ -23,12 +22,8 @@ class PanelUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        $isEdit = $this->routeIs('panel.users.update');
-        $user = null;
-
-        if ($isEdit) {
-            $user = $this->user;
-        }
+        $isEdit = $this->getMethod() === 'PATCH';
+        $user = $isEdit ? $this->user : null;
 
         return [
             'name' => ['required', 'min:3', 'max:255'],

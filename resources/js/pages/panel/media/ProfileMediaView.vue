@@ -16,7 +16,7 @@ const appStore = useAppStore()
 <template>
     <AppPanelContainer>
         <template
-            v-if="appStore.currentRoute !== 'panel.user.my-media'"
+            v-if="appStore.currentRoute !== 'panel.my-media.manage'"
             #header
         >
             <AppButton

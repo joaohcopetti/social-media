@@ -17,7 +17,7 @@ const appStore = useAppStore()
 <template>
     <AppPanelContainer>
         <template
-            v-if="appStore.currentRoute !== 'panel.user.my-profile'"
+            v-if="appStore.currentRoute !== 'panel.my-profile.edit'"
             #header
         >
             <AppButton

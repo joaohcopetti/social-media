@@ -23,7 +23,7 @@ class PanelProfileRequest extends FormRequest
     public function rules(): array
     {
         $isEdit = $this->getMethod() === 'PATCH';
-        $isMyAccount = $this->routeIs('panel.user.my-profile-update');
+        $isMyAccount = $this->routeIs('panel.my-profile.update');
 
         return [
             'name' => ['required', 'string', 'max:255', 'min:3'],

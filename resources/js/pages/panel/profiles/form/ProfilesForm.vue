@@ -63,8 +63,8 @@ const submit = () => {
 const update = () => {
     form._method = 'PATCH'
 
-    if (appStore.currentRoute === 'panel.user.my-profile') {
-        form.post(route('panel.user.my-profile-update'))
+    if (appStore.currentRoute === 'panel.my-profile.edit') {
+        form.post(route('panel.my-profile.update'))
         return
     }
 
@@ -93,7 +93,7 @@ const populateForm = () => {
     })
 }
 
-const isUserRoute = computed(() => useAppStore().currentRouteContains('panel.user.my-profile'))
+const isUserRoute = computed(() => useAppStore().currentRouteContains('panel.my-profile.edit'))
 
 onMounted(() => {
     if (isEdit.value) {

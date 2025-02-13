@@ -25,7 +25,7 @@ const onLogoutClick = () => {
 
 const panelUrl = computed(() => {
     if (authStore.userHasAnyRole('influencer')) {
-        return route('panel.user.my-media')
+        return route('panel.my-media.manage')
     }
 
     return route('panel.profiles.index')

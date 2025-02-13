@@ -121,9 +121,9 @@ const uploadMedia = async (_media: Media) => {
     const uploadedMedia = media.value.find(({ uniqueId }) => uniqueId === _media.uniqueId)
 
     const url =
-        appStore.currentRoute !== 'panel.user.my-media'
+        appStore.currentRoute !== 'panel.my-media.manage'
             ? route('panel.profiles.send-media', { profile: props.profile.slug })
-            : route('panel.user.my-media-upload')
+            : route('panel.my-media.upload')
 
     if (!uploadedMedia) {
         throw new Error("Couldn't find media")
@@ -165,16 +165,16 @@ const onMediaRemove = async (mediaId: number | string) => {
 
     media.value.splice(mediaIndex, 1)
 
-    appStore.currentRoute !== 'panel.user.my-media'
+    appStore.currentRoute !== 'panel.my-media.manage'
         ? await axios.delete(route('panel.profiles.delete-media', { profileMedia: mediaId }))
-        : await axios.delete(route('panel.user.my-media-delete', { profileMedia: mediaId }))
+        : await axios.delete(route('panel.my-media.manage-delete', { profileMedia: mediaId }))
 }
 
 const toggleMediaState = (state: string, _media: Media) => {
     const routeName =
-        appStore.currentRoute !== 'panel.user.my-media'
+        appStore.currentRoute !== 'panel.my-media.manage'
             ? 'panel.profiles.toggle-state'
-            : 'panel.user.my-media-toggle-state'
+            : 'panel.my-media.manage-toggle-state'
 
     axios.post(route(routeName, { profileMedia: _media.id }), { state })
 
