@@ -2,19 +2,13 @@
 import AppButton from '@/components/AppButton.vue'
 import AppForm from '@/components/AppForm.vue'
 import AppInput from '@/components/AppInput.vue'
+import { UserForm } from '@/types/components'
 import { User } from '@/types/models'
 import { useForm } from '@inertiajs/vue3'
 import { computed, onMounted } from 'vue'
 import { useToast } from 'vue-toast-notification'
 
 const emit = defineEmits(['submitted'])
-
-type UserFormProps = {
-    name: string
-    email: string
-    password: string
-    password_confirmation: string
-}
 
 const props = withDefaults(
     defineProps<{
@@ -27,7 +21,7 @@ const props = withDefaults(
     },
 )
 
-const form = useForm<UserFormProps>({
+const form = useForm<UserForm>({
     name: '',
     email: '',
     password: '',
@@ -35,6 +29,23 @@ const form = useForm<UserFormProps>({
 })
 
 const isEdit = computed(() => !!props.user)
+
+onMounted(() => {
+    if (isEdit.value) {
+        populateForm()
+    }
+})
+
+const populateForm = () => {
+    const user = props.user!
+
+    form.defaults({
+        name: user.name,
+        email: user.email,
+    })
+
+    form.reset()
+}
 
 const submit = () => {
     if (props.isMyAccountPage) {
@@ -47,6 +58,15 @@ const submit = () => {
     } else {
         update()
     }
+}
+
+const updateMyAccount = () => {
+    form.patch(route('panel.my-account.update'), {
+        onSuccess() {
+            form.reset('password', 'password_confirmation')
+            useToast().success('Perfil atualizado!')
+        },
+    })
 }
 
 const create = () => {
@@ -67,32 +87,6 @@ const update = () => {
         },
     })
 }
-
-const updateMyAccount = () => {
-    form.patch(route('panel.my-account.update'), {
-        onSuccess() {
-            form.reset('password', 'password_confirmation')
-            useToast().success('Perfil atualizado!')
-        },
-    })
-}
-
-const populateForm = () => {
-    const user = props.user!
-
-    form.defaults({
-        name: user.name,
-        email: user.email,
-    })
-
-    form.reset()
-}
-
-onMounted(() => {
-    if (isEdit.value) {
-        populateForm()
-    }
-})
 </script>
 
 <template>

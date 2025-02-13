@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppSwitch from '@/components/AppSwitch.vue'
-import { Media } from './ProfileMediaForm.vue'
+import { Media } from '@/types/components'
 
 defineEmits(['toggle'])
 

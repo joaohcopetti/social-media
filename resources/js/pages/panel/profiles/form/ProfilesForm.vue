@@ -1,37 +1,23 @@
 <script setup lang="ts">
+import { useAppStore } from '@/stores/app-store'
+import { ProfileForm } from '@/types/components'
+import { Profile } from '@/types/models'
+import { useForm } from '@inertiajs/vue3'
+import { computed, onMounted } from 'vue'
+
 import AppButton from '@/components/AppButton.vue'
 import AppForm from '@/components/AppForm.vue'
 import AppInput from '@/components/AppInput.vue'
 import AppSwitch from '@/components/AppSwitch.vue'
 import AppTextarea from '@/components/AppTextarea.vue'
-import { useAppStore } from '@/stores/app-store'
-import { Profile } from '@/types/models'
-import { useForm } from '@inertiajs/vue3'
-import { computed, onMounted } from 'vue'
 import ProfilesFormSection from './ProfilesFormSection.vue'
 import ProfilesPhotoInput from './ProfilesPhotoInput.vue'
 
-type ProfileForm = {
-    name: string
-    description?: string
-    photo: File | null
-    is_user: boolean
-    email?: string
-    password?: string
-    password_confirmation?: string
-    facebook: string
-    instagram: string
-    x_twitter: string
-    tiktok: string
-    youtube: string
-    _method: 'POST' | 'PATCH'
-}
+const appStore = useAppStore()
 
 const props = defineProps<{
     profile?: Profile
 }>()
-
-const isEdit = computed(() => !!props.profile)
 
 const form = useForm<ProfileForm>({
     name: '',
@@ -49,7 +35,33 @@ const form = useForm<ProfileForm>({
     _method: 'POST',
 })
 
-const appStore = useAppStore()
+const isEdit = computed(() => !!props.profile)
+
+const showCredentialFields = computed(() => appStore.currentRoute === 'panel.profiles.create')
+
+onMounted(() => {
+    if (isEdit.value) {
+        populateForm()
+    }
+})
+
+const populateForm = () => {
+    const profile = props.profile
+
+    if (!profile) {
+        return
+    }
+
+    Object.assign(form, {
+        name: profile.name,
+        description: profile.description,
+    })
+
+    profile.social_networks.forEach((socialNetwork) => {
+        // @ts-ignore
+        form[socialNetwork.name] = socialNetwork.pivot.url
+    })
+}
 
 const submit = () => {
     if (!isEdit.value) {
@@ -74,32 +86,6 @@ const update = () => {
 const create = () => {
     form.post(route('panel.profiles.store'))
 }
-
-const populateForm = () => {
-    const profile = props.profile
-
-    if (!profile) {
-        return
-    }
-
-    Object.assign(form, {
-        name: profile.name,
-        description: profile.description,
-        is_user: !!profile.user,
-    })
-
-    profile.social_networks.forEach((socialNetwork) => {
-        form[socialNetwork.name] = socialNetwork.pivot.url
-    })
-}
-
-const isUserRoute = computed(() => useAppStore().currentRouteContains('panel.my-profile.edit'))
-
-onMounted(() => {
-    if (isEdit.value) {
-        populateForm()
-    }
-})
 </script>
 
 <template>
@@ -108,7 +94,7 @@ onMounted(() => {
         @submit.prevent="submit"
     >
         <div class="flex flex-col gap-5 sm:flex-row">
-            <div class="mx-auto sm:mx-0">
+            <div class="mx-auto sm:mx-0 sm:w-1/4">
                 <ProfilesPhotoInput
                     :photo="profile?.photo_url"
                     :error="form.errors.photo"
@@ -142,7 +128,7 @@ onMounted(() => {
                         hint="O usuário pode logar com e-mail e senha e gerenciar seu próprio perfil"
                     />
                 </ProfilesFormSection>
-                <template v-if="!isUserRoute && !isEdit">
+                <template v-if="showCredentialFields">
                     <div
                         v-auto-animate
                         class="mt-5"

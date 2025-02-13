@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useAppStore } from '@/stores/app-store'
+import { Media } from '@/types/components'
 import { Profile } from '@/types/models'
 import {
     base64ToFile,
@@ -14,21 +15,6 @@ import { each, pick, uniqueId } from 'lodash-es'
 import { computed, onMounted, ref } from 'vue'
 import { useToast } from 'vue-toast-notification'
 import ProfileMediaFormPreview from './ProfileMediaFormPreview.vue'
-
-export type Media = {
-    id?: number
-    uniqueId: string
-    size: number
-    base64?: string | ArrayBuffer | null
-    url?: string
-    file: File | null
-    thumbnailFile: File | null
-    isFree: boolean
-    showOnHome: boolean
-    progress?: number
-    index: number
-    type: string
-}
 
 const props = defineProps<{
     profile: Profile
@@ -167,14 +153,14 @@ const onMediaRemove = async (mediaId: number | string) => {
 
     appStore.currentRoute !== 'panel.my-media.manage'
         ? await axios.delete(route('panel.profiles.delete-media', { profileMedia: mediaId }))
-        : await axios.delete(route('panel.my-media.manage-delete', { profileMedia: mediaId }))
+        : await axios.delete(route('panel.my-media.delete', { profileMedia: mediaId }))
 }
 
 const toggleMediaState = (state: string, _media: Media) => {
     const routeName =
         appStore.currentRoute !== 'panel.my-media.manage'
             ? 'panel.profiles.toggle-state'
-            : 'panel.my-media.manage-toggle-state'
+            : 'panel.my-media.toggle-state'
 
     axios.post(route(routeName, { profileMedia: _media.id }), { state })
 

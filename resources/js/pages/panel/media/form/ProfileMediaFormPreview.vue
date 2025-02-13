@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppAbsoluteCenter from '@/components/AppAbsoluteCenter.vue'
+import { Media } from '@/types/components'
 import { Icon } from '@iconify/vue/dist/iconify.js'
-import type { Media } from './ProfileMediaForm.vue'
 import ProfileMediaFormPreviewDeleteBtn from './ProfileMediaFormPreviewDeleteBtn.vue'
 import ProfileMediaFormPreviewSwitches from './ProfileMediaFormPreviewSwitches.vue'
 

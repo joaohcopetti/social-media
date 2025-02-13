@@ -22,7 +22,7 @@ const profile = inject(profileInjectionKey) as Profile
             :key="socialNetwork.name"
         >
             <ProfileHeaderSocialIcon
-                :href="socialNetwork.pivot.url"
+                :href="(socialNetwork as any).pivot.url"
                 :icon="{ icon: SOCIAL_NETWORK_ICONS[socialNetwork.name] }"
             />
         </template>

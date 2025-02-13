@@ -22,13 +22,10 @@ class PanelProfileRequest extends FormRequest
      */
     public function rules(): array
     {
-        $isEdit = $this->getMethod() === 'PATCH';
-        $isMyAccount = $this->routeIs('panel.my-profile.update');
-
         return [
             'name' => ['required', 'string', 'max:255', 'min:3'],
             'description' => ['nullable', 'string', 'max:1000'],
-            'photo' => [!$isEdit ? 'required' : 'nullable', 'file', 'mimes:jpeg,jpg,png', 'max:1024'],
+            'photo' => [!$this->isEdit() ? 'required' : 'nullable', 'file', 'mimes:jpeg,jpg,png', 'max:1024'],
             'is_user' => ['required', 'boolean'],
             'facebook' => ['nullable', 'url', 'regex:/facebook.com/'],
             'instagram' => ['nullable', 'url', 'regex:/instagram.com/'],
@@ -36,22 +33,37 @@ class PanelProfileRequest extends FormRequest
             'tiktok' => ['nullable', 'url', 'regex:/tiktok.com/'],
             'youtube' => ['nullable', 'url', 'regex:/youtube.com/'],
             'email' => [
-                !$isMyAccount && !$isEdit ? 'required_if_accepted:is_user' : null,
+                'required_if_accepted:is_user',
                 'nullable',
                 'email',
                 Rule::unique('users', 'email')
             ],
             'password' => [
-                !$isMyAccount && !$isEdit ? 'required_if_accepted:is_user' : null,
+                'required_if_accepted:is_user',
                 'nullable',
                 'min:6',
                 'confirmed'
             ],
             'password_confirmation' => [
-                !$isMyAccount && !$isEdit ? 'required_if_accepted:is_user' : null,
+                'required_if_accepted:is_user',
                 'nullable',
                 'min:6'
             ]
         ];
+    }
+
+    private function requiresUser()
+    {
+        return !$this->isEdit() && !$this->routeIs('panel.my-profile.update');
+    }
+
+    private function isEdit()
+    {
+        return $this->getMethod() === 'PATCH';
+    }
+
+    private function isMyProfileRoute()
+    {
+        return $this->routeIs('panel.my-profile.update');
     }
 }
