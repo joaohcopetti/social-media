@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
 import AppPanelContainer from '@/components/AppPanelContainer.vue'
+import { useAppStore } from '@/stores/app-store'
 import { Profile } from '@/types/models'
 import ProfileHeaderPreview from './_partials/ProfileHeaderPreview.vue'
 import ProfileMediaForm from './form/ProfileMediaForm.vue'
@@ -8,11 +9,16 @@ import ProfileMediaForm from './form/ProfileMediaForm.vue'
 defineProps<{
     profile: Profile
 }>()
+
+const appStore = useAppStore()
 </script>
 
 <template>
     <AppPanelContainer>
-        <template #header>
+        <template
+            v-if="appStore.currentRoute !== 'panel.user.my-media'"
+            #header
+        >
             <AppButton
                 :icon-left="{ icon: 'ph:arrow-circle-left-bold' }"
                 label="Voltar"

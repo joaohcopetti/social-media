@@ -45,6 +45,9 @@ class PanelProfileController extends Controller
             $user->assignRole(RolesEnum::INFLUENCER->value);
         }
 
+        $profile->user()->associate($user);
+        $profile->save();
+
         DB::commit();
 
         return redirect()->route('panel.profiles.manage-media', ['profile' => $profile->slug]);
