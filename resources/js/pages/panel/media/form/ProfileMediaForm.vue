@@ -218,7 +218,7 @@ const toggleMediaState = (state: string, _media: Media) => {
                     />
                 </div>
             </div>
-            <div class="py-5 text-center text-xl font-bold text-gray-100">
+            <div class="py-5 text-center font-bold text-gray-100 sm:text-xl">
                 Clique aqui para adicionar
             </div>
         </label>

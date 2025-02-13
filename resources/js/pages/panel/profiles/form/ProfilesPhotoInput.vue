@@ -30,7 +30,7 @@ const onPhotoChange = async (event: Event) => {
     <div>
         <label
             v-auto-animate
-            class="group relative flex size-64 cursor-pointer flex-col items-center justify-center gap-3 overflow-hidden rounded-lg bg-slate-600 text-lg font-bold text-gray-100 transition-colors hover:bg-slate-500 hover:text-white active:bg-slate-600"
+            class="group relative flex w-full cursor-pointer flex-col items-center justify-center gap-3 overflow-hidden rounded-lg bg-slate-600 text-lg font-bold text-gray-100 transition-colors hover:bg-slate-500 hover:text-white active:bg-slate-600"
             :class="{
                 'border border-red-400': error,
             }"
@@ -66,7 +66,7 @@ const onPhotoChange = async (event: Event) => {
                 <div class="overflow-hidden rounded-lg">
                     <img
                         :src="photoBase64 || photo"
-                        class="size-64 object-cover"
+                        class="min-h-56 w-full object-cover"
                     />
                 </div>
             </template>

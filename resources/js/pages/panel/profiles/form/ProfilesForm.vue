@@ -93,14 +93,12 @@ const create = () => {
         :form="form"
         @submit.prevent="submit"
     >
-        <div class="flex flex-col gap-5 sm:flex-row">
-            <div class="mx-auto sm:mx-0 sm:w-1/4">
-                <ProfilesPhotoInput
-                    :photo="profile?.photo_url"
-                    :error="form.errors.photo"
-                    @change="((form.photo = $event), form.clearErrors('photo'))"
-                />
-            </div>
+        <div class="grid gap-5 sm:grid-cols-[.20fr_.80fr]">
+            <ProfilesPhotoInput
+                :photo="profile?.photo_url"
+                :error="form.errors.photo"
+                @change="((form.photo = $event), form.clearErrors('photo'))"
+            />
             <div class="flex w-full flex-col">
                 <ProfilesFormSection title="Dados principais">
                     <AppInput
