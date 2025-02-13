@@ -36,19 +36,19 @@ class PanelProfileRequest extends FormRequest
             'tiktok' => ['nullable', 'url', 'regex:/tiktok.com/'],
             'youtube' => ['nullable', 'url', 'regex:/youtube.com/'],
             'email' => [
-                !$isMyAccount ? 'required_if_accepted:is_user' : null,
+                !$isMyAccount && !$isEdit ? 'required_if_accepted:is_user' : null,
                 'nullable',
                 'email',
                 Rule::unique('users', 'email')
             ],
             'password' => [
-                !$isMyAccount ? 'required_if_accepted:is_user' : null,
+                !$isMyAccount && !$isEdit ? 'required_if_accepted:is_user' : null,
                 'nullable',
                 'min:6',
                 'confirmed'
             ],
             'password_confirmation' => [
-                !$isMyAccount ? 'required_if_accepted:is_user' : null,
+                !$isMyAccount && !$isEdit ? 'required_if_accepted:is_user' : null,
                 'nullable',
                 'min:6'
             ]

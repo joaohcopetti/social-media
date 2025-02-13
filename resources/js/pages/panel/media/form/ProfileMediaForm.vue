@@ -122,7 +122,7 @@ const uploadMedia = async (_media: Media) => {
 
     const url =
         appStore.currentRoute !== 'panel.user.my-media'
-            ? route('panel.user.send-media', { profile: props.profile.slug })
+            ? route('panel.profiles.send-media', { profile: props.profile.slug })
             : route('panel.user.my-media-upload')
 
     if (!uploadedMedia) {
@@ -145,7 +145,6 @@ const uploadMedia = async (_media: Media) => {
         uploadedMedia.id = data.media.id
     } catch (e) {
         const error = e as AxiosError
-        console.log(e)
 
         if (error.request.status === 422) {
             const responseErrors = error.response!.data as { message?: string }
@@ -172,12 +171,12 @@ const onMediaRemove = async (mediaId: number | string) => {
 }
 
 const toggleMediaState = (state: string, _media: Media) => {
-    axios.post(
-        route('panel.profiles.toggle-state', {
-            profileMedia: _media.id,
-        }),
-        { state },
-    )
+    const routeName =
+        appStore.currentRoute !== 'panel.user.my-media'
+            ? 'panel.profiles.toggle-state'
+            : 'panel.user.my-media-toggle-state'
+
+    axios.post(route(routeName, { profileMedia: _media.id }), { state })
 
     if (state === 'free') {
         _media.isFree = !_media.isFree

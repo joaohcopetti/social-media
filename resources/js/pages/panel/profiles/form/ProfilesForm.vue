@@ -142,7 +142,7 @@ onMounted(() => {
                         hint="O usuário pode logar com e-mail e senha e gerenciar seu próprio perfil"
                     />
                 </ProfilesFormSection>
-                <template v-if="!isUserRoute">
+                <template v-if="!isUserRoute && !isEdit">
                     <div
                         v-auto-animate
                         class="mt-5"

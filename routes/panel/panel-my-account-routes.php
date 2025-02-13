@@ -28,5 +28,8 @@ Route::name('user.')->group(function () {
 
         Route::delete('{profileMedia}/deletar', [PanelMyAccountController::class, 'myMediaDelete'])
             ->name('my-media-delete');
+
+        Route::post('/{profileMedia}/toggle-state', [PanelMyAccountController::class, 'myMediaToggleState'])
+            ->name('my-media-toggle-state');
     });
 });

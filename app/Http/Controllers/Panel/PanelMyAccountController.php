@@ -18,6 +18,8 @@ use App\Http\Requests\PanelProfileMediaRequest;
 use App\Actions\ProfileMediaUploadAction;
 use App\Actions\ProfileMediaStoreAction;
 use App\Actions\ProfileMediaDeleteAction;
+use Illuminate\Validation\Rule;
+use Illuminate\Http\Request;
 
 class PanelMyAccountController extends Controller
 {
@@ -75,6 +77,35 @@ class PanelMyAccountController extends Controller
         return response()->json([
             'message' => 'Media uploaded',
             'media' => $media
+        ]);
+    }
+
+    public function myMediaToggleState(ProfileMedia $profileMedia, Request $request)
+    {
+        if ($profileMedia->profile->id !== Auth::user()->profile->id) {
+            abort(403);
+        }
+
+        $request->validate([
+            'state' => [Rule::in(['free', 'show-on-home'])]
+        ]);
+
+        if ($request->input('state') === 'free') {
+            $profileMedia->update([
+                'is_free' => !$profileMedia->is_free,
+                'show_on_home' => false
+            ]);
+        }
+
+        if ($request->input('state') === 'show-on-home') {
+            $profileMedia->update([
+                'show_on_home' => !$profileMedia->show_on_home
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Estado alterado!',
+            'profileMedia' => $profileMedia
         ]);
     }
 
