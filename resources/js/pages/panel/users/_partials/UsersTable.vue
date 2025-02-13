@@ -9,6 +9,7 @@ import { computed } from 'vue'
 
 const TABLE_HEADERS: TableHeader[] = [
     { label: 'Nome', prop: 'name' },
+    { label: 'E-mail', prop: 'email' },
     { label: 'Assinatura válida até', prop: 'subscription', centered: true },
     { label: '', prop: 'options', centered: true },
 ]
