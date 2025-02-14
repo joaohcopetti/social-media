@@ -24,9 +24,18 @@ const appStore = useAppStore()
 const media = ref<Media[]>([])
 
 const hasMedia = computed(() => !!media.value.length)
+const hasMediaUploading = computed(() =>
+    media.value.some((_media) => _media.progress && _media.progress > 0 && _media.progress < 100),
+)
 
 onMounted(() => {
     populateForm()
+
+    window.onbeforeunload = () => {
+        if (hasMediaUploading.value) {
+            return true
+        }
+    }
 })
 
 const populateForm = () => {
@@ -125,6 +134,7 @@ const uploadMedia = async (_media: Media) => {
                 const percent = (progressEvent.loaded / progressEvent.total!) * 100
 
                 uploadedMedia.progress = percent
+                console.log(uploadedMedia.progress)
             },
         })
 
@@ -177,6 +187,7 @@ const toggleMediaState = (state: string, _media: Media) => {
 
 <template>
     <div class="flex flex-col gap-3">
+        {{ hasMediaUploading }}
         <label
             v-auto-animate
             for="media"
