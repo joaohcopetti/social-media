@@ -22,7 +22,8 @@ class PanelProfileMediaController extends Controller
 
     public function store(Profile $profile, PanelProfileMediaRequest $request)
     {
-        $storedMediaData = app(ProfileMediaUploadAction::class)->execute($request->file('file'));
+        $storedMediaData = app(ProfileMediaUploadAction::class)
+            ->execute($request->file('file'), $request->file('thumbnailFile'));
 
         $media = app(ProfileMediaStoreAction::class)->execute(
             $profile,

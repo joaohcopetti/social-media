@@ -25,7 +25,7 @@ class PanelMyMediaController extends Controller
         $profile = Auth::user()->profile;
 
         $storedMediaData = app(ProfileMediaUploadAction::class)
-            ->execute($request->file('file'));
+            ->execute($request->file('file'), $request->file('thumbnailFile'));
 
         $media = app(ProfileMediaStoreAction::class)->execute(
             $profile,

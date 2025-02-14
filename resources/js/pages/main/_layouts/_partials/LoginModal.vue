@@ -55,6 +55,7 @@ const submit = () => {
                         name="password"
                         :input-attrs="{ placeholder: 'Digite sua senha...', type: 'password' }"
                         :error="form.errors.password"
+                        :hint="form.password"
                     />
                 </div>
                 <div class="mt-10">
