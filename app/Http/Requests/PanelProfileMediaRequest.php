@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class PanelProfileMediaRequest extends FormRequest
 {
@@ -21,8 +22,12 @@ class PanelProfileMediaRequest extends FormRequest
      */
     public function rules(): array
     {
+        $size = Str::contains($this->file('file')->getMimeType(), 'video')
+            ? '1024000'
+            : '4096';
+
         return [
-            'file' => ['required', 'file', 'mimes:png,jpg,jpeg,mp4']
+            'file' => ['required', 'file', 'mimes:png,jpg,jpeg,mp4', "max:$size"]
         ];
     }
 }
