@@ -134,7 +134,6 @@ const uploadMedia = async (_media: Media) => {
                 const percent = (progressEvent.loaded / progressEvent.total!) * 100
 
                 uploadedMedia.progress = percent
-                console.log(uploadedMedia.progress)
             },
         })
 
@@ -187,7 +186,6 @@ const toggleMediaState = (state: string, _media: Media) => {
 
 <template>
     <div class="flex flex-col gap-3">
-        {{ hasMediaUploading }}
         <label
             v-auto-animate
             for="media"

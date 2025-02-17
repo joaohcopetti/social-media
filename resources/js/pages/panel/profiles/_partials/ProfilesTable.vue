@@ -39,7 +39,7 @@ const getDropdownOptions = (profile: Profile): DropdownItem[] => [
         label: 'Excluir',
         icon: 'ph:trash',
         onClick: () => {
-            console.log('ola')
+            //
         },
     },
 ]

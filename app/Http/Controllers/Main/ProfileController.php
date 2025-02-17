@@ -15,6 +15,7 @@ class ProfileController extends Controller
             $profile->media()
                 ->where('show_on_home', true)
                 ->where('is_free', true)
+                ->orderBy('order', 'desc')
                 ->get()
         );
     }
@@ -25,6 +26,7 @@ class ProfileController extends Controller
             $profile,
             $profile->media()
                 ->where('is_free', true)
+                ->orderBy('order', 'desc')
                 ->get()
         );
     }
@@ -32,9 +34,10 @@ class ProfileController extends Controller
     public function premium(Profile $profile)
     {
         return app(ProfileViewInertia::class)->render(
-            $profile->load('socialNetworks'),
+            $profile,
             $profile->media()
                 ->where('is_free', false)
+                ->orderBy('order', 'desc')
                 ->get()
         );
     }

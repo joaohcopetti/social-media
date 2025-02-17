@@ -22,6 +22,6 @@ class MediaService
     {
         $pathInfo = pathinfo($filepath);
 
-        return $pathInfo['filename'] . '_thumb.' . $pathInfo['extension'];
+        return $pathInfo['filename'] . '_thumb.png';
     }
 }

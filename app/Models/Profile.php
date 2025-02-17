@@ -57,8 +57,7 @@ class Profile extends Model
 
     public function media(): HasMany
     {
-        return $this->hasMany(ProfileMedia::class)
-            ->orderBy('order', 'desc');
+        return $this->hasMany(ProfileMedia::class);
     }
 
     public function socialNetworks(): BelongsToMany
