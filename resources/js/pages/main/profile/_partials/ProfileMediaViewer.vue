@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ProfileMedia } from '@/types/models'
 import { Icon } from '@iconify/vue/dist/iconify.js'
+import 'video.js/dist/video-js.css'
 import { onBeforeUnmount, onMounted, watch } from 'vue'
-
 const emit = defineEmits(['dismiss', 'selected-media'])
 
 const props = defineProps<{
@@ -57,7 +57,7 @@ watch(
                     />
                 </div>
             </div>
-            <div class="z-20 mt-5 flex h-full w-fit items-center justify-center sm:items-baseline">
+            <div class="z-20 flex h-full w-fit items-center justify-center sm:items-baseline">
                 <img
                     v-if="selectedMedia.type === 'image'"
                     :src="selectedMedia.url"
@@ -66,15 +66,22 @@ watch(
                 />
                 <video
                     v-if="selectedMedia.type === 'video'"
-                    :src="selectedMedia.url"
+                    :id="`${selectedMedia.id}`"
+                    ref="video"
                     class="max-h-[85dvh]"
                     oncontextmenu="return false"
                     controls
                     controlslist="nodownload"
-                />
+                    :poster="selectedMedia.thumbnail_url"
+                >
+                    <source
+                        :src="selectedMedia.url"
+                        type="video/mp4"
+                    />
+                </video>
             </div>
             <div
-                class="z-20 flex h-[15dvh] w-full flex-row justify-start overflow-auto py-2 sm:justify-center"
+                class="z-20 flex max-h-[15dvh] min-h-[15dvh] w-full flex-row justify-start overflow-auto py-2 sm:justify-center"
                 @click="$emit('dismiss')"
             >
                 <div
