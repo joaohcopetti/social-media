@@ -15,10 +15,12 @@ defineProps<{
             v-if="media.type === 'image'"
             class="max-h-[400px] min-h-[400px] w-full object-cover"
             :src="media.url"
+            oncontextmenu="return false"
         />
         <video
             v-else
             :src="media.url"
+            oncontextmenu="return false"
             controls
             controlslist="nodownload"
             disablepictureinpicture

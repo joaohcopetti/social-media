@@ -9,29 +9,31 @@ defineProps<{
     media: ProfileMedia[]
 }>()
 
-const mediaSelected = ref<ProfileMedia | null>()
+const selectedMedia = ref<ProfileMedia>()
 
-const onMediaSelect = (media: ProfileMedia) => {
-    mediaSelected.value = media
+const onMediaSelect = (_media: ProfileMedia) => {
+    selectedMedia.value = _media
 }
 </script>
 
 <template>
     <div>
         <ProfileMediaViewer
-            :media="mediaSelected"
-            @dismiss="mediaSelected = null"
+            :media="media"
+            :selected-media="selectedMedia"
+            @dismiss="selectedMedia = undefined"
+            @selected-media="selectedMedia = $event"
         />
-
         <div
             v-if="media.length"
+            id="media-container"
             class="grid grid-cols-3 gap-2"
         >
             <ProfileMediaPreview
                 v-for="_media in media"
                 :key="_media.id"
                 :media="_media"
-                @selected="onMediaSelect"
+                @click.prevent="onMediaSelect(_media)"
             />
         </div>
         <ProfileContentEmpty v-else />
