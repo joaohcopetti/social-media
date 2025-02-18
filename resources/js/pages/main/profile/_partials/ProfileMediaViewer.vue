@@ -40,7 +40,7 @@ watch(
     <Teleport to="body">
         <div
             v-if="selectedMedia"
-            class="fixed inset-0 z-50 flex h-screen flex-col items-center justify-center"
+            class="fixed inset-0 z-50 flex h-[100dvh] flex-col items-center justify-center"
         >
             <div
                 class="fixed inset-0 z-10 w-full bg-black/80"
@@ -61,20 +61,20 @@ watch(
                 <img
                     v-if="selectedMedia.type === 'image'"
                     :src="selectedMedia.url"
-                    class="h-fit max-h-[85vh] w-full"
+                    class="h-fit max-h-[85dvh] w-full"
                     oncontextmenu="return false"
                 />
                 <video
                     v-if="selectedMedia.type === 'video'"
                     :src="selectedMedia.url"
-                    class="max-h-[85vh]"
+                    class="max-h-[85dvh]"
                     oncontextmenu="return false"
                     controls
                     controlslist="nodownload"
                 />
             </div>
             <div
-                class="z-20 flex h-[15vh] w-full flex-row justify-start overflow-auto py-2 sm:justify-center"
+                class="z-20 flex h-[15dvh] w-full flex-row justify-start overflow-auto py-2 sm:justify-center"
                 @click="$emit('dismiss')"
             >
                 <div
