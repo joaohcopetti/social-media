@@ -36,7 +36,7 @@ const panelUrl = computed(() => {
 const showSubscribeBtn = computed(() => appStore.currentRoute.startsWith('profile.'))
 const subscribeUrl = computed(() =>
     showSubscribeBtn.value
-        ? route('profile.subscribe', { profile: route().params.profile })
+        ? route('profile.checkout', { profile: route().params.profile })
         : undefined,
 )
 </script>
@@ -52,7 +52,7 @@ const subscribeUrl = computed(() =>
             v-if="showSubscribeBtn && subscribeUrl"
             label="Assine"
             color="light"
-            :inertia-link="{ href: subscribeUrl }"
+            :link="{ href: subscribeUrl, target: '_blank' }"
         />
         <template v-if="!authStore.user">
             <AppButton
