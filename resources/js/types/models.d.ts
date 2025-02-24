@@ -56,9 +56,14 @@ export interface User {
   remember_token?: string | null
   created_at: string | null
   updated_at: string | null
+  stripe_id: string | null
+  pm_type: string | null
+  pm_last_four: string | null
+  trial_ends_at: string | null
   // relations
   profile: Profile
   notifications: DatabaseNotification[]
   roles: Role[]
   permissions: Permission[]
+  subscriptions: Subscription[]
 }
