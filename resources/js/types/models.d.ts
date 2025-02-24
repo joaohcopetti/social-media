@@ -49,7 +49,7 @@ export interface SocialNetwork {
 export interface User {
   // columns
   id: number
-  name: string
+  name: string | null
   email: string
   email_verified_at: string | null
   password?: string

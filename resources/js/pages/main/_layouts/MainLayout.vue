@@ -1,15 +1,58 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useAppStore } from '@/stores/app-store'
+import { useAuthStore } from '@/stores/auth-store'
+import { computed, ref } from 'vue'
 import AuthButtons from './_partials/AuthButtons.vue'
 import LoginModal from './_partials/LoginModal.vue'
+import RegisterModal from './_partials/RegisterModal.vue'
+
 const loginModal = ref(false)
+const registerModal = ref(false)
+
+const appStore = useAppStore()
+const authStore = useAuthStore()
+
+const isGuest = computed(() => !authStore.user)
+const isProfileRoute = computed(() => appStore.currentRoute.startsWith('profile.'))
+
+const onRegisterFromLoginClick = () => {
+    loginModal.value = false
+
+    setTimeout(() => {
+        registerModal.value = true
+    }, 300)
+}
+
+const onLoginFromRegisterClick = () => {
+    registerModal.value = false
+
+    setTimeout(() => {
+        loginModal.value = true
+    }, 300)
+}
 </script>
 
 <template>
     <div class="h-full">
-        <LoginModal v-model="loginModal" />
+        <LoginModal
+            v-if="isGuest"
+            v-model="loginModal"
+            :show-register-text="isGuest && isProfileRoute"
+            @register-click="onRegisterFromLoginClick"
+        />
 
-        <AuthButtons @login-click="loginModal = true" />
+        <RegisterModal
+            v-if="isProfileRoute"
+            v-model="registerModal"
+            :show-login-text="isGuest"
+            @login-click="onLoginFromRegisterClick"
+        />
+
+        <AuthButtons
+            :show-subscribe-button="isProfileRoute"
+            @login-click="loginModal = true"
+            @subscribe-click="registerModal = true"
+        />
 
         <slot />
     </div>

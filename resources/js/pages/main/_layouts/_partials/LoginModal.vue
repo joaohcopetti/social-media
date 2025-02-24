@@ -9,6 +9,12 @@ import { useToast } from 'vue-toast-notification'
 
 const isModalOpen = defineModel<boolean>()
 
+defineEmits(['register-click'])
+
+defineProps<{
+    showRegisterText: boolean
+}>()
+
 const form = useForm({
     email: '',
     password: '',
@@ -58,7 +64,15 @@ const submit = () => {
                         :hint="form.password"
                     />
                 </div>
-                <div class="mt-10">
+                <div v-if="showRegisterText">
+                    <span
+                        class="cursor-pointer text-sm font-bold text-blue-500 hover:text-blue-400"
+                        @click="$emit('register-click')"
+                    >
+                        Crie uma conta
+                    </span>
+                </div>
+                <div class="mt-6">
                     <AppButton
                         class="w-full"
                         label="Entrar"

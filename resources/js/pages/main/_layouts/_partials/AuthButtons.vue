@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
-import { useAppStore } from '@/stores/app-store'
 import { useAuthStore } from '@/stores/auth-store'
 import { router } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
+
 defineEmits(['login-click', 'subscribe-click'])
 
+const props = defineProps<{
+    showSubscribeButton: boolean
+}>()
+
 const authStore = useAuthStore()
-const appStore = useAppStore()
 
 const isLoading = ref<boolean>(false)
 
@@ -33,9 +36,8 @@ const panelUrl = computed(() => {
     return route('panel.profiles.index')
 })
 
-const showSubscribeBtn = computed(() => appStore.currentRoute.startsWith('profile.'))
 const subscribeUrl = computed(() =>
-    showSubscribeBtn.value
+    props.showSubscribeButton
         ? route('profile.checkout', { profile: route().params.profile })
         : undefined,
 )
@@ -49,11 +51,12 @@ const subscribeUrl = computed(() =>
         }"
     >
         <AppButton
-            v-if="showSubscribeBtn && subscribeUrl"
+            v-if="showSubscribeButton && subscribeUrl"
             label="Assine"
             color="light"
-            :link="{ href: subscribeUrl, target: '_blank' }"
+            @click="$emit('subscribe-click')"
         />
+
         <template v-if="!authStore.user">
             <AppButton
                 color="primary"
@@ -62,6 +65,7 @@ const subscribeUrl = computed(() =>
                 @click="$emit('login-click')"
             />
         </template>
+
         <template v-else>
             <AppButton
                 v-if="authStore.userHasAnyRole(['admin', 'influencer'])"
