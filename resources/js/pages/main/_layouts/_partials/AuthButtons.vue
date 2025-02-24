@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
+import { useAppStore } from '@/stores/app-store'
 import { useAuthStore } from '@/stores/auth-store'
 import { router } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
 defineEmits(['login-click', 'subscribe-click'])
 
 const authStore = useAuthStore()
+const appStore = useAppStore()
 
 const isLoading = ref<boolean>(false)
 
@@ -30,6 +32,13 @@ const panelUrl = computed(() => {
 
     return route('panel.profiles.index')
 })
+
+const showSubscribeBtn = computed(() => appStore.currentRoute.startsWith('profile.'))
+const subscribeUrl = computed(() =>
+    showSubscribeBtn.value
+        ? route('profile.subscribe', { profile: route().params.profile })
+        : undefined,
+)
 </script>
 
 <template>
@@ -39,16 +48,18 @@ const panelUrl = computed(() => {
             'bg-black/60 sm:bg-transparent': authStore.user,
         }"
     >
+        <AppButton
+            v-if="showSubscribeBtn && subscribeUrl"
+            label="Assine"
+            color="light"
+            :inertia-link="{ href: subscribeUrl }"
+        />
         <template v-if="!authStore.user">
             <AppButton
                 color="primary"
                 label="Entre"
                 :icon-left="{ icon: 'ph:sign-in-fill' }"
                 @click="$emit('login-click')"
-            />
-            <AppButton
-                label="Assine"
-                color="light"
             />
         </template>
         <template v-else>
