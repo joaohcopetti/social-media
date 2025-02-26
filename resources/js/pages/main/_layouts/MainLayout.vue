@@ -2,7 +2,7 @@
 import { useAppStore } from '@/stores/app-store'
 import { useAuthStore } from '@/stores/auth-store'
 import { computed, ref } from 'vue'
-import AuthButtons from './_partials/AuthButtons.vue'
+import HeaderButtons from './_partials/HeaderButtons.vue'
 import LoginModal from './_partials/LoginModal.vue'
 import RegisterModal from './_partials/RegisterModal.vue'
 
@@ -37,7 +37,7 @@ const onLoginFromRegisterClick = () => {
         <LoginModal
             v-if="isGuest"
             v-model="loginModal"
-            :show-register-text="isGuest && isProfileRoute"
+            :show-register-text="isGuest"
             @register-click="onRegisterFromLoginClick"
         />
 
@@ -48,7 +48,7 @@ const onLoginFromRegisterClick = () => {
             @login-click="onLoginFromRegisterClick"
         />
 
-        <AuthButtons
+        <HeaderButtons
             :show-subscribe-button="isProfileRoute"
             @login-click="loginModal = true"
             @subscribe-click="registerModal = true"

@@ -8,9 +8,6 @@ use App\Enums\RolesEnum;
 use Illuminate\Http\Request;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/portal', function (Request $request) {
-    return $request->user()->redirectToBillingPortal(route('home'));
-});
 
 Route::get('/checkout', function (Request $request) {
     return $request->user()->checkout(['price_1Qvu6vG8sEYWxOnllpz7VGu2' => 1], [
@@ -38,14 +35,16 @@ Route::prefix('painel')->name('panel.')->group(function () {
 
     Route::middleware([
         Authenticate::class,
-        RoleMiddleware::using([
-            RolesEnum::ADMIN->value,
-            RolesEnum::INFLUENCER->value
-        ])
+        RoleMiddleware::using([RolesEnum::INFLUENCER->value])
     ])->group(function () {
-        require __DIR__ . '/panel/panel-my-account-routes.php';
         require __DIR__ . '/panel/panel-my-profile-routes.php';
         require __DIR__ . '/panel/panel-my-media-routes.php';
+    });
+
+    Route::middleware([
+        Authenticate::class,
+    ])->group(function () {
+        require __DIR__ . '/panel/panel-my-account-routes.php';
     });
 });
 

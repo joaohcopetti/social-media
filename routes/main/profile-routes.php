@@ -9,4 +9,5 @@ Route::name('profile.')->group(function () {
     Route::get('/{profile}/free', [ProfileController::class, 'free'])->name('free');
     Route::get('/{profile}/premium', [ProfileController::class, 'premium'])->name('premium');
     Route::get('/midias/{filename}', [ProfileMediaController::class, 'media'])->name('media');
+    Route::get('/{profile}/assinar', [ProfileController::class, 'subscribe'])->name('subscribe');
 });

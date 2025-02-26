@@ -38,7 +38,7 @@ const panelUrl = computed(() => {
 
 const subscribeUrl = computed(() =>
     props.showSubscribeButton
-        ? route('profile.checkout', { profile: route().params.profile })
+        ? route('profile.subscribe', { profile: route().params.profile })
         : undefined,
 )
 </script>
@@ -47,14 +47,23 @@ const subscribeUrl = computed(() =>
     <div
         class="fixed right-0 z-20 flex gap-3 rounded-bl-3xl p-3 px-5 backdrop-blur-md sm:top-0 sm:backdrop-blur-0"
         :class="{
-            'bg-black/60 sm:bg-transparent': authStore.user,
+            'bg-black/60 sm:bg-transparent': !!authStore.user,
         }"
     >
         <AppButton
-            v-if="showSubscribeButton && subscribeUrl"
+            v-if="showSubscribeButton && !authStore.user"
             label="Assine"
             color="light"
             @click="$emit('subscribe-click')"
+        />
+
+        <AppButton
+            v-if="subscribeUrl"
+            label="Assine"
+            class="bg-gradient-to-tr from-red-500 to-purple-800"
+            :inertia-link="{
+                href: subscribeUrl,
+            }"
         />
 
         <template v-if="!authStore.user">

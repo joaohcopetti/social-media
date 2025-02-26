@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Main;
 
+use App\Inertia\Main\ProfileSubscribeViewInertia;
 use App\Models\Profile;
 use App\Http\Controllers\Controller;
 use App\Inertia\Main\ProfileViewInertia;
@@ -40,5 +41,10 @@ class ProfileController extends Controller
                 ->orderBy('order', 'desc')
                 ->get()
         );
+    }
+
+    public function subscribe(Profile $profile)
+    {
+        return app(ProfileSubscribeViewInertia::class)->render($profile);
     }
 }

@@ -6,8 +6,12 @@ import AppModal from '@/components/AppModal.vue'
 
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import { useForm } from '@inertiajs/vue3'
+import { useToast } from 'vue-toast-notification'
+
+const isOpen = defineModel<boolean>({ default: false })
 
 defineEmits(['login-click'])
+
 defineProps<{
     showLoginText: boolean
 }>()
@@ -19,12 +23,17 @@ const form = useForm({
 })
 
 const submit = () => {
-    form.post(route('register.store'))
+    form.post(route('register.store'), {
+        onSuccess() {
+            isOpen.value = false
+            useToast().success('Boas vindas!')
+        },
+    })
 }
 </script>
 
 <template>
-    <AppModal>
+    <AppModal v-model="isOpen">
         <template #title>Crie uma conta para poder assinar</template>
         <template #body>
             <AppForm
