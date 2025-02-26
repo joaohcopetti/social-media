@@ -62,7 +62,7 @@ const sidebarItems = computed((): SidebarItem[] => [
         url: route('panel.my-subscriptions.index'),
         isActive: appStore.currentRouteContains('panel.my-subscriptions'),
         icon: 'ph:user-circle-check-duotone',
-        visible: !authStore.userHasAnyRole(['influencer', 'admin']),
+        visible: authStore.userHasAnyRole(['customer']),
     },
 ])
 

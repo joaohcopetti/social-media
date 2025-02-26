@@ -42,11 +42,12 @@ Route::prefix('painel')->name('panel.')->group(function () {
         require __DIR__ . '/panel/panel-my-media-routes.php';
     });
 
-    Route::middleware([
-        Authenticate::class,
-    ])->group(function () {
+    Route::middleware([Authenticate::class])->group(function () {
         require __DIR__ . '/panel/panel-my-account-routes.php';
-        require __DIR__ . '/panel/panel-my-subscription-routes.php';
+
+        Route::middleware([RoleMiddleware::using([RolesEnum::CUSTOMER->value])])->group(function () {
+            require __DIR__ . '/panel/panel-my-subscription-routes.php';
+        });
     });
 });
 

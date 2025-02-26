@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\RolesEnum;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -21,7 +22,14 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique('users', 'email')],
+            'email' => [
+                'required',
+                'string',
+                'lowercase',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')
+            ],
             'password' => ['required', 'confirmed', 'min:8'],
         ]);
 
@@ -29,6 +37,8 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => $request->password,
         ]);
+
+        $user->assignRole(RolesEnum::CUSTOMER);
 
         event(new Registered($user));
 

@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
         [
             'email' => 'customer@email.com',
             'password' => 'secret',
-            'role' => null
+            'role' => RolesEnum::CUSTOMER->value
         ]
     ];
 

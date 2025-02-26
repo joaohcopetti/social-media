@@ -16,5 +16,6 @@ class PermissionSeeder extends Seeder
     {
         Role::create(['name' => RolesEnum::ADMIN->value]);
         Role::create(['name' => RolesEnum::INFLUENCER->value]);
+        Role::create(['name' => RolesEnum::CUSTOMER->value]);
     }
 }
