@@ -5,10 +5,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\Middleware\Authenticate;
 use Spatie\Permission\Middleware\RoleMiddleware;
 use App\Enums\RolesEnum;
-use Illuminate\Http\Request;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+/*
 Route::get('/checkout', function (Request $request) {
     return $request->user()->checkout(['price_1Qvu6vG8sEYWxOnllpz7VGu2' => 1], [
         'success_url' => route('checkout.success'),
@@ -23,6 +23,7 @@ Route::get('/checkout/sucesso', function () {
 Route::get('/checkout/cancelado', function () {
     return 'cancelado';
 })->name('checkout.cancel');
+*/
 
 Route::prefix('painel')->name('panel.')->group(function () {
     Route::middleware([
@@ -45,6 +46,7 @@ Route::prefix('painel')->name('panel.')->group(function () {
         Authenticate::class,
     ])->group(function () {
         require __DIR__ . '/panel/panel-my-account-routes.php';
+        require __DIR__ . '/panel/panel-my-subscription-routes.php';
     });
 });
 

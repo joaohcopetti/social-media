@@ -55,7 +55,14 @@ const sidebarItems = computed((): SidebarItem[] => [
         url: route('panel.my-account.edit'),
         isActive: appStore.currentRouteContains('panel.my-account.edit'),
         icon: 'ph:user-circle-duotone',
-        visible: authStore.userHasAnyRole('influencer') || authStore.userHasAnyRole('admin'),
+        visible: true,
+    },
+    {
+        label: 'Minhas assinaturas',
+        url: route('panel.my-subscriptions.index'),
+        isActive: appStore.currentRouteContains('panel.my-subscriptions'),
+        icon: 'ph:user-circle-check-duotone',
+        visible: true,
     },
 ])
 
