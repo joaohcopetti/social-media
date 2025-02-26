@@ -5,15 +5,13 @@ import AppInput from '@/components/AppInput.vue'
 import AppModal from '@/components/AppModal.vue'
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import { useForm } from '@inertiajs/vue3'
+import { inject } from 'vue'
 import { useToast } from 'vue-toast-notification'
+import { isGuestInjectionKey, isProfileRouteInjectionKey } from '../injection'
 
 const isModalOpen = defineModel<boolean>()
 
 defineEmits(['register-click'])
-
-defineProps<{
-    showRegisterText: boolean
-}>()
 
 const form = useForm({
     email: '',
@@ -29,6 +27,9 @@ const submit = () => {
         },
     })
 }
+
+const isGuest = inject(isGuestInjectionKey, false)
+const isProfileRoute = inject(isProfileRouteInjectionKey, false)
 </script>
 
 <template>
@@ -41,6 +42,7 @@ const submit = () => {
                     icon="ph:user-circle-duotone"
                 />
             </div>
+
             <AppForm
                 :form="form"
                 @submit.prevent="submit"
@@ -54,6 +56,7 @@ const submit = () => {
                         :input-attrs="{ placeholder: 'Digite seu e-mail...' }"
                     />
                 </div>
+
                 <div>
                     <AppInput
                         v-model="form.password"
@@ -64,7 +67,8 @@ const submit = () => {
                         :hint="form.password"
                     />
                 </div>
-                <div v-if="showRegisterText">
+
+                <div v-if="isGuest && isProfileRoute">
                     <span
                         class="cursor-pointer text-sm font-bold text-blue-500 hover:text-blue-400"
                         @click="$emit('register-click')"
@@ -72,6 +76,7 @@ const submit = () => {
                         Crie uma conta
                     </span>
                 </div>
+
                 <div class="mt-6">
                     <AppButton
                         class="w-full"

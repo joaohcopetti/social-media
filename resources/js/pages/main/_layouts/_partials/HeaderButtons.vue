@@ -2,17 +2,16 @@
 import AppButton from '@/components/AppButton.vue'
 import { useAuthStore } from '@/stores/auth-store'
 import { router } from '@inertiajs/vue3'
-import { computed, ref } from 'vue'
+import { computed, inject, ref } from 'vue'
+import { isProfileRouteInjectionKey } from '../injection'
 
 defineEmits(['login-click', 'subscribe-click'])
-
-const props = defineProps<{
-    showSubscribeButton: boolean
-}>()
 
 const authStore = useAuthStore()
 
 const isLoading = ref<boolean>(false)
+
+const isProfileRoute = inject(isProfileRouteInjectionKey, false)
 
 const onLogoutClick = () => {
     isLoading.value = true
@@ -37,10 +36,10 @@ const panelUrl = computed(() => {
 })
 
 const subscribeUrl = computed(() =>
-    props.showSubscribeButton
-        ? route('profile.subscribe', { profile: route().params.profile })
-        : undefined,
+    isProfileRoute ? route('profile.subscribe', { profile: route().params.profile }) : undefined,
 )
+
+const showRealSubscribeBtn = computed(() => isProfileRoute && authStore.user)
 </script>
 
 <template>
@@ -51,18 +50,18 @@ const subscribeUrl = computed(() =>
         }"
     >
         <AppButton
-            v-if="showSubscribeButton && !authStore.user"
+            v-if="isProfileRoute && !authStore.user"
             label="Assine"
             color="light"
             @click="$emit('subscribe-click')"
         />
 
         <AppButton
-            v-if="subscribeUrl"
+            v-if="showRealSubscribeBtn"
             label="Assine"
-            class="bg-gradient-to-tr from-red-500 to-purple-800"
+            class="bg-gradient-to-tr from-red-500 to-purple-700 shadow-lg shadow-purple-700/30"
             :inertia-link="{
-                href: subscribeUrl,
+                href: subscribeUrl!,
             }"
         />
 

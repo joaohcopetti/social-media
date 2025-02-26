@@ -6,15 +6,16 @@ import AppModal from '@/components/AppModal.vue'
 
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import { useForm } from '@inertiajs/vue3'
+import { inject } from 'vue'
 import { useToast } from 'vue-toast-notification'
-
-const isOpen = defineModel<boolean>({ default: false })
+import { isGuestInjectionKey, isProfileRouteInjectionKey } from '../injection'
 
 defineEmits(['login-click'])
 
-defineProps<{
-    showLoginText: boolean
-}>()
+const isOpen = defineModel<boolean>({ default: false })
+
+const isGuest = inject(isGuestInjectionKey, false)
+const isProfileRoute = inject(isProfileRouteInjectionKey, false)
 
 const form = useForm({
     email: '',
@@ -73,7 +74,7 @@ const submit = () => {
                     :error="form.errors.password_confirmation"
                 />
 
-                <div v-if="showLoginText">
+                <div v-if="isGuest && isProfileRoute">
                     <span
                         class="cursor-pointer text-sm font-bold text-blue-500 hover:text-blue-400"
                         @click="$emit('login-click')"
