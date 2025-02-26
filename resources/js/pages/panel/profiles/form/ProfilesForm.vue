@@ -24,6 +24,7 @@ const form = useForm<ProfileForm>({
     description: '',
     photo: null,
     is_user: false,
+    subscription_price: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -99,8 +100,11 @@ const create = () => {
                 :error="form.errors.photo"
                 @change="((form.photo = $event), form.clearErrors('photo'))"
             />
-            <div class="flex w-full flex-col">
-                <ProfilesFormSection title="Dados principais">
+            <div class="flex w-full flex-col gap-5">
+                <ProfilesFormSection
+                    title="Dados principais"
+                    description="Defina os dados básicos do perfil"
+                >
                     <AppInput
                         v-model="form.name"
                         label="Nome"
@@ -124,6 +128,17 @@ const create = () => {
                         v-model="form.is_user"
                         label="Usuário do sistema"
                         hint="O usuário pode logar com e-mail e senha e gerenciar seu próprio perfil"
+                    />
+                </ProfilesFormSection>
+                <ProfilesFormSection
+                    title="Preço da assinatura"
+                    description="Defina o preço que os assinantes do seu perfil irão pagar"
+                >
+                    <AppInput
+                        v-model="form.subscription_price"
+                        name="subscription_price"
+                        label="Preço"
+                        :input-attrs="{ placeholder: 'Digite o preço...' }"
                     />
                 </ProfilesFormSection>
                 <template v-if="showCredentialFields">
@@ -170,7 +185,10 @@ const create = () => {
                     </div>
                 </template>
 
-                <ProfilesFormSection title="Redes sociais">
+                <ProfilesFormSection
+                    title="Redes sociais"
+                    description="Informe as redes sociais que você deseja exibir no seu perfil"
+                >
                     <AppInput
                         v-model="form.facebook"
                         name="networks.facebook"

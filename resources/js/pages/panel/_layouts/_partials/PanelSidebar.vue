@@ -37,17 +37,17 @@ const sidebarItems = computed((): SidebarItem[] => [
         visible: authStore.userHasAnyRole('admin'),
     },
     {
-        label: 'Meu perfil',
-        url: route('panel.my-profile.edit'),
-        isActive: appStore.currentRouteContains('panel.my-profile.edit'),
-        icon: 'ph:user-focus-duotone',
-        visible: authStore.userHasAnyRole('influencer'),
-    },
-    {
         label: 'Minhas mídias',
         url: route('panel.my-media.manage'),
         isActive: appStore.currentRouteContains('panel.my-media.manage'),
         icon: 'ph:images-duotone',
+        visible: authStore.userHasAnyRole('influencer'),
+    },
+    {
+        label: 'Meu perfil',
+        url: route('panel.my-profile.edit'),
+        isActive: appStore.currentRouteContains('panel.my-profile.edit'),
+        icon: 'ph:user-focus-duotone',
         visible: authStore.userHasAnyRole('influencer'),
     },
     {
@@ -62,7 +62,7 @@ const sidebarItems = computed((): SidebarItem[] => [
         url: route('panel.my-subscriptions.index'),
         isActive: appStore.currentRouteContains('panel.my-subscriptions'),
         icon: 'ph:user-circle-check-duotone',
-        visible: authStore.userHasAnyRole(['customer']),
+        visible: authStore.userHasAnyRole('customer'),
     },
 ])
 

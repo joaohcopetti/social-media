@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->string('photo');
             $table->string('thumbnail_photo');
             $table->string('description')->nullable();
+            $table->unsignedBigInteger('subscription_price')->nullable();
             $table->timestamps();
         });
     }

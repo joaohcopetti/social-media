@@ -7,6 +7,7 @@ export interface Profile {
   photo: string
   thumbnail_photo: string
   description: string | null
+  subscription_price: number | null
   created_at: string | null
   updated_at: string | null
   // mutators

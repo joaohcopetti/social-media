@@ -5,9 +5,8 @@ defineProps<{
 }>()
 </script>
 <template>
-    <div class="flex w-full flex-col">
-        <h1 class="text-lg font-bold">{{ title }}</h1>
-        <hr class="my-3 border-slate-600" />
+    <div class="flex w-full flex-col rounded-lg bg-slate-900 p-5">
+        <h1 class="mb-1 text-lg font-bold">{{ title }}</h1>
 
         <div>
             <div
@@ -16,6 +15,7 @@ defineProps<{
             >
                 {{ description }}
             </div>
+            <hr class="my-3 border-slate-600" />
             <div>
                 <slot />
             </div>
