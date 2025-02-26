@@ -64,7 +64,7 @@ const showRealSubscribeBtn = computed(() => isProfileRoute && authStore.user)
             v-if="showRealSubscribeBtn"
             label="Assine"
             class="bg-gradient-to-tr from-red-500 to-purple-700 shadow-lg shadow-purple-700/30"
-            :inertia-link="{
+            :link="{
                 href: subscribeUrl!,
             }"
         />
