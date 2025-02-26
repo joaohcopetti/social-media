@@ -32,7 +32,11 @@ const panelUrl = computed(() => {
         return route('panel.my-media.manage')
     }
 
-    return route('panel.profiles.index')
+    if (authStore.userHasAnyRole('admin')) {
+        return route('panel.profiles.index')
+    }
+
+    return route('panel.my-account.edit')
 })
 
 const subscribeUrl = computed(() =>
@@ -76,7 +80,6 @@ const showRealSubscribeBtn = computed(() => isProfileRoute && authStore.user)
 
         <template v-else>
             <AppButton
-                v-if="authStore.userHasAnyRole(['admin', 'influencer'])"
                 v-tippy="{ content: 'Painel' }"
                 :icon-left="{ icon: 'ph:gauge-bold' }"
                 ghost
