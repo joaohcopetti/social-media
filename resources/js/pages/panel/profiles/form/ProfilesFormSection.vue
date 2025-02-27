@@ -5,7 +5,7 @@ defineProps<{
 }>()
 </script>
 <template>
-    <div class="flex w-full flex-col rounded-lg border border-slate-600 p-5">
+    <div class="flex w-full flex-col rounded-lg border-slate-600 bg-black/15 p-5">
         <h1 class="mb-1 text-lg font-bold">{{ title }}</h1>
 
         <div>

@@ -132,8 +132,8 @@ const create = () => {
                     />
                 </ProfilesFormSection>
                 <ProfilesFormSection
-                    title="ID do preço"
-                    description="Informe o ID do preço criado no painel da Stripe"
+                    title="ID do preço (Stripe)"
+                    description="Informe o ID do preço do seu produto criado no painel da Stripe"
                 >
                     <AppInput
                         v-model="form.stripe_price_id"

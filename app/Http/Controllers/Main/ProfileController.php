@@ -54,7 +54,7 @@ class ProfileController extends Controller
 
         return $user->newSubscription('default', $profile->stripe_price_id)->checkout([
             'success_url' => route('profile.index', ['profile' => $profile->slug]),
-            'cancel_url' => route('profile.index', ['profile', $profile->slug])
+            'cancel_url' => route('profile.index', ['profile' => $profile->slug])
         ]);
     }
 }
