@@ -6,6 +6,16 @@ use Illuminate\Auth\Middleware\Authenticate;
 use Spatie\Permission\Middleware\RoleMiddleware;
 use App\Enums\RolesEnum;
 
+Route::get('/test', function () {
+    /**
+     * @var \App\Models\User
+     */
+    $user = Auth::user();
+    // dd($user);;
+    return $user->subscribedToPrice('price_1Qx0CiG8sEYWxOnlvB7b7aag') ? 'true' : 'false';
+    // return $user->invoicesIncludingPending();
+});
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('painel')->name('panel.')->group(function () {
