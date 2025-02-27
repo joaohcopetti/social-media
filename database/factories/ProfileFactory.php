@@ -33,13 +33,6 @@ class ProfileFactory extends Factory
             'photo' => pathinfo($photo['image_path'], PATHINFO_BASENAME),
             'thumbnail_photo' => pathinfo($photo['thumb_path'], PATHINFO_BASENAME),
             'description' => fake()->optional(.5, null)->sentence(),
-            'subscription_price' => fake()->randomElement([
-                1000,
-                2000,
-                5000,
-                10000,
-                20000,
-            ])
         ];
     }
 }

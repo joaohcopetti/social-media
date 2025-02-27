@@ -25,7 +25,7 @@ export type ProfileForm = {
     description?: string
     photo: File | null
     is_user: boolean
-    subscription_price: string
+    stripe_price_id: string
     email?: string
     password?: string
     password_confirmation?: string

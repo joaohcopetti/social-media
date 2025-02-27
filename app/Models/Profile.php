@@ -21,7 +21,8 @@ class Profile extends Model
         'description',
         'photo',
         'thumbnail_photo',
-        'user_id'
+        'user_id',
+        'stripe_price_id'
     ];
 
     protected $appends = [

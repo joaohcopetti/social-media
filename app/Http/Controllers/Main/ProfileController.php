@@ -52,25 +52,9 @@ class ProfileController extends Controller
          */
         $user = Auth::user();
 
-        $price = $profile->subscription_price;
-        $title = "Perfil de {$profile->name}";
-
-        return $user->newSubscription('default', 'price_1Qx0CiG8sEYWxOnlvB7b7aag')
-            ->checkout();
-        /* return $user->checkoutCharge($price, $title, sessionOptions: [
-            'line_items' => [
-                [
-                    'price_data' => [
-                        'currency' => 'brl',
-                        'product_data' => [
-                            'name' => $title,
-                            'description' => 'Assinatura com duração de 1 mễs',
-                        ],
-                        'unit_amount' => $price,
-                    ],
-                    'quantity' => 1,
-                ],
-            ]
-        ]); */
+        return $user->newSubscription('default', $profile->stripe_price_id)->checkout([
+            'success_url' => route('profile.index', ['profile' => $profile->slug]),
+            'cancel_url' => route('profile.index', ['profile', $profile->slug])
+        ]);
     }
 }

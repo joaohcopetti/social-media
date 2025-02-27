@@ -24,7 +24,7 @@ const form = useForm<ProfileForm>({
     description: '',
     photo: null,
     is_user: false,
-    subscription_price: '',
+    stripe_price_id: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -56,6 +56,7 @@ const populateForm = () => {
     Object.assign(form, {
         name: profile.name,
         description: profile.description,
+        stripe_price_id: profile.stripe_price_id,
     })
 
     profile.social_networks.forEach((socialNetwork) => {
@@ -131,14 +132,14 @@ const create = () => {
                     />
                 </ProfilesFormSection>
                 <ProfilesFormSection
-                    title="Preço da assinatura"
-                    description="Defina o preço que os assinantes do seu perfil irão pagar"
+                    title="ID do preço"
+                    description="Informe o ID do preço criado no painel da Stripe"
                 >
                     <AppInput
-                        v-model="form.subscription_price"
-                        name="subscription_price"
-                        label="Preço"
-                        :input-attrs="{ placeholder: 'Digite o preço...' }"
+                        v-model="form.stripe_price_id"
+                        name="stripe_price_id"
+                        label="ID"
+                        :input-attrs="{ placeholder: 'Cole o ID...' }"
                     />
                 </ProfilesFormSection>
                 <template v-if="showCredentialFields">

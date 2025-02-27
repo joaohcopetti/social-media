@@ -7,7 +7,7 @@ export interface Profile {
   photo: string
   thumbnail_photo: string
   description: string | null
-  subscription_price: number | null
+  stripe_price_id: string | null
   created_at: string | null
   updated_at: string | null
   // mutators
@@ -40,6 +40,20 @@ export interface ProfileMedia {
   profile: Profile
 }
 
+export interface Purchase {
+  // columns
+  id: number
+  user_id: number
+  payment_id: string | null
+  payload: string | null
+  ends_at: string | null
+  status: string
+  created_at: string | null
+  updated_at: string | null
+  // relations
+  user: User
+}
+
 export interface SocialNetwork {
   // columns
   id: number
@@ -63,6 +77,7 @@ export interface User {
   trial_ends_at: string | null
   // relations
   profile: Profile
+  purchases: Purchase[]
   notifications: DatabaseNotification[]
   roles: Role[]
   permissions: Permission[]

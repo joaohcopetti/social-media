@@ -11,9 +11,7 @@ Route::get('/test', function () {
      * @var \App\Models\User
      */
     $user = Auth::user();
-    // dd($user);;
-    return $user->subscribedToPrice('price_1Qx0CiG8sEYWxOnlvB7b7aag') ? 'true' : 'false';
-    // return $user->invoicesIncludingPending();
+    dd($user->subscribed());
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

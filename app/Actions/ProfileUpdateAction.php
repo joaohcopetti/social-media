@@ -19,7 +19,7 @@ class ProfileUpdateAction
         }
 
         $data = array_merge(
-            Arr::only($data, ['name', 'description']),
+            Arr::only($data, ['name', 'description', 'stripe_price_id']),
             $paths
             ? ['photo' => $paths['filepath'], 'thumbnail_photo' => $paths['thumbnail_filepath']]
             : []

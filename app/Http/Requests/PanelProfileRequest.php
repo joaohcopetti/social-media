@@ -27,6 +27,7 @@ class PanelProfileRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:1000'],
             'photo' => [!$this->isEdit() ? 'required' : 'nullable', 'file', 'mimes:jpeg,jpg,png', 'max:1024'],
             'is_user' => ['required', 'boolean'],
+            'stripe_price_id' => ['nullable', 'string'],
             'facebook' => ['nullable', 'url', 'regex:/facebook.com/'],
             'instagram' => ['nullable', 'url', 'regex:/instagram.com/'],
             'x_twitter' => ['nullable', 'url', 'regex:/x.com/'],
