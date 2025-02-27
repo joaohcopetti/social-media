@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Main;
 
 use App\Models\ProfileMedia;
+use Auth;
 use Str;
 use App\Http\Controllers\Controller;
 
@@ -18,12 +19,27 @@ class ProfileMediaController extends Controller
             abort(404);
         }
 
+        $profile = $profileMedia->profile;
+
+        /**
+         * @var \App\Models\User
+         */
+        $user = Auth::user();
+
         $mediaPath = Str::contains($filename, '_thumb')
             ? $profileMedia->thumbnail_filename
             : $profileMedia->filename;
 
         $filepath = storage_path('app/private/midias/' . $mediaPath);
 
-        return response()->file($filepath);
+        if (
+            $profileMedia->is_free
+            || $user?->subscribedToProfile($profile)
+            || $profile->user_id === Auth::id()
+        ) {
+            return response()->file($filepath);
+        }
+
+        return abort(403);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\WebhookController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\Middleware\Authenticate;
 use Spatie\Permission\Middleware\RoleMiddleware;
@@ -13,6 +14,7 @@ Route::get('/test', function () {
     $user = Auth::user();
     dd($user->subscribed());
 });
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 

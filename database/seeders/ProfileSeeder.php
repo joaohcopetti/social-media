@@ -2,13 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Enums\SocialNetworksEnum;
 use App\Models\Profile;
 use App\Models\SocialNetwork;
-use DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\ProfileMedia;
+use Illuminate\Support\Facades\DB;
 
 class ProfileSeeder extends Seeder
 {

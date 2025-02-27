@@ -3,6 +3,8 @@
 namespace App\Inertia\Main;
 
 use App\Models\Profile;
+use App\Models\Subscription;
+use Auth;
 use Illuminate\Support\Collection;
 use Inertia\Inertia;
 
@@ -12,7 +14,8 @@ class ProfileViewInertia
     {
         return Inertia::render('main/profile/ProfileView', [
             'profile' => $profile->loadMissing(['socialNetworks']),
-            'media' => $media
+            'media' => $media,
+            'isSubscribed' => !!Auth::user()?->subscribedToProfile($profile)
         ]);
     }
 }

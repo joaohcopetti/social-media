@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
 import { useAuthStore } from '@/stores/auth-store'
-import { router } from '@inertiajs/vue3'
+import { router, usePage } from '@inertiajs/vue3'
 import { computed, inject, ref } from 'vue'
 import { isProfileRouteInjectionKey } from '../injection'
 
 defineEmits(['login-click', 'subscribe-click'])
 
 const authStore = useAuthStore()
+const page = usePage()
 
 const isLoading = ref<boolean>(false)
 
@@ -43,7 +44,12 @@ const subscribeUrl = computed(() =>
     isProfileRoute ? route('profile.subscribe', { profile: route().params.profile }) : undefined,
 )
 
-const showRealSubscribeBtn = computed(() => isProfileRoute && authStore.user)
+const showRealSubscribeBtn = computed(
+    // @ts-expect-error "stripe_price_id" field is optional
+    () => isProfileRoute && authStore.user && page.props?.profile?.stripe_price_id,
+)
+
+const isUserSubscribed = computed(() => page.props?.isSubscribed)
 </script>
 
 <template>
@@ -62,11 +68,16 @@ const showRealSubscribeBtn = computed(() => isProfileRoute && authStore.user)
 
         <AppButton
             v-if="showRealSubscribeBtn"
-            label="Assine"
-            class="bg-gradient-to-tr from-red-500 to-purple-700 shadow-lg shadow-purple-700/30"
+            :label="isUserSubscribed ? 'Assinado' : 'Assine'"
+            :class="{
+                'bg-gradient-to-tr from-red-500 to-purple-700 shadow-lg shadow-purple-700/30':
+                    !isUserSubscribed,
+                'bg-transparent': isUserSubscribed,
+            }"
             :link="{
                 href: subscribeUrl!,
             }"
+            disabled
         />
 
         <template v-if="!authStore.user">

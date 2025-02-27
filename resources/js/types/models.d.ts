@@ -40,25 +40,31 @@ export interface ProfileMedia {
   profile: Profile
 }
 
-export interface Purchase {
-  // columns
-  id: number
-  user_id: number
-  payment_id: string | null
-  payload: string | null
-  ends_at: string | null
-  status: string
-  created_at: string | null
-  updated_at: string | null
-  // relations
-  user: User
-}
-
 export interface SocialNetwork {
   // columns
   id: number
   name: string
   order: boolean
+}
+
+export interface Subscription {
+  // columns
+  id: number
+  user_id: number
+  profile_id: number | null
+  type: string
+  stripe_id: string
+  stripe_status: string
+  stripe_price: string | null
+  quantity: number | null
+  trial_ends_at: string | null
+  ends_at: string | null
+  created_at: string | null
+  updated_at: string | null
+  // relations
+  profile: Profile
+  owner: User
+  items: SubscriptionItem[]
 }
 
 export interface User {
@@ -77,7 +83,6 @@ export interface User {
   trial_ends_at: string | null
   // relations
   profile: Profile
-  purchases: Purchase[]
   notifications: DatabaseNotification[]
   roles: Role[]
   permissions: Permission[]

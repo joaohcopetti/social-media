@@ -4,7 +4,6 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -55,8 +54,11 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
-    public function purchases(): HasMany
+    public function subscribedToProfile(Profile $profile): bool
     {
-        return $this->hasMany(Purchase::class);
+        return Subscription::query()->active()->where([
+            'user_id' => $this->id,
+            'profile_id' => $profile->id
+        ])->exists();
     }
 }
