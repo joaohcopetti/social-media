@@ -10,7 +10,6 @@ import { computed } from 'vue'
 const TABLE_HEADERS: TableHeader[] = [
     { label: 'Nome', prop: 'name' },
     { label: 'E-mail', prop: 'email' },
-    { label: 'Assinatura válida até', prop: 'subscription', centered: true },
     { label: '', prop: 'options', centered: true },
 ]
 
@@ -43,7 +42,6 @@ const getDropdownOptions = (user: User): DropdownItem[] => [
                 <span>{{ data.name }}</span>
             </div>
         </template>
-        <template #[`tbody.subscription`]> 20/03/2025 </template>
         <template #[`tbody.options`]="{ data }">
             <AppDropdown
                 :icon="{ icon: 'ph:dots-three-outline-fill' }"
