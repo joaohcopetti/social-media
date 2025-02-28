@@ -52,7 +52,7 @@ class ProfileController extends Controller
          */
         $user = Auth::user();
 
-        if ($user->subscribedToProfile($profile) || $user->profile->id === $profile->id) {
+        if ($user->subscribedToProfile($profile) || $user?->profile?->id === $profile->id) {
             abort(403);
         }
 
