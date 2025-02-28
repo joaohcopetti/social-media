@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Main;
 
+use App\Enums\RolesEnum;
 use App\Models\ProfileMedia;
 use Auth;
 use Str;
@@ -32,6 +33,7 @@ class ProfileMediaController extends Controller
             $profileMedia->is_free
             || $user?->subscribedToProfile($profile)
             || $profile->user_id === $user?->id
+            || $user->hasRole(RolesEnum::ADMIN)
         ) {
             return response()->file($filepath);
         }
