@@ -131,22 +131,9 @@ const create = () => {
                         hint="O usuário pode logar com e-mail e senha e gerenciar seu próprio perfil"
                     />
                 </ProfilesFormSection>
-                <ProfilesFormSection
-                    title="ID do preço (Stripe)"
-                    description="Informe o ID do preço do seu produto criado no painel da Stripe"
-                >
-                    <AppInput
-                        v-model="form.stripe_price_id"
-                        name="stripe_price_id"
-                        label="ID"
-                        :input-attrs="{ placeholder: 'Cole o ID...' }"
-                    />
-                </ProfilesFormSection>
+
                 <template v-if="showCredentialFields">
-                    <div
-                        v-auto-animate
-                        class="mt-5"
-                    >
+                    <div v-auto-animate>
                         <ProfilesFormSection
                             v-if="form.is_user"
                             title="Dados de login"
@@ -185,6 +172,18 @@ const create = () => {
                         </ProfilesFormSection>
                     </div>
                 </template>
+
+                <ProfilesFormSection
+                    title="ID do preço (Stripe)"
+                    description="Informe o ID do preço do seu produto criado no painel da Stripe"
+                >
+                    <AppInput
+                        v-model="form.stripe_price_id"
+                        name="stripe_price_id"
+                        label="ID"
+                        :input-attrs="{ placeholder: 'Cole o ID...' }"
+                    />
+                </ProfilesFormSection>
 
                 <ProfilesFormSection
                     title="Redes sociais"

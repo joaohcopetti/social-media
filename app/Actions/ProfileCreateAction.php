@@ -14,7 +14,7 @@ class ProfileCreateAction
         $paths = app(ProfilePictureStore::class)->execute($data['photo']);
 
         return Profile::create(array_merge(
-            Arr::only($data, ['name', 'email', 'password']),
+            Arr::only($data, ['name', 'description', 'stripe_price_id']),
             [
                 'photo' => $paths['filepath'],
                 'thumbnail_photo' => $paths['thumbnail_filepath']
