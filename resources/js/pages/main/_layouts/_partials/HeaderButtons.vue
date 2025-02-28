@@ -50,7 +50,7 @@ const showRealSubscribeBtn = computed(
         authStore.user &&
         // @ts-expect-error "stripe_price_id" field is optional
         page.props?.profile?.stripe_price_id &&
-        authStore.user.profile.id !== page.props?.profile?.id,
+        authStore.user?.profile?.id !== page.props?.profile?.id,
 )
 
 const isUserSubscribed = computed(() => page.props?.isSubscribed as boolean)
