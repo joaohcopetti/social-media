@@ -31,7 +31,7 @@ class StripeWebhookListener
 
         if (in_array($event->payload['type'], $listeners)) {
             defer(function () use ($event) {
-                sleep(10);
+                sleep(2);
 
                 $user = Cashier::findBillable(data_get($event->payload, 'data.object.customer'));
 
