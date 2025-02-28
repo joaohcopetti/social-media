@@ -22,7 +22,12 @@ class StripeWebhookListener
      */
     public function handle(WebhookReceived $event): void
     {
-        if ($event->payload['type'] === 'checkout.session.completed') {
+        $listeners = [
+            'checkout.session.completed',
+            'checkout.session.async_payment_succeeded'
+        ];
+
+        if (in_array($event->payload['type'], $listeners)) {
             defer(function () use ($event) {
                 sleep(10);
                 $subscriptionId = data_get($event->payload, 'data.object.subscription');

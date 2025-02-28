@@ -49,7 +49,7 @@ const showRealSubscribeBtn = computed(
     () => isProfileRoute && authStore.user && page.props?.profile?.stripe_price_id,
 )
 
-const isUserSubscribed = computed(() => page.props?.isSubscribed)
+const isUserSubscribed = computed(() => page.props?.isSubscribed as boolean)
 </script>
 
 <template>
@@ -77,7 +77,7 @@ const isUserSubscribed = computed(() => page.props?.isSubscribed)
             :link="{
                 href: subscribeUrl!,
             }"
-            disabled
+            :disabled="isUserSubscribed"
         />
 
         <template v-if="!authStore.user">
