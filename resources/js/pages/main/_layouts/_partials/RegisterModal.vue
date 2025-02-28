@@ -18,6 +18,7 @@ const isGuest = inject(isGuestInjectionKey, false)
 const isProfileRoute = inject(isProfileRouteInjectionKey, false)
 
 const form = useForm({
+    name: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -47,6 +48,13 @@ const submit = () => {
                         style="font-size: 7rem"
                     />
                 </div>
+                <AppInput
+                    v-model="form.name"
+                    label="Nome"
+                    name="name"
+                    :input-attrs="{ placeholder: 'Digite um nome...' }"
+                    :error="form.errors.name"
+                />
                 <AppInput
                     v-model="form.email"
                     label="E-mail"
