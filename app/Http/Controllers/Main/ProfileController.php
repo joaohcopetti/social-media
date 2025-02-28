@@ -52,6 +52,10 @@ class ProfileController extends Controller
          */
         $user = Auth::user();
 
+        if ($user->subscribedToProfile($profile)) {
+            abort(403);
+        }
+
         return $user->newSubscription('default', $profile->stripe_price_id)->checkout([
             'success_url' => route('profile.index', ['profile' => $profile->slug]),
             'cancel_url' => route('profile.index', ['profile' => $profile->slug]),

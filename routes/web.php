@@ -7,15 +7,6 @@ use Illuminate\Auth\Middleware\Authenticate;
 use Spatie\Permission\Middleware\RoleMiddleware;
 use App\Enums\RolesEnum;
 
-Route::get('/test', function () {
-    /**
-     * @var \App\Models\User
-     */
-    $user = Auth::user();
-    dd($user->subscribed());
-});
-
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('painel')->name('panel.')->group(function () {

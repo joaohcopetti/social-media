@@ -20,10 +20,6 @@ class ProfileMediaController extends Controller
         }
 
         $profile = $profileMedia->profile;
-
-        /**
-         * @var \App\Models\User
-         */
         $user = Auth::user();
 
         $mediaPath = Str::contains($filename, '_thumb')
@@ -35,7 +31,7 @@ class ProfileMediaController extends Controller
         if (
             $profileMedia->is_free
             || $user?->subscribedToProfile($profile)
-            || $profile->user_id === Auth::id()
+            || $profile->user_id === $user?->id
         ) {
             return response()->file($filepath);
         }
