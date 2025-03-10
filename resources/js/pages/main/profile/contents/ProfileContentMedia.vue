@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAppStore } from '@/stores/app-store'
-import type { ProfileMedia } from '@/types/models'
+import type { ProfileMedia, Subscription } from '@/types/models'
 import { usePage } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
 import ProfileMediaPreview from '../_partials/ProfileMediaPreview.vue'
@@ -19,11 +19,11 @@ const onMediaSelect = (_media: ProfileMedia) => {
 }
 
 const isPremiumRoute = computed(() => appStore.currentRoute === 'profile.premium')
-const isSubscribed = computed(() => usePage().props?.isSubscribed)
+const subscription = computed(() => usePage().props?.subscription as Subscription | undefined)
 
 const canView = computed(() => {
     if (isPremiumRoute.value) {
-        return isSubscribed.value
+        return subscription.value?.stripe_status === 'active'
     }
 
     return true
@@ -54,7 +54,13 @@ const canView = computed(() => {
             <ProfileContentEmpty v-else />
         </template>
         <template v-else>
-            <div class="my-20 px-5 text-center text-xl">
+            <div v-if="subscription?.stripe_status === 'incomplete'">
+                O seu pagamento está sendo processado
+            </div>
+            <div
+                v-else
+                class="my-20 px-5 text-center text-xl"
+            >
                 Assine para ter acesso ao <b class="text-white">conteúdo premium</b>
             </div>
         </template>

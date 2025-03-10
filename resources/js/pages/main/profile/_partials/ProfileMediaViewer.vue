@@ -29,9 +29,12 @@ watch(
     () => {
         if (props.selectedMedia) {
             document.body.classList.add('overflow-y-hidden')
-        } else {
-            document.body.classList.remove('overflow-y-hidden')
+            history.pushState({ viewer: 'open' }, '', window.location.href)
+            return
         }
+
+        history.back()
+        document.body.classList.remove('overflow-y-hidden')
     },
 )
 </script>

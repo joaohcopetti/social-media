@@ -4,8 +4,8 @@ import AppForm from '@/components/AppForm.vue'
 import AppInput from '@/components/AppInput.vue'
 import AppModal from '@/components/AppModal.vue'
 import { Icon } from '@iconify/vue/dist/iconify.js'
-import { useForm } from '@inertiajs/vue3'
-import { inject } from 'vue'
+import { router, useForm } from '@inertiajs/vue3'
+import { computed, inject } from 'vue'
 import { useToast } from 'vue-toast-notification'
 import { isGuestInjectionKey, isProfileRouteInjectionKey } from '../injection'
 
@@ -22,14 +22,22 @@ const submit = () => {
     form.post(route('login'), {
         onSuccess() {
             isModalOpen.value = false
-            useToast().success('Boas vindas')
             form.reset()
+            router.reload()
+            useToast().success('Boas vindas')
         },
     })
 }
 
-const isGuest = inject(isGuestInjectionKey, false)
-const isProfileRoute = inject(isProfileRouteInjectionKey, false)
+const isGuest = inject(
+    isGuestInjectionKey,
+    computed(() => false),
+)
+
+const isProfileRoute = inject(
+    isProfileRouteInjectionKey,
+    computed(() => false),
+)
 </script>
 
 <template>

@@ -7,10 +7,15 @@ type Roles = 'admin' | 'influencer' | 'customer'
 export const useAuthStore = defineStore('auth', () => {
     const user = computed(() => usePage().props.auth.user || null)
 
-    const userHasAnyRole = (roles: Roles | Roles[]) =>
-        Array.isArray(roles)
+    const userHasAnyRole = (roles: Roles | Roles[]) => {
+        if (!user.value) {
+            return false
+        }
+
+        return Array.isArray(roles)
             ? user.value.roles.some((role) => roles.includes(role.name))
             : user.value.roles.some(({ name }) => name === roles)
+    }
 
     const userHasRoles = (roles: Roles[]) => user.value.roles.every((role) => roles.includes(role))
 

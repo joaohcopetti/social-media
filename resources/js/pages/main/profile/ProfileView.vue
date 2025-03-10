@@ -9,7 +9,6 @@ import { profileInjectionKey } from './injection'
 const props = defineProps<{
     profile: Profile
     media: ProfileMedia[]
-    isSubscribed: boolean
 }>()
 
 provide(profileInjectionKey, props.profile)

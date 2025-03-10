@@ -32,8 +32,8 @@ const onLoginFromRegisterClick = () => {
     }, 300)
 }
 
-provide(isProfileRouteInjectionKey, isProfileRoute.value)
-provide(isGuestInjectionKey, isGuest.value)
+provide(isProfileRouteInjectionKey, isProfileRoute)
+provide(isGuestInjectionKey, isGuest)
 </script>
 
 <template>

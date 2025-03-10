@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Panel;
 
 use App\Actions\UserUpdateAction;
 use App\Inertia\Panel\MyAccountViewInertia;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\MyAccountRequest;
 use App\Http\Controllers\Controller;
@@ -25,8 +26,10 @@ class PanelMyAccountController extends Controller
         return redirect()->route('panel.my-account.edit');
     }
 
-    public function destroy()
+    public function destroy(Request $request)
     {
+        $request->session()->invalidate();
+
         Auth::user()->delete();
 
         return redirect()->route('home');

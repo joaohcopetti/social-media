@@ -12,7 +12,7 @@ const authStore = useAuthStore()
 const page = usePage()
 
 const isProfileRoute = inject(isProfileRouteInjectionKey, false)
-const isGuest = inject(isGuestInjectionKey, true)
+const isGuest = inject(isGuestInjectionKey, false)
 
 const isLoading = ref<boolean>(false)
 
@@ -38,7 +38,7 @@ const subscribeUrl = computed(() =>
 const showRealSubscribeBtn = computed(
     () =>
         isProfileRoute &&
-        !isGuest &&
+        !isGuest.value &&
         profile.value?.stripe_price_id &&
         authStore.user?.profile?.id !== profile.value?.id,
 )
