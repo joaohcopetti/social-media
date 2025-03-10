@@ -237,7 +237,12 @@ return [
         'blood_type' => 'tipo sanguíneo',
         'birth_date' => 'data de nascimento',
         'photo' => 'foto',
-        'file' => 'arquivo'
+        'file' => 'arquivo',
+        'facebook' => 'Facebook',
+        'instagram' => 'Instagram',
+        'tiktok' => 'Tiktok',
+        'youtube' => 'YouTube',
+        'x_twitter' => 'X/Twitter'
     ],
 
 ];

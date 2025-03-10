@@ -191,7 +191,7 @@ const create = () => {
                 >
                     <AppInput
                         v-model="form.facebook"
-                        name="networks.facebook"
+                        name="facebook"
                         label="Facebook"
                         :input-attrs="{ placeholder: 'Perfil do Facebook...' }"
                         optional
@@ -199,7 +199,7 @@ const create = () => {
                     />
                     <AppInput
                         v-model="form.instagram"
-                        name="networks.instagram"
+                        name="instagram"
                         label="Instagram"
                         :input-attrs="{ placeholder: 'Perfil do Instagram...' }"
                         optional
@@ -207,7 +207,7 @@ const create = () => {
                     />
                     <AppInput
                         v-model="form.x_twitter"
-                        name="networks.x_twitter"
+                        name="x_twitter"
                         label="X/Twitter"
                         :input-attrs="{ placeholder: 'Perfil do Twitter...' }"
                         optional
@@ -215,7 +215,7 @@ const create = () => {
                     />
                     <AppInput
                         v-model="form.tiktok"
-                        name="networks.tiktok"
+                        name="tiktok"
                         label="Tiktok"
                         :input-attrs="{ placeholder: 'Perfil do Tiktok...' }"
                         optional
@@ -223,7 +223,7 @@ const create = () => {
                     />
                     <AppInput
                         v-model="form.youtube"
-                        name="networks.youtube"
+                        name="youtube"
                         label="YouTube"
                         :input-attrs="{ placeholder: 'Perfil do YouTube...' }"
                         optional
