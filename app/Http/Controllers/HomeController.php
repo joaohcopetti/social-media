@@ -10,7 +10,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        if ($profile = Profile::first()) {
+        $profile = Profile::first();
+
+        if ($profile) {
             return redirect()->route('profile.index', ['profile' => $profile->slug]);
         }
 
