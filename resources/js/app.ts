@@ -6,22 +6,18 @@ import './bootstrap'
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import { createPinia } from 'pinia'
-import { createApp, DefineComponent, h } from 'vue'
-import VueTippy from 'vue-tippy'
+import { createApp, defineAsyncComponent, DefineComponent, h } from 'vue'
 import ToastPlugin from 'vue-toast-notification'
 import { ZiggyVue } from '../../vendor/tightenco/ziggy'
 
-import MainLayout from './pages/main/_layouts/MainLayout.vue'
-import PanelLayout from './pages/panel/_layouts/PanelLayout.vue'
+const MainLayout = defineAsyncComponent(() => import('./pages/main/_layouts/MainLayout.vue'))
+const PanelLayout = defineAsyncComponent(() => import('./pages/panel/_layouts/PanelLayout.vue'))
 
 createInertiaApp({
     title: (title) => title,
-    resolve: (name) => {
-        const pages = import.meta.glob<DefineComponent>('./pages/**/*.vue', {
-            eager: true,
-        })
-
-        const page = pages[`./pages/${name}.vue`]
+    resolve: async (name) => {
+        const pages = import.meta.glob<DefineComponent>('./pages/**/*.vue')
+        const page = await pages[`./pages/${name}.vue`]()
 
         page.default.layout = name.includes('panel/') ? PanelLayout : MainLayout
 
@@ -36,7 +32,7 @@ createInertiaApp({
             .use(autoAnimatePlugin)
             .use(pinia)
             .use(ToastPlugin)
-            .use(VueTippy)
+            // .use(VueTippy)
             .mount(el)
     },
     progress: {

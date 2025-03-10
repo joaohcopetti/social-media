@@ -1,0 +1,1 @@
+import{S as u,c as a,v as o}from"./app-BbUhthTI.js";const c=u("auth",()=>{const e=a(()=>o().props.auth.user||null);return{user:e,userHasAnyRole:s=>e.value?Array.isArray(s)?e.value.roles.some(r=>s.includes(r.name)):e.value.roles.some(({name:r})=>r===s):!1,userHasRoles:s=>e.value.roles.every(r=>s.includes(r))}});export{c as u};

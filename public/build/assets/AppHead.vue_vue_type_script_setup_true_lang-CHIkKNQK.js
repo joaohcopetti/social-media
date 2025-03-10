@@ -1,0 +1,1 @@
+import{d as t,o as a,b as s,H as o,y as n,h as r,L as p,a3 as l}from"./app-BbUhthTI.js";const u=t({__name:"AppHead",props:{title:{}},setup(i){return(e,_)=>(a(),s(n(l),null,{default:o(()=>[r("title",null,p(e.title),1)]),_:1}))}});export{u as _};

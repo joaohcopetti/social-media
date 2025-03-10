@@ -4,6 +4,7 @@ import AppButton from '@/components/AppButton.vue'
 import { useAuthStore } from '@/stores/auth-store'
 import { router, usePage } from '@inertiajs/vue3'
 import { computed, inject, ref } from 'vue'
+import { directive as vTippy } from 'vue-tippy'
 import { isGuestInjectionKey, isProfileRouteInjectionKey } from '../injection'
 
 defineEmits(['login-click', 'subscribe-click'])
