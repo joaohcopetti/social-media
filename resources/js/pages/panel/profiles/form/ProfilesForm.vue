@@ -10,6 +10,7 @@ import AppForm from '@/components/AppForm.vue'
 import AppInput from '@/components/AppInput.vue'
 import AppSwitch from '@/components/AppSwitch.vue'
 import AppTextarea from '@/components/AppTextarea.vue'
+import { useToast } from 'vue-toast-notification'
 import ProfilesFormSection from './ProfilesFormSection.vue'
 import ProfilesPhotoInput from './ProfilesPhotoInput.vue'
 
@@ -78,15 +79,27 @@ const update = () => {
     form._method = 'PATCH'
 
     if (appStore.currentRoute === 'panel.my-profile.edit') {
-        form.post(route('panel.my-profile.update'))
+        form.post(route('panel.my-profile.update'), {
+            onSuccess() {
+                useToast().success('Perfil atualizado!')
+            },
+        })
         return
     }
 
-    form.post(route('panel.profiles.update', { profile: props.profile?.slug }))
+    form.post(route('panel.profiles.update', { profile: props.profile?.slug }), {
+        onSuccess() {
+            useToast().success('Perfil atualizado!')
+        },
+    })
 }
 
 const create = () => {
-    form.post(route('panel.profiles.store'))
+    form.post(route('panel.profiles.store'), {
+        onSuccess() {
+            useToast().success('Perfil cadastrado!')
+        },
+    })
 }
 </script>
 

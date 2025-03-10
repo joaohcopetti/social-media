@@ -64,7 +64,7 @@ const updateMyAccount = () => {
     form.patch(route('panel.my-account.update'), {
         onSuccess() {
             form.reset('password', 'password_confirmation')
-            useToast().success('Perfil atualizado!')
+            useToast().success('Conta atualizada!')
         },
     })
 }
@@ -73,6 +73,7 @@ const create = () => {
     form.post(route('panel.users.store'), {
         preserveState: true,
         onSuccess() {
+            useToast().success('Usuário cadastrado!')
             emit('submitted', form.data())
         },
     })
@@ -82,7 +83,7 @@ const update = () => {
     form.patch(route('panel.users.update', { user: props.user!.id }), {
         preserveState: true,
         onSuccess() {
-            useToast().success('Perfil atualizado!')
+            useToast().success('Usuário atualizado!')
             emit('submitted')
         },
     })
