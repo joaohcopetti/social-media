@@ -19,7 +19,8 @@ class ProfileViewInertia
                 ->where('profile_id', $profile->id)
                 ->first()
         ])->withViewData([
-                    'title' => $profile->name
+                    'title' => $profile->name,
+                    'description' => $profile->description
                 ]);
     }
 }
