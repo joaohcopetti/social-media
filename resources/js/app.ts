@@ -32,7 +32,6 @@ createInertiaApp({
             .use(autoAnimatePlugin)
             .use(pinia)
             .use(ToastPlugin)
-            // .use(VueTippy)
             .mount(el)
     },
     progress: {
