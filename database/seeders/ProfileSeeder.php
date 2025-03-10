@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\SocialNetworksEnum;
 use App\Models\Profile;
 use App\Models\SocialNetwork;
 use Illuminate\Database\Seeder;
@@ -44,23 +45,34 @@ class ProfileSeeder extends Seeder
     {
         $profileSocialNetworks = [];
 
-        $socialNetworkIds = SocialNetwork::pluck('id');
+        $socialNetworks = SocialNetwork::all();
 
         foreach ($profiles as $profile) {
-            $networkIds = fake()->randomElements(
-                $socialNetworkIds,
+            $networks = fake()->randomElements(
+                $socialNetworks->toArray(),
                 fake()->numberBetween(1, 5)
             );
 
-            foreach ($networkIds as $networkId) {
+            foreach ($networks as $network) {
                 $profileSocialNetworks[] = [
                     'profile_id' => $profile->id,
-                    'social_network_id' => $networkId,
-                    'url' => 'https://www.google.com'
+                    'social_network_id' => $network['id'],
+                    'url' => $this->getSocialNetworkUrl($network['name'])
                 ];
             }
         }
 
         DB::table('profile_social_network')->insert($profileSocialNetworks);
+    }
+
+    public function getSocialNetworkUrl($network)
+    {
+        return match ($network) {
+            SocialNetworksEnum::FACEBOOK->value => 'https://www.facebook.com/username',
+            SocialNetworksEnum::X_TWITTER->value => 'https://twitter.com/username',
+            SocialNetworksEnum::INSTAGRAM->value => 'https://www.instagram.com/username/',
+            SocialNetworksEnum::TIKTOK->value => 'https://www.tiktok.com/@username',
+            SocialNetworksEnum::YOUTUBE->value => 'https://www.youtube.com/user/username'
+        };
     }
 }

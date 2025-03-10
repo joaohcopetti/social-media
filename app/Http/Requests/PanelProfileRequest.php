@@ -30,7 +30,7 @@ class PanelProfileRequest extends FormRequest
             'stripe_price_id' => ['nullable', 'string'],
             'facebook' => ['nullable', 'url', 'regex:/facebook.com/'],
             'instagram' => ['nullable', 'url', 'regex:/instagram.com/'],
-            'x_twitter' => ['nullable', 'url', 'regex:/x.com/'],
+            'x_twitter' => ['nullable', 'url', 'regex:/(x|twitter).com/'],
             'tiktok' => ['nullable', 'url', 'regex:/tiktok.com/'],
             'youtube' => ['nullable', 'url', 'regex:/youtube.com/'],
             'email' => [
