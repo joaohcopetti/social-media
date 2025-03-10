@@ -30,17 +30,16 @@ class StripeWebhookListener
         ];
 
         if (in_array($event->payload['type'], $listeners)) {
-            sleep(2);
-            defer(function () {
+            defer(function () use ($event) {
+                sleep(2);
+                $subscriptionId = data_get($event->payload, 'data.object.subscription');
+                $profileId = data_get($event->payload, 'data.object.metadata.profile_id');
+                $subscription = Subscription::firstWhere('stripe_id', $subscriptionId);
 
+                if ($subscription) {
+                    $subscription->update(['profile_id' => $profileId]);
+                }
             });
-            $subscriptionId = data_get($event->payload, 'data.object.subscription');
-            $profileId = data_get($event->payload, 'data.object.metadata.profile_id');
-            $subscription = Subscription::firstWhere('stripe_id', $subscriptionId);
-
-            if ($subscription) {
-                $subscription->update(['profile_id' => $profileId]);
-            }
         }
     }
 }
