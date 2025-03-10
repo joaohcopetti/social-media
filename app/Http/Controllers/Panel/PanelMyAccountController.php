@@ -24,4 +24,11 @@ class PanelMyAccountController extends Controller
 
         return redirect()->route('panel.my-account.edit');
     }
+
+    public function destroy()
+    {
+        Auth::user()->delete();
+
+        return redirect()->route('home');
+    }
 }
