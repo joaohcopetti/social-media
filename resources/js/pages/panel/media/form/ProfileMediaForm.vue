@@ -134,6 +134,13 @@ const uploadMedia = async (_media: Media) => {
                 const percent = (progressEvent.loaded / progressEvent.total!) * 100
 
                 uploadedMedia.progress = percent
+
+                console.log(percent)
+                if (percent >= 100) {
+                    setTimeout(() => {
+                        uploadedMedia.progress = undefined
+                    }, 2000)
+                }
             },
         })
 

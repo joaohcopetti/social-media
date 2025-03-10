@@ -19,6 +19,7 @@ defineProps<{
     >
         <div class="relative">
             <div
+                v-if="media.progress"
                 class="absolute bottom-0 h-1 bg-green-500 transition-all"
                 :style="{ width: media.progress + '%' }"
             />
