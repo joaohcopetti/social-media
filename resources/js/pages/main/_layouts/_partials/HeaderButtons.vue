@@ -11,8 +11,15 @@ defineEmits(['login-click', 'subscribe-click'])
 const authStore = useAuthStore()
 const page = usePage()
 
-const isProfileRoute = inject(isProfileRouteInjectionKey, false)
-const isGuest = inject(isGuestInjectionKey, false)
+const isProfileRoute = inject(
+    isProfileRouteInjectionKey,
+    computed(() => false),
+)
+
+const isGuest = inject(
+    isGuestInjectionKey,
+    computed(() => false),
+)
 
 const isLoading = ref<boolean>(false)
 

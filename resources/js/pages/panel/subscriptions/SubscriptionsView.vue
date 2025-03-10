@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AppPanelContainer from '@/components/AppPanelContainer.vue'
 
+import AppHead from '@/components/AppHead.vue'
 import SubscriptionsTable from './_partials/SubscriptionsTable.vue'
 
 defineProps<{
@@ -15,6 +16,7 @@ defineProps<{
     >
         <template #title><div class="mx-5">Minhas assinaturas</div></template>
         <template #body>
+            <AppHead title="Minhas assinaturas" />
             <div v-if="subscriptions.length">
                 <SubscriptionsTable :subscriptions="subscriptions" />
             </div>

@@ -35,13 +35,13 @@ const getDropdownOptions = (profile: Profile): DropdownItem[] => [
         href: route('panel.profiles.manage-media', { profile: profile.slug }),
         icon: 'ph:image',
     },
-    {
-        label: 'Excluir',
-        icon: 'ph:trash',
-        onClick: () => {
-            //
-        },
-    },
+    // {
+    //     label: 'Excluir',
+    //     icon: 'ph:trash',
+    //     onClick: () => {
+    //         //
+    //     },
+    // },
 ]
 </script>
 

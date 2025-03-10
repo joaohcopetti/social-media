@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
+import AppHead from '@/components/AppHead.vue'
 import ProfilesForm from './form/ProfilesForm.vue'
 
 import AppPanelContainer from '@/components/AppPanelContainer.vue'
 </script>
 
 <template>
+    <AppHead title="Cadastrar perfil" />
     <AppPanelContainer>
         <template #header>
             <AppButton

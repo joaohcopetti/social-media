@@ -18,6 +18,8 @@ class ProfileViewInertia
             'subscription' => Subscription::where('user_id', Auth::id())
                 ->where('profile_id', $profile->id)
                 ->first()
-        ]);
+        ])->withViewData([
+                    'title' => $profile->name
+                ]);
     }
 }

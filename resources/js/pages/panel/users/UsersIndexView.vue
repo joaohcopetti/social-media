@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
+import AppHead from '@/components/AppHead.vue'
 import AppPanelContainer from '@/components/AppPanelContainer.vue'
 import { User } from '@/types/models'
 import { ref } from 'vue'
@@ -36,6 +37,7 @@ const onUserEdit = ({ user }: any) => {
         <template #title><div class="px-5">Usuários</div></template>
         <template #subtitle><div class="px-5">Gerenciamento de usuários do sistema</div></template>
         <template #body>
+            <AppHead title="Usuários" />
             <ModalUserNew v-model="newUserModal" />
             <ModalUserEdit
                 v-model="editUserModal.isOpen"

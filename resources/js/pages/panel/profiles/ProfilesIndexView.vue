@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
+import AppHead from '@/components/AppHead.vue'
 import AppPanelContainer from '@/components/AppPanelContainer.vue'
 import ProfilesTable from './_partials/ProfilesTable.vue'
 
@@ -9,6 +10,8 @@ defineProps<{
 </script>
 
 <template>
+    <AppHead title="Perfis" />
+
     <AppPanelContainer no-horizontal-padding>
         <template #header>
             <AppButton

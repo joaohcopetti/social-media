@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AppHead from '@/components/AppHead.vue'
 import type { Profile, ProfileMedia } from '@/types/models'
 import { provide } from 'vue'
 import ProfileBackground from './ProfileBackground.vue'
@@ -16,6 +17,8 @@ provide(profileInjectionKey, props.profile)
 
 <template>
     <div>
+        <AppHead :title="profile.name" />
+
         <ProfileBackground />
         <div class="sm:py-10">
             <div

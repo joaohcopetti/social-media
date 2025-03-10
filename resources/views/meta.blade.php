@@ -1,0 +1,1 @@
+<title inertia>{{ $title ?? 'Perfis Sociais' }}</title>

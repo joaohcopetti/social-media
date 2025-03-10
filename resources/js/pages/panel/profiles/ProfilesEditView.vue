@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import AppButton from '@/components/AppButton.vue'
+import AppHead from '@/components/AppHead.vue'
 import AppPanelContainer from '@/components/AppPanelContainer.vue'
 import { useAppStore } from '@/stores/app-store'
 import { Profile } from '@/types/models'
@@ -15,6 +16,10 @@ const appStore = useAppStore()
 </script>
 
 <template>
+    <AppHead
+        :title="appStore.currentRoute !== 'panel.my-profile.edit' ? 'Editar perfil' : 'Meu perfil'"
+    />
+
     <AppPanelContainer>
         <template
             v-if="appStore.currentRoute !== 'panel.my-profile.edit'"

@@ -6,7 +6,7 @@ import AppModal from '@/components/AppModal.vue'
 
 import { Icon } from '@iconify/vue/dist/iconify.js'
 import { useForm } from '@inertiajs/vue3'
-import { inject } from 'vue'
+import { computed, inject } from 'vue'
 import { useToast } from 'vue-toast-notification'
 import { isGuestInjectionKey, isProfileRouteInjectionKey } from '../injection'
 
@@ -14,8 +14,14 @@ defineEmits(['login-click'])
 
 const isOpen = defineModel<boolean>({ default: false })
 
-const isGuest = inject(isGuestInjectionKey, false)
-const isProfileRoute = inject(isProfileRouteInjectionKey, false)
+const isGuest = inject(
+    isGuestInjectionKey,
+    computed(() => false),
+)
+const isProfileRoute = inject(
+    isProfileRouteInjectionKey,
+    computed(() => false),
+)
 
 const form = useForm({
     name: '',

@@ -2,6 +2,7 @@
 import AppPanelContainer from '@/components/AppPanelContainer.vue'
 
 import AppButton from '@/components/AppButton.vue'
+import AppHead from '@/components/AppHead.vue'
 import { User } from '@/types/models'
 import { ref } from 'vue'
 import ModalDeleteAccount from './_partials/ModalDeleteAccount.vue'
@@ -19,6 +20,8 @@ const isModalDeleteOpen = ref(false)
         <template #title>Minha conta</template>
         <template #subtitle> Altere os dados da sua conta </template>
         <template #body>
+            <AppHead title="Minha conta" />
+
             <UserForm
                 :user="user"
                 is-my-account-page

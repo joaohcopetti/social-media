@@ -14,10 +14,8 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy'
 import MainLayout from './pages/main/_layouts/MainLayout.vue'
 import PanelLayout from './pages/panel/_layouts/PanelLayout.vue'
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
-
 createInertiaApp({
-    title: () => `${appName}`,
+    title: (title) => title,
     resolve: (name) => {
         const pages = import.meta.glob<DefineComponent>('./pages/**/*.vue', {
             eager: true,
