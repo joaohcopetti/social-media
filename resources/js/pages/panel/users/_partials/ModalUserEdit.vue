@@ -3,11 +3,12 @@ import AppModal from '@/components/AppModal.vue'
 
 import { User } from '@/types/models'
 import UserForm from './UserForm.vue'
-const isOpen = defineModel<boolean>()
 
 defineProps<{
     user: User | null
 }>()
+
+const isOpen = defineModel<boolean>()
 </script>
 
 <template>

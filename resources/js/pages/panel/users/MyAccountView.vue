@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import AppPanelContainer from '@/components/AppPanelContainer.vue'
 
+import AppButton from '@/components/AppButton.vue'
 import { User } from '@/types/models'
+import { ref } from 'vue'
+import ModalDeleteAccount from './_partials/ModalDeleteAccount.vue'
 import UserForm from './_partials/UserForm.vue'
 
 defineProps<{
     user: User
 }>()
+
+const isModalDeleteOpen = ref(false)
 </script>
 
 <template>
@@ -18,6 +23,14 @@ defineProps<{
                 :user="user"
                 is-my-account-page
             />
+            <AppButton
+                ghost
+                color="danger"
+                class="mt-2 w-full"
+                label="Excluir conta"
+                @click="isModalDeleteOpen = true"
+            />
+            <ModalDeleteAccount v-model="isModalDeleteOpen" />
         </template>
     </AppPanelContainer>
 </template>
