@@ -87,7 +87,7 @@ watch(
                 <div
                     v-for="_media in media"
                     :key="_media.thumbnail_url"
-                    class="group relative flex h-[calc(100%-24px)] min-w-24 items-center justify-center px-2 active:scale-105"
+                    class="group relative flex h-[calc(100%-24px)] min-w-24 items-center justify-center px-2"
                     oncontextmenu="return false"
                     @click.stop.prevent="$emit('selected-media', _media)"
                 >
@@ -103,7 +103,7 @@ watch(
                         :src="_media.thumbnail_url"
                         class="my-3 h-full w-full rounded object-cover"
                         :class="{
-                            'border-2': _media.id === selectedMedia.id,
+                            'outline outline-2': _media.id === selectedMedia.id,
                         }"
                     />
                 </div>
