@@ -13,6 +13,7 @@ const profile = inject(profileInjectionKey) as Profile
             class="w-full object-cover"
             style="max-height: 80vh"
             :src="profile.photo_url"
+            oncontextmenu="return false"
         />
 
         <div

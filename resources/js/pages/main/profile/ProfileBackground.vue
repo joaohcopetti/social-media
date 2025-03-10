@@ -10,6 +10,7 @@ const profile = inject(profileInjectionKey) as Profile
     <img
         :src="profile.photo_url"
         class="fixed inset-0 h-full w-full"
+        oncontextmenu="return false"
     />
 
     <div
