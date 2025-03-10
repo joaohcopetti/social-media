@@ -15,7 +15,9 @@ class ProfileViewInertia
         return Inertia::render('main/profile/ProfileView', [
             'profile' => $profile->loadMissing(['socialNetworks']),
             'media' => $media,
-            'isSubscribed' => !!Auth::user()?->subscribedToProfile($profile)
+            'subscription' => Subscription::where(
+                ['user_id' => Auth::id(), 'profile_id' => $profile->id]
+            )->first()
         ]);
     }
 }

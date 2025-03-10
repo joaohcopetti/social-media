@@ -61,15 +61,25 @@ const cancelSubscription = (profile: any) => {
         </template>
 
         <template #[`tbody.subscribed_at`]="{ data }">
-            {{ DateTime.fromSeconds(data.asStripe.created, { locale: 'pt-BR' }).toLocaleString() }}
+            <span v-if="data.stripe_status === 'active'">
+                {{
+                    DateTime.fromSeconds(data.asStripe.created, {
+                        locale: 'pt-BR',
+                    }).toLocaleString()
+                }}
+            </span>
+            <span v-else> N/A </span>
         </template>
 
         <template #[`tbody.valid_until`]="{ data }">
-            {{
-                DateTime.fromSeconds(data.asStripe.current_period_end, {
-                    locale: 'pt-BR',
-                }).toLocaleString()
-            }}
+            <span v-if="data.stripe_status === 'active'">
+                {{
+                    DateTime.fromSeconds(data.asStripe.current_period_end, {
+                        locale: 'pt-BR',
+                    }).toLocaleString()
+                }}
+            </span>
+            <span v-else>N/A</span>
         </template>
 
         <template #[`tbody.price`]="{ data }">

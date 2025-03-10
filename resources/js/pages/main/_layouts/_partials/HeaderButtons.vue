@@ -1,32 +1,23 @@
 <script setup lang="ts">
+// @ts-nocheck
 import AppButton from '@/components/AppButton.vue'
 import { useAuthStore } from '@/stores/auth-store'
 import { router, usePage } from '@inertiajs/vue3'
 import { computed, inject, ref } from 'vue'
-import { isProfileRouteInjectionKey } from '../injection'
+import { isGuestInjectionKey, isProfileRouteInjectionKey } from '../injection'
 
 defineEmits(['login-click', 'subscribe-click'])
 
 const authStore = useAuthStore()
 const page = usePage()
 
+const isProfileRoute = inject(isProfileRouteInjectionKey, false)
+const isGuest = inject(isGuestInjectionKey, true)
+
 const isLoading = ref<boolean>(false)
 
-const isProfileRoute = inject(isProfileRouteInjectionKey, false)
-
-const onLogoutClick = () => {
-    isLoading.value = true
-
-    router.post(
-        route('logout'),
-        {},
-        {
-            onSuccess() {
-                isLoading.value = false
-            },
-        },
-    )
-}
+const subscription = computed(() => page.props?.subscription)
+const profile = computed(() => page.props?.profile)
 
 const panelUrl = computed(() => {
     if (authStore.userHasAnyRole('influencer')) {
@@ -47,24 +38,47 @@ const subscribeUrl = computed(() =>
 const showRealSubscribeBtn = computed(
     () =>
         isProfileRoute &&
-        authStore.user &&
-        // @ts-expect-error "stripe_price_id" field is optional
-        page.props?.profile?.stripe_price_id &&
-        authStore.user?.profile?.id !== page.props?.profile?.id,
+        !isGuest &&
+        profile.value?.stripe_price_id &&
+        authStore.user?.profile?.id !== profile.value?.id,
 )
 
-const isUserSubscribed = computed(() => page.props?.isSubscribed as boolean)
+const isSubscribeDisabled = computed(
+    () => subscription.value?.is_active || subscription.value?.stripe_status === 'incomplete',
+)
+
+const subscriptionLabel = computed(() => {
+    if (subscription.value?.stripe_status === 'incomplete') {
+        return 'Pendente'
+    }
+
+    return subscription.value?.is_active ? 'Assinado' : 'Assine'
+})
+
+const onLogoutClick = () => {
+    isLoading.value = true
+
+    router.post(
+        route('logout'),
+        {},
+        {
+            onSuccess() {
+                isLoading.value = false
+            },
+        },
+    )
+}
 </script>
 
 <template>
     <div
         class="fixed right-0 z-20 flex gap-3 rounded-bl-3xl p-3 px-5 backdrop-blur-md sm:top-0 sm:backdrop-blur-0"
         :class="{
-            'bg-black/60 sm:bg-transparent': !!authStore.user,
+            'bg-black/60 sm:bg-transparent': !isGuest,
         }"
     >
         <AppButton
-            v-if="isProfileRoute && !authStore.user"
+            v-if="isProfileRoute && isGuest"
             label="Assine"
             color="light"
             @click="$emit('subscribe-click')"
@@ -72,19 +86,19 @@ const isUserSubscribed = computed(() => page.props?.isSubscribed as boolean)
 
         <AppButton
             v-if="showRealSubscribeBtn"
-            :label="isUserSubscribed ? 'Assinado' : 'Assine'"
-            :class="{
-                'bg-gradient-to-tr from-red-500 to-purple-700 shadow-lg shadow-purple-700/30':
-                    !isUserSubscribed,
-                'bg-transparent': isUserSubscribed,
-            }"
+            :label="subscriptionLabel"
+            :class="
+                isSubscribeDisabled
+                    ? 'bg-transparent'
+                    : 'bg-gradient-to-tr from-red-500 to-purple-700 shadow-lg shadow-purple-700/30'
+            "
             :link="{
                 href: subscribeUrl!,
             }"
-            :disabled="isUserSubscribed"
+            :disabled="isSubscribeDisabled"
         />
 
-        <template v-if="!authStore.user">
+        <template v-if="isGuest">
             <AppButton
                 color="primary"
                 label="Entre"

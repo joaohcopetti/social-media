@@ -8,7 +8,7 @@ use Laravel\Cashier\Subscription as CashierSubscription;
 
 class Subscription extends CashierSubscription
 {
-    protected $appends = ['status'];
+    protected $appends = ['status', 'is_active'];
 
     public function profile(): BelongsTo
     {
@@ -22,5 +22,10 @@ class Subscription extends CashierSubscription
             'incomplete' => 'pendente',
             'error' => 'erro'
         });
+    }
+
+    public function isActive(): Attribute
+    {
+        return Attribute::make(fn() => $this->active());
     }
 }

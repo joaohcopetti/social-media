@@ -14,22 +14,18 @@ class PanelMySubscriptionsController
     public function index()
     {
         $user = Auth::user();
-        $subscriptions = Cache::rememberForever(
-            "subscriptions:{$user->id}",
-            fn() =>
-            $user
-                ->subscriptions()
-                ->whereHas('profile')
-                ->with('profile')
-                ->get()
-                ->map(
-                    function (Subscription $subscription) {
-                        $subscription->asStripe = $subscription->asStripeSubscription();
+        $subscriptions = $user
+            ->subscriptions()
+            ->whereHas('profile')
+            ->with('profile')
+            ->get()
+            ->map(
+                function (Subscription $subscription) {
+                    $subscription->asStripe = $subscription->asStripeSubscription();
 
-                        return $subscription;
-                    }
-                )
-        );
+                    return $subscription;
+                }
+            );
 
         return app(MySubscriptionViewInertia::class)->render($subscriptions);
     }
@@ -37,8 +33,6 @@ class PanelMySubscriptionsController
     public function cancel(Profile $profile)
     {
         $user = Auth::user();
-
-        Cache::delete("subscriptions:{$user->id}");
 
         Subscription::query()->active()->firstWhere([
             'profile_id' => $profile->id,
