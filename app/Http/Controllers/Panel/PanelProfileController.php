@@ -28,11 +28,19 @@ class PanelProfileController extends Controller
 
     public function create()
     {
+        if (Profile::count() >= 1) {
+            abort(403);
+        }
+
         return app(ProfilesCreateViewInertia::class)->render();
     }
 
     public function store(PanelProfileRequest $request)
     {
+        if (Profile::count() >= 1) {
+            abort(403);
+        }
+
         DB::beginTransaction();
 
         $profile = app(ProfileCreateAction::class)->execute($request->all());

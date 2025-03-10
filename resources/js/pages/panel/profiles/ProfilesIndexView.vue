@@ -15,6 +15,7 @@ defineProps<{
     <AppPanelContainer no-horizontal-padding>
         <template #header>
             <AppButton
+                :disabled="profiles.total >= 1"
                 :icon-left="{ icon: 'ph:plus-bold' }"
                 color="success"
                 label="Novo perfil"
@@ -26,7 +27,16 @@ defineProps<{
             <div class="px-5">Perfis</div>
         </template>
 
-        <template #subtitle> <div class="px-5">Gerenciamento de perfis</div> </template>
+        <template #subtitle>
+            <div class="px-5">Gerenciamento de perfis</div>
+            <div
+                v-if="profiles.total >= 1"
+                class="px-5"
+            >
+                Limite de 1 perfil por enquanto, pois o único perfil do sistema é o mesmo linkado
+                com o sistema de pagamentos
+            </div>
+        </template>
 
         <template #body>
             <ProfilesTable :profiles="profiles" />

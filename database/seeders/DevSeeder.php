@@ -20,7 +20,7 @@ class DevSeeder extends Seeder
             PermissionSeeder::class,
             SocialNetworkSeeder::class,
             UserSeeder::class,
-            ProfileSeeder::class,
+            // ProfileSeeder::class,
         ]);
     }
 }
