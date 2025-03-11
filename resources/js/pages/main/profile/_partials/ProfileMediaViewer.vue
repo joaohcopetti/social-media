@@ -26,14 +26,20 @@ onBeforeUnmount(() => {
 
 watch(
     () => props.selectedMedia,
-    () => {
+    (newValue, oldValue) => {
+        if (oldValue === undefined) {
+            history.pushState({ viewer: 'open' }, '', window.location.href)
+        }
+
+        if (newValue === undefined) {
+            history.back()
+        }
+
         if (props.selectedMedia) {
             document.body.classList.add('overflow-y-hidden')
-            history.pushState({ viewer: 'open' }, '', window.location.href)
             return
         }
 
-        history.back()
         document.body.classList.remove('overflow-y-hidden')
     },
 )
