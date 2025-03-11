@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{a as r,o as c}from"./app-DONfqreM.js";const o={};function s(t,n){return c(),r("div",null,"subscribe page")}const _=e(o,[["render",s]]);export{_ as default};
