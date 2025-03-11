@@ -1,1 +1,0 @@
-import{_ as t}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{a as e,o}from"./app-BbUhthTI.js";const r={},a={class:"my-24 text-center text-xl"};function c(n,s){return o(),e("div",a,"Nada por aqui ainda")}const f=t(r,[["render",c]]);export{f as default};

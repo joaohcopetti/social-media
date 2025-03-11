@@ -101,5 +101,5 @@ export const buildFormData = (data: { [prop: string]: any }) => {
 
 export const getFileType = (file: File) => file.type.split('/')[0]
 
-export const formatCurrency = (value: string | number) =>
-    Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(+value)
+export const formatCurrency = (value: string | number, options: Intl.NumberFormatOptions = {}) =>
+    Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', ...options }).format(+value)

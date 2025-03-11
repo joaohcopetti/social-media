@@ -2,6 +2,7 @@
 // @ts-nocheck
 import AppButton from '@/components/AppButton.vue'
 import { useAuthStore } from '@/stores/auth-store'
+import { formatCurrency } from '@/utils/helpers'
 import { router, usePage } from '@inertiajs/vue3'
 import { computed, inject, ref } from 'vue'
 import { directive as vTippy } from 'vue-tippy'
@@ -26,6 +27,7 @@ const isLoading = ref<boolean>(false)
 
 const subscription = computed(() => page.props?.subscription)
 const profile = computed(() => page.props?.profile)
+const price = computed(() => page.props?.price)
 
 const panelUrl = computed(() => {
     if (authStore.userHasAnyRole('influencer')) {
@@ -60,7 +62,7 @@ const subscriptionLabel = computed(() => {
         return 'Pendente'
     }
 
-    return subscription.value?.is_active ? 'Assinado' : 'Assine'
+    return subscription.value?.is_active ? 'Assinado' : `Assine ${formatCurrency(price.value)}`
 })
 
 const onLogoutClick = () => {
@@ -87,7 +89,7 @@ const onLogoutClick = () => {
     >
         <AppButton
             v-if="isProfileRoute && isGuest"
-            label="Assine"
+            :label="`Assine ${formatCurrency(price)}`"
             color="light"
             @click="$emit('subscribe-click')"
         />
