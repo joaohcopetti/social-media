@@ -1,0 +1,1 @@
+import{i as o}from"./iconify-DJORFd28.js";import{d as e,o as r,b as s,u as a}from"./app-CCwmLEqO.js";const _=e({__name:"ProfileMediaPreviewVideoIcon",setup(i){return(n,c)=>(r(),s(a(o.Icon),{icon:"ph:play-fill",class:"size-10 shadow"}))}});export{_};

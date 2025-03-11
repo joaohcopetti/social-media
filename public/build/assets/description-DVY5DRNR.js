@@ -1,1 +1,0 @@
-import{r as o,p as u,c as s}from"./app-DONfqreM.js";let a=Symbol("DescriptionContext");function f({slot:n=o({}),name:i="Description",props:l={}}={}){let e=o([]);function p(t){return e.value.push(t),()=>{let r=e.value.indexOf(t);r!==-1&&e.value.splice(r,1)}}return u(a,{register:p,slot:n,name:i,props:l}),s(()=>e.value.length>0?e.value.join(" "):void 0)}export{f as k};
