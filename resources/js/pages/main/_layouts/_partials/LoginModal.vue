@@ -81,7 +81,7 @@ const isProfileRoute = inject(
                         class="cursor-pointer text-sm font-bold text-blue-500 hover:text-blue-400"
                         @click="$emit('register-click')"
                     >
-                        Crie uma conta
+                        Criar uma conta
                     </span>
                 </div>
 

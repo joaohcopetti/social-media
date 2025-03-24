@@ -1,1 +1,0 @@
-import{R as u,r as a}from"./app-CCwmLEqO.js";const s=u("app",()=>{const e=a(route().current()),t=r=>Array.isArray(r)?r.some(n=>e.value.includes(n)):e.value.includes(r);return document.addEventListener("inertia:navigate",()=>{e.value=route().current()}),{currentRoute:e,currentRouteContains:t}});export{s as u};

@@ -59,9 +59,14 @@ const canView = computed(() => {
             </div>
             <div
                 v-else
-                class="my-20 px-5 text-center text-xl"
+                class="relative my-20 px-5 text-center text-xl"
             >
-                Assine para ter acesso ao <b class="text-white">conteúdo premium</b>
+                Assine para ter acesso ao
+                <b
+                    class="inline-block bg-gradient-to-tr from-purple-500 to-red-500 bg-clip-text text-transparent"
+                >
+                    conteúdo premium
+                </b>
             </div>
         </template>
     </div>

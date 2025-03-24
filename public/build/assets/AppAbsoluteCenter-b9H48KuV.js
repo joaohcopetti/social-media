@@ -1,0 +1,1 @@
+import{_ as t}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{o,a as s,g as r}from"./app-BIVb-N9y.js";const a={},n={class:"absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"};function c(e,l){return o(),s("div",n,[r(e.$slots,"default")])}const p=t(a,[["render",c]]);export{p as A};

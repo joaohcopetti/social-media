@@ -1,0 +1,1 @@
+import{d as t,o as a,b as s,s as o,u as n,h as r,y as p,a2 as l}from"./app-BIVb-N9y.js";const u=t({__name:"AppHead",props:{title:{}},setup(i){return(e,_)=>(a(),s(n(l),null,{default:o(()=>[r("title",null,p(e.title),1)]),_:1}))}});export{u as _};

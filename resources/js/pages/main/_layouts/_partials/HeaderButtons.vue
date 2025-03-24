@@ -58,11 +58,16 @@ const isSubscribeDisabled = computed(
 )
 
 const subscriptionLabel = computed(() => {
+    console.log(price.value)
     if (subscription.value?.stripe_status === 'incomplete') {
         return 'Pendente'
     }
 
-    return subscription.value?.is_active ? 'Assinado' : `Assine ${formatCurrency(price.value)}`
+    if (subscription.value?.is_active) {
+        return 'Assinado'
+    }
+
+    return price.value ? `Assine ${formatCurrency(price.value)}` : 'Assine'
 })
 
 const onLogoutClick = () => {
@@ -89,7 +94,7 @@ const onLogoutClick = () => {
     >
         <AppButton
             v-if="isProfileRoute && isGuest"
-            :label="`Assine ${formatCurrency(price)}`"
+            :label="subscriptionLabel"
             color="light"
             @click="$emit('subscribe-click')"
         />
