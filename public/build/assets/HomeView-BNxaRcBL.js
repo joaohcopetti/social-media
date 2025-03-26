@@ -1,0 +1,1 @@
+import{_ as e}from"./AppHead.vue_vue_type_script_setup_true_lang-5BxARTLA.js";import{d as t,o,a as s,f as a}from"./app-DVC6RAoL.js";const c={class:"flex h-full flex-col items-center justify-center"},l=t({__name:"HomeView",setup(n){return(r,_)=>(o(),s("div",c,[a(e,{title:"WType"})]))}});export{l as default};
